@@ -1,0 +1,13 @@
+# 自动为 GitHub Actions 和项目依赖提升级 PR。
+# 接入具体技术栈后，在下面追加对应的 package-ecosystem（npm、pip、gomod、maven 等）。
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: "ci"
+    labels:
+      - dependencies

@@ -1,0 +1,38 @@
+# 迭代流程说明
+
+这个模板采用迭代增量模型：把产品拆成一系列短周期迭代，每个迭代交付一小块可验证、可演示的增量，并在迭代结束时回顾和调整。
+
+## 迭代周期
+
+- 默认周期为 1 到 2 周，整个项目周期内保持固定，不因为进度紧张而随意拉长。
+- 每个迭代对应一份文件，放在 `docs/iterations/`，命名为 `IT-xx-<slug>.md`，编号从 `IT-01` 开始递增。
+- 迭代总览在 `docs/iterations/README.md`，记录每个迭代的时间范围、目标和状态。
+
+## 一个迭代内的四个环节
+
+1. **迭代计划（Planning）**
+   - 从 `docs/product-specs/backlog.md` 中按优先级挑选本迭代要做的用户故事。
+   - 用一句话写清迭代目标，挑选的故事必须能支撑这个目标。
+   - 每个故事拆成能在 1 到 2 天内合入的任务，写进迭代文件。
+2. **日常推进（Daily）**
+   - 每个任务对应一条短生命周期分支和一个 PR，PR 必须引用需求编号。
+   - 每日同步只回答三件事：昨天做了什么、今天做什么、卡在哪里。卡点写进迭代文件的"阻塞"一节。
+3. **迭代评审（Review）**
+   - 迭代结束时基于 `main` 分支演示本迭代完成的增量。
+   - 逐条对照用户故事的验收标准，通过的标记完成，没通过的退回待办。
+   - 评审通过的增量打一个 `v*` tag 触发发布流水线（见 `docs/GIT_WORKFLOW.md`）。
+4. **迭代回顾（Retrospective）**
+   - 回答三个问题：做得好的、做得不好的、下个迭代要改的一件事。
+   - 需要改流程或规范的结论，要在同一轮里改到 `docs/` 对应文档，不能只留在回顾里。
+
+## 完成定义
+
+一个用户故事只有满足 `CONTRIBUTING.md` 中的"完成定义（Definition of Done）"才算完成。迭代评审时只统计满足完成定义的故事，做完一半的不算。
+
+## 与其他文档的关系
+
+- 需求来源：`docs/product-specs/backlog.md`
+- 需求写法：`docs/product-specs/templates/user-story.md`
+- 追溯关系：`docs/product-specs/traceability.md`
+- 跨迭代的大任务：按 `docs/PLANS_GUIDE.md` 建 execution plan
+- 发布记录：`docs/releases/feature-release-notes.md`
