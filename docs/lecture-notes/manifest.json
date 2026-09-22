@@ -1,0 +1,1022 @@
+{
+  "schemaVersion": 1,
+  "extractedOn": "2026-09-22",
+  "requirement": "US-020",
+  "iteration": "IT-01",
+  "sourceCollection": "2026 软件工程课件；DEVONthink Learning 数据库 Files.noindex/pdf（只读）",
+  "historicalInventorySession": "019e8d41-fef3-77c3-9376-0630930c19c8",
+  "tool": "Poppler pdftotext",
+  "toolVersion": "25.05.0",
+  "options": [
+    "-layout",
+    "-enc",
+    "UTF-8"
+  ],
+  "ocr": false,
+  "fileCount": 58,
+  "totalPages": 1246,
+  "combined": {
+    "file": "软件工程课件-全文.txt",
+    "sha256": "2a00433c49fca8670b616dbee1a9ec562e0eaa4a50c4e6f5d3bca7bb464eeacf",
+    "utf8Bytes": 531119
+  },
+  "files": [
+    {
+      "sourceFile": "1.1软件与软件危机.pdf",
+      "sourceLocator": "36/1.1软件与软件危机.pdf",
+      "sourceSha256": "1236565ec07eb07c9e727aa289269984af27a5a8cbf9c4dcd32e44bffce285d5",
+      "textFile": "text/1.1软件与软件危机.txt",
+      "textSha256": "397fbbad3edc5e89b09cd4fa9e62f66b0a8bf259e9bae63f65ca0a59283c9c31",
+      "pdfPages": 18,
+      "extractedPages": 18,
+      "utf8Bytes": 7915,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "1.2软件工程.pdf",
+      "sourceLocator": "15/1.2软件工程.pdf",
+      "sourceSha256": "afd050519b96f6ad05e41fe8063763444c8cd1a4c9ed096d36ea8c0249b2eb98",
+      "textFile": "text/1.2软件工程.txt",
+      "textSha256": "00b8e6071bb3cdccc5f0ebc17cb2b4da710e1645aae26c6930081d3053527644",
+      "pdfPages": 25,
+      "extractedPages": 25,
+      "utf8Bytes": 10776,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "1.3软件生命周期.pdf",
+      "sourceLocator": "26/1.3软件生命周期.pdf",
+      "sourceSha256": "1998576b9f7fd5898a2cf629d56436967edb348becae7714613644d8f0e05fb5",
+      "textFile": "text/1.3软件生命周期.txt",
+      "textSha256": "bb9faa3fc174fdc942499bdffe61aa38dcca49d34e96ff88b4963a70fe809abf",
+      "pdfPages": 8,
+      "extractedPages": 8,
+      "utf8Bytes": 3416,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "2.1软件过程1.pdf",
+      "sourceLocator": "31/2.1软件过程1.pdf",
+      "sourceSha256": "a1edebf251432c4e74dc777a580cdaf27b9bacc9feadabd51a0a81cdc25482dc",
+      "textFile": "text/2.1软件过程1.txt",
+      "textSha256": "938a1042fb88b804630bfe28b40d3d1dbe3eeb6d45c815e1ba61294694588f0d",
+      "pdfPages": 17,
+      "extractedPages": 17,
+      "utf8Bytes": 4757,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        4,
+        9,
+        14,
+        15
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "2.2软件过程2.pdf",
+      "sourceLocator": "3/2.2软件过程2.pdf",
+      "sourceSha256": "3391d58f630db56f29e896e8e490af66614a33c2a95af70ac15a8abcd2a024fd",
+      "textFile": "text/2.2软件过程2.txt",
+      "textSha256": "d50017014fd419e502c3ea8c879bb664752abc1b3fdb44ae83c70b79d134eadc",
+      "pdfPages": 17,
+      "extractedPages": 17,
+      "utf8Bytes": 4021,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        2,
+        5,
+        7,
+        10,
+        12
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "2.3软件过程3RUP.pdf",
+      "sourceLocator": "39/2.3软件过程3RUP.pdf",
+      "sourceSha256": "53e57c3e2cfb967b9316f653484478e2fe33f1a5193e863becf5efcc8cca7496",
+      "textFile": "text/2.3软件过程3RUP.txt",
+      "textSha256": "56f46daa88694f8f68552b4566dc6f2fc488a1e1552623e60a028e8dee6a4e78",
+      "pdfPages": 39,
+      "extractedPages": 39,
+      "utf8Bytes": 9190,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        18,
+        22,
+        23,
+        24,
+        25,
+        29,
+        30,
+        31,
+        32
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "2.4软件过程4敏捷过程.pdf",
+      "sourceLocator": "38/2.4软件过程4敏捷过程.pdf",
+      "sourceSha256": "6c091e25ea14eab3ff790f3e1cb7e9b0a7ab10468e3ecf936b939946269d1eaf",
+      "textFile": "text/2.4软件过程4敏捷过程.txt",
+      "textSha256": "7d280d33ba4f4aaa7e93633f084dd5ec7144890f7282da55b9d0640e7dbd9e65",
+      "pdfPages": 51,
+      "extractedPages": 51,
+      "utf8Bytes": 30768,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        17,
+        18,
+        19,
+        20,
+        22,
+        39
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "2.5软件过程5微软过程.pdf",
+      "sourceLocator": "31/2.5软件过程5微软过程.pdf",
+      "sourceSha256": "ab5e3171111d9b5cab95c4c0b87d3b92d951f708b38e6ece33eac84ce9987573",
+      "textFile": "text/2.5软件过程5微软过程.txt",
+      "textSha256": "61a1a94b16b02721aa001abbbce1d35ec15a3562dd81eee65eb7310cc91ac799",
+      "pdfPages": 28,
+      "extractedPages": 28,
+      "utf8Bytes": 11065,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        8,
+        9
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "2.5软件过程5微软过程案例.pdf",
+      "sourceLocator": "3a/2.5软件过程5微软过程案例.pdf",
+      "sourceSha256": "49a3f3e7cb538b9f4b00a8b6c949b04cf954cdffb82c9c51cd47ac240a42390e",
+      "textFile": "text/2.5软件过程5微软过程案例.txt",
+      "textSha256": "d57ccece0bca6ea3111f68dee75e8da354db3db275da1b9004eaa6f2ab945359",
+      "pdfPages": 14,
+      "extractedPages": 14,
+      "utf8Bytes": 5930,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        4,
+        5,
+        6
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "3.1可行性研究任务和过程.pdf",
+      "sourceLocator": "11/3.1可行性研究任务和过程.pdf",
+      "sourceSha256": "526bf58d6d4c2fa9a8892df4d051f27bce4a858a4fc6977811f73718a7638262",
+      "textFile": "text/3.1可行性研究任务和过程.txt",
+      "textSha256": "e296fcb87f1401b721cf427207481493aeebbd41c13c288a6f279554503e7315",
+      "pdfPages": 10,
+      "extractedPages": 10,
+      "utf8Bytes": 2380,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        6,
+        8,
+        9
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "3.2可行性研究系统流程图.pdf",
+      "sourceLocator": "1f/3.2可行性研究系统流程图.pdf",
+      "sourceSha256": "3fd1e41994a726b6e00ce9d905f167ed3c9bbb09bd5dc77801976d2fe72cf6eb",
+      "textFile": "text/3.2可行性研究系统流程图.txt",
+      "textSha256": "9ec73971dce8ad302a7a537a2261d713bd505232b69dd3e748bc939d61ed647a",
+      "pdfPages": 8,
+      "extractedPages": 8,
+      "utf8Bytes": 1762,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        3,
+        4
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "3.3可行性研究成本效益分析.pdf",
+      "sourceLocator": "0/3.3可行性研究成本效益分析.pdf",
+      "sourceSha256": "0264879b4fd5fabf01f77290a43f20ff11ea217ee3914f8af55d2425212ea273",
+      "textFile": "text/3.3可行性研究成本效益分析.txt",
+      "textSha256": "a79876fed4632dd6b5e86516a6c6af1cd1ae769db05975e52ec37398d8135104",
+      "pdfPages": 10,
+      "extractedPages": 10,
+      "utf8Bytes": 3209,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        4,
+        7
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "4.1需求分析 - 需求分析的任务.pdf",
+      "sourceLocator": "1/4.1需求分析 - 需求分析的任务.pdf",
+      "sourceSha256": "bb0e087191deb2392fc36390bb3dafc511486c5361dc273d3c3257ed84a54369",
+      "textFile": "text/4.1需求分析 - 需求分析的任务.txt",
+      "textSha256": "9b42f2c501656832b611e05f9d3e1ac36fd344bad87c2544024cdf5e1ee01864",
+      "pdfPages": 27,
+      "extractedPages": 27,
+      "utf8Bytes": 9976,
+      "replacementCharacters": 0,
+      "lowTextPages": [],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "4.2需求分析 - 需求过程.pdf",
+      "sourceLocator": "2b/4.2需求分析 - 需求过程.pdf",
+      "sourceSha256": "b8fba0b6a5fa8a5ef7848e7a9dab47cc5d8652cb4dcc9e681e091af871891ea0",
+      "textFile": "text/4.2需求分析 - 需求过程.txt",
+      "textSha256": "03058c85dbe7334e375648cc4698f21e7d0a92f53c8a5b481c1dbce0ae0c77f9",
+      "pdfPages": 41,
+      "extractedPages": 41,
+      "utf8Bytes": 18323,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        11,
+        27
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "4.3需求分析 - 需求的表达方法.pdf",
+      "sourceLocator": "20/4.3需求分析 - 需求的表达方法.pdf",
+      "sourceSha256": "3663ae64b802f590aef632e9838f443353f5f44063335809df4fc8656332c032",
+      "textFile": "text/4.3需求分析 - 需求的表达方法.txt",
+      "textSha256": "f895e4f0765fd41a8e15dc8455b5472906f75f95ede455e5b284d5d11bc7029d",
+      "pdfPages": 9,
+      "extractedPages": 9,
+      "utf8Bytes": 2334,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "4.4需求分析 - 状态转换图.pdf",
+      "sourceLocator": "11/4.4需求分析 - 状态转换图.pdf",
+      "sourceSha256": "76f867ac0e998e8dd5ba7953384720dcf8707239940e3096cf2cef420b84faa0",
+      "textFile": "text/4.4需求分析 - 状态转换图.txt",
+      "textSha256": "425c363bfda2da3e69d0d8b2f9687ffc1a6878a765d6d05be5a62c7208c1844f",
+      "pdfPages": 7,
+      "extractedPages": 7,
+      "utf8Bytes": 2661,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "4.5需求分析 - 数据流图1.pdf",
+      "sourceLocator": "b/4.5需求分析 - 数据流图1.pdf",
+      "sourceSha256": "3bd7349efda7cf7e5b78fc23cc37bad1f73690e902c10e0e3c6e5246ebeac2d0",
+      "textFile": "text/4.5需求分析 - 数据流图1.txt",
+      "textSha256": "321c0b2dd3c5c56b4a6e297dd82b5325bd3f2077146508fe7cdec99376f77c58",
+      "pdfPages": 31,
+      "extractedPages": 31,
+      "utf8Bytes": 7320,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        3,
+        7,
+        11,
+        15,
+        17,
+        19,
+        22,
+        25
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "4.6需求分析 - 数据流图2.pdf",
+      "sourceLocator": "3b/4.6需求分析 - 数据流图2.pdf",
+      "sourceSha256": "4e2c2afb05a5338e7fb785e66e7c4337d1a4534efe38fb920f120c0bb16604c2",
+      "textFile": "text/4.6需求分析 - 数据流图2.txt",
+      "textSha256": "8d2e6f0c62df2179b166d264d93f69a60aae56f40b859542aaa794ca3ab6d62d",
+      "pdfPages": 14,
+      "extractedPages": 14,
+      "utf8Bytes": 3298,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        3,
+        4
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "4.7需求分析 - 数据字典.pdf",
+      "sourceLocator": "30/4.7需求分析 - 数据字典.pdf",
+      "sourceSha256": "c4b4e49bd4ee12c5d39a7c50c46b0e433aec3758e419c9deb664dd855ef2f88d",
+      "textFile": "text/4.7需求分析 - 数据字典.txt",
+      "textSha256": "a627e2394a2ed0670359b9d7c205a5b60c6c06a5eff982c6335cdd8d29112e29",
+      "pdfPages": 19,
+      "extractedPages": 19,
+      "utf8Bytes": 6536,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        6,
+        7,
+        18
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "4.8需求分析 - 其他图形工具.pdf",
+      "sourceLocator": "19/4.8需求分析 - 其他图形工具.pdf",
+      "sourceSha256": "9c21b59ab44d309bee20ffc286ba4b0b1d2386ddf341f609278ff96a8615f319",
+      "textFile": "text/4.8需求分析 - 其他图形工具.txt",
+      "textSha256": "4d2223d72a918c15261c991a3e33914743282f5348a3e13e657c6d61171d42b4",
+      "pdfPages": 5,
+      "extractedPages": 5,
+      "utf8Bytes": 347,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        4,
+        5
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "5.1总体设计 -01设计过程.pdf",
+      "sourceLocator": "11/5.1总体设计 -01设计过程.pdf",
+      "sourceSha256": "a79ee35833048c9f92a09abc5c38d84a8f6b6b4c2891278dbc90a707a73e0939",
+      "textFile": "text/5.1总体设计 -01设计过程.txt",
+      "textSha256": "057dc5489d7e1244140422b4de7a990fa9326cce9053430d15d2cdecd9731597",
+      "pdfPages": 17,
+      "extractedPages": 17,
+      "utf8Bytes": 5927,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        2
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "5.2总体设计 -02设计原理.pdf",
+      "sourceLocator": "c/5.2总体设计 -02设计原理.pdf",
+      "sourceSha256": "8e3faa17683dcb9b2cf6d604ba7cbe8d7de38325d7c7bfb52096cc9bbfbcce13",
+      "textFile": "text/5.2总体设计 -02设计原理.txt",
+      "textSha256": "e1a2f88124bf6ba63afc19b516eef537ce17088aa51af3bd878a756b298a09eb",
+      "pdfPages": 14,
+      "extractedPages": 14,
+      "utf8Bytes": 5338,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "5.3总体设计 -03设计原理之耦合.pdf",
+      "sourceLocator": "25/5.3总体设计 -03设计原理之耦合.pdf",
+      "sourceSha256": "761016aa5b54bd8cea6477f2268beda9e153a76d00fd0be845d70604a28d2b8c",
+      "textFile": "text/5.3总体设计 -03设计原理之耦合.txt",
+      "textSha256": "96a3e5785ef02e1d97ae7a3cdafbc85a7b0d964dbd3d8625c313a41cfd42bd0e",
+      "pdfPages": 12,
+      "extractedPages": 12,
+      "utf8Bytes": 4593,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        10
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "5.4总体设计 -04设计原理之内聚.pdf",
+      "sourceLocator": "2b/5.4总体设计 -04设计原理之内聚.pdf",
+      "sourceSha256": "914a9594a2b496884560b3b083f3ed900e8200eec180c7cf1ab6aff0bdf692cc",
+      "textFile": "text/5.4总体设计 -04设计原理之内聚.txt",
+      "textSha256": "86c92e6243c6e810bdcaf980908d0e1f76a888a04ee15cf7d326682bfc7a1290",
+      "pdfPages": 10,
+      "extractedPages": 10,
+      "utf8Bytes": 4323,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "5.5总体设计 -05启发式规则.pdf",
+      "sourceLocator": "27/5.5总体设计 -05启发式规则.pdf",
+      "sourceSha256": "033e73fecaee61d3d4caa14035adcbcb70163ca27b006d9f63074bb52304787b",
+      "textFile": "text/5.5总体设计 -05启发式规则.txt",
+      "textSha256": "4a6e6deee8845bad4237aa6e4cdc2dcd490bb2a4a871f7b1674d89be7ddeee3c",
+      "pdfPages": 18,
+      "extractedPages": 18,
+      "utf8Bytes": 4987,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        6
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "5.6总体设计 -06图形工具.pdf",
+      "sourceLocator": "1c/5.6总体设计 -06图形工具.pdf",
+      "sourceSha256": "a8d786ca8d612b3efa39da7091d1e8495243995e18dae717a0eb86543e4ee725",
+      "textFile": "text/5.6总体设计 -06图形工具.txt",
+      "textSha256": "d212005a834489b83c28a8966ebce45ea7918df6834e52d87df80126082d537e",
+      "pdfPages": 10,
+      "extractedPages": 10,
+      "utf8Bytes": 3219,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        6
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "5.7总体设计 -07面向数据流的设计方法(一).pdf",
+      "sourceLocator": "1d/5.7总体设计 -07面向数据流的设计方法(一).pdf",
+      "sourceSha256": "c78bdd37f1e1f5a94850753080823541de9e45e86552a28aea0337c757e4336b",
+      "textFile": "text/5.7总体设计 -07面向数据流的设计方法(一).txt",
+      "textSha256": "c5f2c4a6a346778415a5e4489664ab9bb313305b95091c51129d4302a34987ee",
+      "pdfPages": 32,
+      "extractedPages": 32,
+      "utf8Bytes": 10322,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        7,
+        9,
+        16,
+        19,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "5.8总体设计 -08面向数据流的设计方法(二).pdf",
+      "sourceLocator": "31/5.8总体设计 -08面向数据流的设计方法(二).pdf",
+      "sourceSha256": "cadca71a0a2c99f57312ebfd123402478b64d626d80d0d86ba82138c1af91d76",
+      "textFile": "text/5.8总体设计 -08面向数据流的设计方法(二).txt",
+      "textSha256": "e22b2bfba4cff932399328625ae0720e7ed73a8ce6c7ef4f42ec7087c605e2b5",
+      "pdfPages": 6,
+      "extractedPages": 6,
+      "utf8Bytes": 1771,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        4
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "5.9总体设计 -09体系结构风格.pdf",
+      "sourceLocator": "32/5.9总体设计 -09体系结构风格.pdf",
+      "sourceSha256": "d2eb9948296b150a0ab1a02d73f2aa3727611a139bcd2fbf7740f964cec61c7a",
+      "textFile": "text/5.9总体设计 -09体系结构风格.txt",
+      "textSha256": "dc0f2a9a9d44b71ca57112fa9cbfaa76d0dbf9696d7cbd127f2c0d9d852183f4",
+      "pdfPages": 72,
+      "extractedPages": 72,
+      "utf8Bytes": 29400,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        16,
+        29,
+        32,
+        65
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "6.1详细设计-结构程序设计.pdf",
+      "sourceLocator": "28/6.1详细设计-结构程序设计.pdf",
+      "sourceSha256": "2be184e58f9f40fc121f1618a3911f16e0dbfe93364ead1b1d3808b554d4fd25",
+      "textFile": "text/6.1详细设计-结构程序设计.txt",
+      "textSha256": "d18f38d70b69292c4c20d16b5dc86c9eb56f3b70ab52375ef21c82b4f4818eb4",
+      "pdfPages": 9,
+      "extractedPages": 9,
+      "utf8Bytes": 2542,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        8,
+        9
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "6.2详细设计-过程设计工具.pdf",
+      "sourceLocator": "31/6.2详细设计-过程设计工具.pdf",
+      "sourceSha256": "e35b18aab9b95376310e47f92fab83235d255517b101a7ae6107190e87538198",
+      "textFile": "text/6.2详细设计-过程设计工具.txt",
+      "textSha256": "238ba9270a49b1e1873b7855d5acc599a2a57b6aaaba7a13eed25bd7ffcd9a14",
+      "pdfPages": 24,
+      "extractedPages": 24,
+      "utf8Bytes": 6412,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        5,
+        7,
+        8,
+        11,
+        12,
+        15,
+        16,
+        21
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "6.3详细设计-人机界面设计.pdf",
+      "sourceLocator": "11/6.3详细设计-人机界面设计.pdf",
+      "sourceSha256": "9879c88c792fd417a81fb656e6a12fbcb650d460c5d9d1ec382b8e02de0e6bb2",
+      "textFile": "text/6.3详细设计-人机界面设计.txt",
+      "textSha256": "e576a81b1faf0981395afe7d0fe220dcaf05efc2016fbc63de5d47c81bd66ac3",
+      "pdfPages": 24,
+      "extractedPages": 24,
+      "utf8Bytes": 8586,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "6.4详细设计-程序复杂程度的定量度量.pdf",
+      "sourceLocator": "25/6.4详细设计-程序复杂程度的定量度量.pdf",
+      "sourceSha256": "741357ac8116a30b3b6b45b8f08a7f59496a693f19f2eac7840b343ae9a8e4b3",
+      "textFile": "text/6.4详细设计-程序复杂程度的定量度量.txt",
+      "textSha256": "2a0502d1d44ae97e1f16d0c5a84d9233a9b4ff7baf4da523b87e119bca60b729",
+      "pdfPages": 12,
+      "extractedPages": 12,
+      "utf8Bytes": 4981,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.1编码.pdf",
+      "sourceLocator": "5/7.1编码.pdf",
+      "sourceSha256": "181948287e77036680217d746c0384b1d5c3ab7c9ee568aee0b8481cecf79b7f",
+      "textFile": "text/7.1编码.txt",
+      "textSha256": "f60a832c3ad4a58bbd68d6500d90163d21bbfc62cc34ae1f2742cbccc4dc30c8",
+      "pdfPages": 23,
+      "extractedPages": 23,
+      "utf8Bytes": 8737,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.2测试-软件测试基础.pdf",
+      "sourceLocator": "2/7.2测试-软件测试基础.pdf",
+      "sourceSha256": "7a176c95a6261e136b2db607c0befad8b163b896f2245b56b0ed51b74ffd3cd8",
+      "textFile": "text/7.2测试-软件测试基础.txt",
+      "textSha256": "0e7a5f81488aeafa7c4662f549debd0097d4b219cd6ce42fff9eacdbf44719e3",
+      "pdfPages": 17,
+      "extractedPages": 17,
+      "utf8Bytes": 5950,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        14
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.3测试-单元测试.pdf",
+      "sourceLocator": "29/7.3测试-单元测试.pdf",
+      "sourceSha256": "70858c92ec856340cce1519a90494ce3b7e55dad72a61a5ae96cf2678cfc9e53",
+      "textFile": "text/7.3测试-单元测试.txt",
+      "textSha256": "66fb6e23b0c26281553385126b2c2c049c90d869f32a90a211d653d8938e7724",
+      "pdfPages": 10,
+      "extractedPages": 10,
+      "utf8Bytes": 3431,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.4测试-集成测试.pdf",
+      "sourceLocator": "18/7.4测试-集成测试.pdf",
+      "sourceSha256": "f56daf99760bd5dca463d81177f43ab30275c69aaccd1a3baa1c72f45a0065f8",
+      "textFile": "text/7.4测试-集成测试.txt",
+      "textSha256": "7495fef32ff1f8317c1492728f05a72c560472433790cc0e8208c80375409474",
+      "pdfPages": 16,
+      "extractedPages": 16,
+      "utf8Bytes": 4045,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        4,
+        7,
+        10
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.5测试-确认测试.pdf",
+      "sourceLocator": "a/7.5测试-确认测试.pdf",
+      "sourceSha256": "d34779f03f2fda8f9d508eb5930821b6a518cdfe8cf1608f98e9355ce76f31bf",
+      "textFile": "text/7.5测试-确认测试.txt",
+      "textSha256": "dfa6d4b0ee573cbc69566547bcb1296f62771b928e415c688aa60949f4668e9f",
+      "pdfPages": 6,
+      "extractedPages": 6,
+      "utf8Bytes": 1655,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.6测试-白盒测试1.pdf",
+      "sourceLocator": "30/7.6测试-白盒测试1.pdf",
+      "sourceSha256": "623a3efc6151cc5050fdd8f14b376d516ed7aae19957c42d33dff9c18829f25a",
+      "textFile": "text/7.6测试-白盒测试1.txt",
+      "textSha256": "71388a02d75ab813c0b59340b2c60ec8bf3157c84cd36212f998b73f12eb668a",
+      "pdfPages": 18,
+      "extractedPages": 18,
+      "utf8Bytes": 6044,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.7测试-白盒测试2.pdf",
+      "sourceLocator": "3a/7.7测试-白盒测试2.pdf",
+      "sourceSha256": "ed861f5dc6997cb40298321fb191cc9ee14899677635da903860b8a28acdd4b8",
+      "textFile": "text/7.7测试-白盒测试2.txt",
+      "textSha256": "12e89346b30b2d271a0a292ca1453534508e93a36e127adbea6994a29a0a8c60",
+      "pdfPages": 10,
+      "extractedPages": 10,
+      "utf8Bytes": 3286,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.8测试-黑盒测试.pdf",
+      "sourceLocator": "d/7.8测试-黑盒测试.pdf",
+      "sourceSha256": "6828e320e6e191c5ac3abe133190e8369bb64a399f3cc8955e3631347cb8a091",
+      "textFile": "text/7.8测试-黑盒测试.txt",
+      "textSha256": "cd8d77d9d69253842bf555869460febe7f82c9ec1ccf7a17f51282db4322f619",
+      "pdfPages": 27,
+      "extractedPages": 27,
+      "utf8Bytes": 10010,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.9测试-软件可靠性.pdf",
+      "sourceLocator": "36/7.9测试-软件可靠性.pdf",
+      "sourceSha256": "0e05180744fd9c526756a9856a69e7108289c391576ed555df002ff62a30091f",
+      "textFile": "text/7.9测试-软件可靠性.txt",
+      "textSha256": "dfe99a23ec2f14bffd80384a43ec1a44eed9008d8eb27c56e98bc9c187c57a39",
+      "pdfPages": 12,
+      "extractedPages": 12,
+      "utf8Bytes": 4915,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "7.10测试-软件调试.pdf",
+      "sourceLocator": "1b/7.10测试-软件调试.pdf",
+      "sourceSha256": "abc5c88daa2a89e5f2a98313d2f5261e2649ab96b0ace43f1912988f81da9c3b",
+      "textFile": "text/7.10测试-软件调试.txt",
+      "textSha256": "ba05181124e7d9aa73d540e06c6719fabcdd2740f5709c4ef704b782fd0553ca",
+      "pdfPages": 10,
+      "extractedPages": 10,
+      "utf8Bytes": 4784,
+      "replacementCharacters": 0,
+      "lowTextPages": [],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "8.1软件维护.pdf",
+      "sourceLocator": "0/8.1软件维护.pdf",
+      "sourceSha256": "dcab4730c1f9fefd1e02868ec1b195492a4b0d714d226b6b584412e7b3beec48",
+      "textFile": "text/8.1软件维护.txt",
+      "textSha256": "ccee417c2c0c6caafc13dedef4355e14c555815af0e6e185ae69d953acfb81db",
+      "pdfPages": 8,
+      "extractedPages": 8,
+      "utf8Bytes": 2245,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "8.2维护过程.pdf",
+      "sourceLocator": "3d/8.2维护过程.pdf",
+      "sourceSha256": "3f994bc040e559a8e01784965161c2b9e7b823aa6884ae7768c8c7996b600c98",
+      "textFile": "text/8.2维护过程.txt",
+      "textSha256": "fb9fa6fc5ba4a662c8d6cd9b6191fb50de84b2e3b3b84d6d37fd58ad2653590d",
+      "pdfPages": 9,
+      "extractedPages": 9,
+      "utf8Bytes": 2275,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        3,
+        5
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "8.3软件的可维护性.pdf",
+      "sourceLocator": "3/8.3软件的可维护性.pdf",
+      "sourceSha256": "350e7c84b4d0d1b18ebb7f2ba8700a1e6e136299327e2845a24f8ebf9bcf0723",
+      "textFile": "text/8.3软件的可维护性.txt",
+      "textSha256": "88b39ff341dbef9b98cbad94c8c1d7565c9e9410b7827721493a956755b328c4",
+      "pdfPages": 8,
+      "extractedPages": 8,
+      "utf8Bytes": 1832,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        2
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "8.4软件再工程过程.pdf",
+      "sourceLocator": "1/8.4软件再工程过程.pdf",
+      "sourceSha256": "213b6e54b26764a4761610fcc4b16d7b0f8c892d1a28dd84224611767ddea616",
+      "textFile": "text/8.4软件再工程过程.txt",
+      "textSha256": "fc5ca9901b0a0260b40893cacc8d755a5eed78ba164835df995898d18f95873c",
+      "pdfPages": 9,
+      "extractedPages": 9,
+      "utf8Bytes": 2708,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "9.1项目管理-软件成本与工作量估算1.pdf",
+      "sourceLocator": "1/9.1项目管理-软件成本与工作量估算1.pdf",
+      "sourceSha256": "caacac55d3a7628440bec4b5731963d7a654f6903fc4471028737de04fa6b5c3",
+      "textFile": "text/9.1项目管理-软件成本与工作量估算1.txt",
+      "textSha256": "c1b7dc0b970ecd4761658626d5e2ff52ce6208ecb7c664db36e20217a2a7e007",
+      "pdfPages": 45,
+      "extractedPages": 45,
+      "utf8Bytes": 17490,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "9.2项目管理-进度计划1甘特图.pdf",
+      "sourceLocator": "2f/9.2项目管理-进度计划1甘特图.pdf",
+      "sourceSha256": "683cc7c0b28fe0a45c891e4598c5ff4c86bdcb79c80e3c5ee9587505c861f5c5",
+      "textFile": "text/9.2项目管理-进度计划1甘特图.txt",
+      "textSha256": "e36cea3e12146ef38814caed0c29dc7609b4e340fc1fd4e389ffafb37336f417",
+      "pdfPages": 17,
+      "extractedPages": 17,
+      "utf8Bytes": 3892,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        14,
+        16
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "9.3项目管理-进度计划2工程网络图.pdf",
+      "sourceLocator": "9/9.3项目管理-进度计划2工程网络图.pdf",
+      "sourceSha256": "b794cd145326d6316fc0f81b89f032a1f98f51e65f03bc818c2e68adac476667",
+      "textFile": "text/9.3项目管理-进度计划2工程网络图.txt",
+      "textSha256": "ab1c5e948cdb2288c32ce2f70324fdabe71cb53a82d99eba7c366c904673939b",
+      "pdfPages": 15,
+      "extractedPages": 15,
+      "utf8Bytes": 3963,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        5,
+        10,
+        12,
+        15
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "9.4项目管理-人员组织.pdf",
+      "sourceLocator": "20/9.4项目管理-人员组织.pdf",
+      "sourceSha256": "c77428d965ed231dff9070ae832889a708112d17a58d7c717e29e997482ef724",
+      "textFile": "text/9.4项目管理-人员组织.txt",
+      "textSha256": "676465cfbd6fc717d56149bbbaf74d2ced16c611089595f80a702175ff91b476",
+      "pdfPages": 17,
+      "extractedPages": 17,
+      "utf8Bytes": 5248,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "9.5项目管理-软件项目配置管理.pdf",
+      "sourceLocator": "1d/9.5项目管理-软件项目配置管理.pdf",
+      "sourceSha256": "7e79ffa2bb4ff9e7ed7757055c4c6d745eb7f854d43c3bd5e52f91d3ce7df242",
+      "textFile": "text/9.5项目管理-软件项目配置管理.txt",
+      "textSha256": "9d3afa920319f9b8adc8c124b11da6948d7a40338be0852f7ad9f950fcacb0fe",
+      "pdfPages": 16,
+      "extractedPages": 16,
+      "utf8Bytes": 5154,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "9.6项目管理-质量保证.pdf",
+      "sourceLocator": "b/9.6项目管理-质量保证.pdf",
+      "sourceSha256": "b8f74ffd6772fbedad12c38c81a414ef73d8a13517384bb280c9921e3aed9c06",
+      "textFile": "text/9.6项目管理-质量保证.txt",
+      "textSha256": "7768a3cea3510337da976b42f0cfcc8025fef571b51a3715c60abbd0e4549c3a",
+      "pdfPages": 13,
+      "extractedPages": 13,
+      "utf8Bytes": 3914,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "9.7项目管理-能力成熟度模型.pdf",
+      "sourceLocator": "1f/9.7项目管理-能力成熟度模型.pdf",
+      "sourceSha256": "aff35afc062890cf3d987c298d44cb31a5455e55fbb90ffae6ed98e13e247837",
+      "textFile": "text/9.7项目管理-能力成熟度模型.txt",
+      "textSha256": "f258ab7ea168b45e2f593e07e88d1a7d4d5fe69340f6ea8e8f7109140c5aac09",
+      "pdfPages": 19,
+      "extractedPages": 19,
+      "utf8Bytes": 7041,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "9.8项目管理-风险管理.pdf",
+      "sourceLocator": "18/9.8项目管理-风险管理.pdf",
+      "sourceSha256": "0f6d15207e4a796c3c6c014c8cc1a9ba729e418c61e19281405cd17a14c15c9d",
+      "textFile": "text/9.8项目管理-风险管理.txt",
+      "textSha256": "59c944f419c656edb45b357cbe8078d18dcfe890c52386207ddf531024b4fcb0",
+      "pdfPages": 13,
+      "extractedPages": 13,
+      "utf8Bytes": 4586,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "10面向对象-需求建模+OOA.pdf",
+      "sourceLocator": "e/10面向对象-需求建模+OOA.pdf",
+      "sourceSha256": "593226699f0b9f6a816a18da57624ad6f64774fb4d67381c16efbeaf6794fecd",
+      "textFile": "text/10面向对象-需求建模+OOA.txt",
+      "textSha256": "67f6682c1dbdb8eaefba86c5fcfcb55c554dcc6faeabb4369f0e410c65542fad",
+      "pdfPages": 96,
+      "extractedPages": 96,
+      "utf8Bytes": 38350,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        13,
+        25,
+        27,
+        59,
+        73,
+        85
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "10面向对象-UML基本知识.pdf",
+      "sourceLocator": "10/10面向对象-UML基本知识.pdf",
+      "sourceSha256": "9ca5a80da162493adfade8e63dd82eeebb2c32b35a79290f9acc2b12ce6f5c28",
+      "textFile": "text/10面向对象-UML基本知识.txt",
+      "textSha256": "654a6635bfad2136eb8f5c07ba2d285e7761c7a46ba42690a9935bf7f42be5fd",
+      "pdfPages": 152,
+      "extractedPages": 152,
+      "utf8Bytes": 57111,
+      "replacementCharacters": 0,
+      "lowTextPages": [
+        1,
+        3,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        69,
+        71,
+        126,
+        127,
+        134,
+        136,
+        137,
+        138,
+        146
+      ],
+      "warnings": ""
+    },
+    {
+      "sourceFile": "维护课堂练习.pdf",
+      "sourceLocator": "2/维护课堂练习.pdf",
+      "sourceSha256": "c3b08d6889e99192cd078521dbd8eda9aa532a20ef1ff1be705b0a99a257c21e",
+      "textFile": "text/维护课堂练习.txt",
+      "textSha256": "e13245ba2d55f3b095b115bdbfd0b878e386424b71d9184ce5d920dab1e035cf",
+      "pdfPages": 2,
+      "extractedPages": 2,
+      "utf8Bytes": 1115,
+      "replacementCharacters": 0,
+      "lowTextPages": [],
+      "warnings": ""
+    }
+  ]
+}

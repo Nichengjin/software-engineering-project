@@ -1,0 +1,1966 @@
+第十章
+面向对象
+ (1)
+第十章内容概要
+★   n 面向对象方法学概述
+    n UML基础
+    n 面向对象的需求提取
+    n 面向对象分析
+    n 面向对象设计的准则
+    n 启发规则
+    n 软件重用
+    n 面向对象系统设计
+    n 面向对象对象设计
+
+                  2
+3
+什么是面向对象
+n   Coad和Yourdon给出了一个定义：
+    “面向对象=对象+类+继承+通过消息进行通信”   ★
+    n 认为客观世界是由各种对象组成的，任何事物都是对象，
+     复杂的对象可以由比较简单的对象以某种方式组合而成；
+    n 把所有对象都划分成各种对象类（简称为类，class），
+     每个对象类都定义了一组数据和一组方法；
+    n 按照子类（或称为派生类）与父类（或称为基类）的关
+     系，把若干个对象类组成一个层次结构的系统（也称为
+     类等级）；
+    n 对象彼此之间仅能通过传递消息互相联系。
+
+
+
+
+                                  4
+面向对象的概念
+n 对象：在应用领域中有意义的、与所要
+ 解决的问题有关系的任何事物都可以作
+ 为对象，它既可以是具体的物理实体的
+ 抽象，也可以是人为的概念，或者是任
+ 何有明确边界和意义的东西。
+n 对象是由描述该对象属性的数据以及可
+ 以对这些数据施加的所有操作封装在一
+ 起构成的统一体。
+
+                      5
+面向对象的概念
+n 对象的形象表示：
+
+
+
+     操作1
+                     状态
+ 界                    S
+     操作2
+ 面
+     操作3       操作1，2，3的实现
+
+
+
+
+           对象的形象表示
+
+
+
+                            6
+面向对象的概念
+n 对象的定义：
+ n 定义1：对象是具有相同状态的一组操作的
+   集合。
+ n 定义2：对象是对问题域中某个东西的抽象，
+   这种抽象反映了系统保存有关这个东西的信
+   息或与它交互的能力。也就是说，对象是对
+   属性值和操作的封装。
+ n 定义3：对象∷=(ID，MS，DS，MI)。其中，
+   ID是对象的标识或名字，MS是对象中的操
+   作集合，DS是对象的数据结构，MI是对象
+   受理的消息名集合(即对外接口)。
+                           7
+面向对象的概念
+ n 对象中的数据表示对象的状态，一个对象的状态只
+   能由该对象的操作来改变。每当需要改变对象的状
+   态时，只能由其他对象向该对象发送消息。对象响
+   应消息时，按照消息模式找出与之匹配的方法，并
+   执行该方法。
+ 输入 fi , X          状态            输出fi(X,S)
+                     S
+             操作：f1，f2，…，fn
+             转换：g1，g2，…，gn
+
+
+             转换 ：新状态S’=gi (X,S)
+
+
+              用自动机模拟对象
+                                              8
+面向对象的概念
+n 与面向对象相关的主要概念：
+ n 标识身份（Identity）；
+ n 抽象（Abstraction）；
+
+ n 分类（Classification）；
+
+ n 封装（Encapsulation）；
+
+ n 继承（Inheritance）；
+ n 多态（Polymorphism）；
+
+n 这些概念按与面向对象本质相关的程度排
+ 列；
+
+                         9
+面向对象的概念
+
+n 标识身份：意指数据与操作都被组织到
+ 相互分离、区别开来的问题空间实体当
+ 中。没有身份，对象就没有和某问题空
+ 间相联系，就仅仅是某个抽象数据类型，
+ 丧失了与问题求解相关的语义，无法与
+ 其他问题空间对象相联系，也无法被集
+ 成进整个开发求解过程。
+
+
+                      10
+面向对象的概念
+
+
+
+n 抽象：这个要素并非面向对象独有，是
+ 在描述系统时应在一定程度上遵循的原
+ 则；
+
+
+
+
+                      11
+面向对象的概念
+
+n 分类：把具有相同属性类型和操作的对象组成
+ 一组。
+ n 分类本身具有主观性；
+
+ n 要针对待解问题与其解决方案来确定如何分类；
+
+ n 是组织问题空间知识的一种方法；
+
+ n 类（class）：“类”就是对具有相同数据和相同操
+  作的一组相似对象的定义。
+ n 实例（instance）：实例就是由某个特定的类所描
+  述的一个具体的对象。
+
+
+                                12
+面向对象的概念
+
+n 封装：类封装了它的实例对象的属性与行为，
+ 隐藏实现细节。
+n 对象具有封装性的条件如下：
+ n 有一个清晰的边界。所有私有数据和实现操作的代
+  码都被封装在这个边界内，从外面看不见更不能直
+  接访问。
+ n 有确定的接口（即协议）。这些接口就是对象可以
+  接受的消息，只能通过向对象发送消息来使用它。
+ n 受保护的内部实现。
+
+
+
+                            13
+面向对象的概念
+
+n 继承：是指能够直接获得已有的性质和特征，
+ 而不必重复定义它们。
+n 根据各类间的异同点把它们组成层次结构，从
+ 而表示：位于下层的类继承了上层中某类的特
+ 点。
+n 继承是子类自动地共享基类中定义的数据和方
+ 法的机制。
+n 或者反方向来看，是从“特殊性”概念归纳
+ “一般性” 概念的一种机制。
+ n 抽象类
+                         14
+面向对象的概念
+
+n 使用继承的好处：
+
+ n 继承性使得相似的对象可以共享程序代码和
+  数据结构，从而大大减少了程序中的冗余信
+  息；
+ n 易于修改软件；
+
+ n 方便新的应用系统的开发；
+
+ n 利于软件重用；
+
+
+
+
+                         15
+面向对象的概念
+
+n 多态：类的一个行为在其子类中有不同表
+ 现形式。
+ n 行为（Behavior）：是指一个对象所能执行的
+  动作或者变换；
+ n 操作（Operation）：行为在类的定义中进一步
+  被明确为操作；
+ n 方法（Method）：一个操作在某个类中的一种
+  特定实现被称为一个方法；
+
+
+                              16
+n Polymorphism means “many forms”. Polymorphic
+  operations have many implementations.
+n A concrete subclass must implement all the abstract
+  operations that it inherits.
+n With polymorphism, objects of different classes
+  respond to the same message in different ways.
+n Concrete operations may also be polymorphic – but
+  this is bad style.
+
+
+
+                                                  17
+               1            *
+Canvas                                    Shape
+                                draw(g: Graphics)
+                                getArea(): int
+                                getBoundingArea(): int
+
+
+
+
+                   Square                                    Circle
+         draw(g: Graphics)                          draw(g: Graphics)
+         getArea(): int                             getArea(): int
+
+
+
+                                                                        18
+面向对象方法学的优点
+n 与人类习惯的思维方法一致：
+
+ n 传统的程序设计技术忽略了数据和操作之间
+  的内在联系，用这种方法所设计出来的软件
+  系统其解空间与问题空间并不一致，难于理
+  解。
+ n 面向对象的软件技术以对象（object）为核
+  心 , 而对象是数据和操作的统一体，是对现
+  实世界实体的正确抽象。
+ n 面向对象的设计方法与传统的面向过程的方
+  法有本质不同：
+                            19
+面向对象方法学的优点
+  n 面向对象的环境提供了强有力的抽象机制，便于
+   用户在利用计算机软件系统解决复杂问题时使用
+   习惯的抽象思维工具；
+  n 面向对象方法学中普遍进行的对象分类过程，支
+   持从特殊到一般的归纳思维过程；
+  n 面向对象方法学中通过建立类等级而获得的继承
+   特性，支持从一般到特殊的演绎思维过程；
+  n 先设计出由抽象类构成的系统框架，随着认识深
+   入和具体化再逐步派生出更具体的派生类——符
+   合人们认识客观世界解决复杂问题时逐步深化的
+   渐进过程。
+
+                            20
+面向对象方法学的优点
+n 稳定性好：
+
+ n 传统的软件开发方法以算法为核心，建立起
+  来的软件系统的结构紧密依赖于系统所要完
+  成的功能，当功能需求发生变化时将引起软
+  件结构的整体修改。
+ n 面向对象方法基于构造问题领域的对象模型，
+  以对象为中心构造软件系统。由于现实世界
+  中的实体是相对稳定的，因此，以对象为中
+  心构造的软件系统也是比较稳定的。
+
+
+                         21
+面向对象方法学的优点
+n 可重用性好：
+ n 传统的软件重用技术是利用标准函数库，但是，标
+  准函数缺乏必要的“柔性”。
+ n 即使是具有功能内聚性的模块也并不是自含的和独
+  立的，相反，它必须运行在相应的数据结构上。
+ n 面向对象方法所使用的对象是数据和操作的统一体，
+  因此，对象具有很强的自含性。对象固有的封装性
+  和信息隐藏机制，使得对象的内部实现与外界隔离，
+  具有较强的独立性。
+ n 面向对象的软件技术在利用可重用的软件成分构造
+  新的软件系统时，有很大的灵活性：实例化、继承。
+
+                            22
+面向对象方法学的优点
+n 较易开发大型软件产品：
+
+ n 面向对象范型中构成软件系统的每个对象就
+  像一个微型程序，可以把一个大型软件产品
+  分解成一系列本质上相互独立的小产品来处
+  理。
+
+
+
+
+                         23
+面向对象方法学的优点
+n 可维护性好：
+
+ n 面向对象的软件稳定性比较好。
+
+ n 面向对象的软件比较容易修改：封装，继承
+  和多态性。
+ n 面向对象的软件比较容易理解。
+
+ n 易于测试和调试。
+
+
+
+
+                         24
+使用面向对象方法的开发过程
+n 面向对象开发的优势：
+
+ n 易于表示含有大量交互的系统；
+
+ n 能用相同术语来描述问题及其解决方案：对
+  象连接了问题空间和求解空间；
+ n 开发过程的不同阶段都能使用同一种术语：
+  对象连接了各开发阶段；
+n 面向对象是一种关于问题及其解答该如
+ 何表述的哲学；
+n 面向对象不是一种软件生命周期模型。
+
+                         25
+使用面向对象方法的开发过程
+n 需求获取；
+
+n 面向对象分析：确定问题空间对象、它们
+ 间的关系、属性和操作，建立分析模型；
+n 系统设计：确定子系统和大多数重要的求
+ 解空间对象；
+n 对象设计：精确细化上述两组对象，并确
+ 定完成系统所需的其他求解空间对象；
+n 面向对象编码与测试；
+
+
+                       26
+使用面向对象方法的开发过程
+       维护期
+              进一步开发
+喷泉模型         运行状态
+
+
+
+             集成和测试阶段
+
+
+             编码阶段
+
+             面向对象设计阶段
+
+             面向对象分析阶段
+
+
+             需求阶段
+
+
+                        27
+第十章内容概要
+    n 面向对象方法学概述
+★   n UML基础
+    n 面向对象的需求提取
+    n 面向对象分析
+    n 面向对象设计的准则
+    n 启发规则
+    n 软件重用
+    n 面向对象系统设计
+    n 面向对象对象设计
+
+                  28
+面向对象建模
+n   模型（Model） ：为了理解事物而对事物作出的一种抽象，
+    是对事物的一种无歧义的书面描述。
+n   模型由一组图示符号和组织这些符号的规则组成，利用它
+    们来定义和描述问题域中的术语和概念。
+n   模型是一种思考工具，把知识规范地表示出来。
+n   建模（Modeling）：捕捉系统本质的过程；
+n   建模：
+    n   直观地记录认知和求解过程；
+    n   支持团队成员间的有效沟通；
+    n   有助于重复利用各阶段积累的智力成果；
+n   建模：简化了认知过程，化简了求解过程；
+
+                               29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+面向对象建模符号系统——UML
+n 在不同类型系统中的应用
+
+ n 主要用于软件密集型系统，也可用于对非软件
+  系统进行建模：
+  n 信息系统
+
+  n 技术系统
+
+  n 嵌入式实时系统
+
+  n 分布式系统
+
+  n 商业系统
+
+
+
+
+                      51
+面向对象建模符号系统——UML
+n 在软件开发的不同阶段中的应用
+
+ n 需求分析
+
+ n 分析
+
+ n 设计
+
+ n 构造
+
+ n 测试
+
+
+
+
+                   52
+面向对象建模符号系统——UML
+                                                               图
+                                                              diagram
+
+
+
+
+                          结构图                                                                          行为图
+                    Structure diagram                                                               Behavior diagram
+
+
+
+
+  类图                      构件图                对象图                         活动图                           用例图                    状态机图
+class diagram             component         object diagram                 Behavior                         use case            state machine
+                           diagram                                         diagram                          diagram                diagram
+
+
+
+    组合结构图                      部署图                 包图                                      交互图
+                                                                                      interaction diagram
+    Composite structure        deployment           package
+        diagram                 diagram             diagram
+
+
+
+                                                                    交互概览图                                    通信图
+                                                                    interaction overview                    communication
+                                                                          diagram                              diagram
+
+
+
+                                                                                           顺序图                               时序图
+                                                                                      sequence diagram                      timing diagram
+       UML2.0的13种图
+
+                                                                                                                                                53
+类建模   ★
+n 类模型：描述系统内部对象的特征、对象
+ 之间的相互关系以及对象所属的每个类的
+ 属性和操作，捕获系统的静态特征。
+n 类图：对类及其关系进行建模。
+
+n 对象图：显示了单独的对象及其关系。
+
+n 类图相当于对象图的无限集合。
+
+
+
+
+                       54
+类图——类表示法
+ Person                  JoeSmith:Person            :Person
+
+    类                                      对象
+
+     Person                            JoeSmith:Person
+ name: string                      name=“Joe Smith”
+ birthDate: date                   birthDate=21 October 1983
+   有属性的类                                   有值的对象
+
+
+           Person                 GeometricObject
+        name: string          color
+        birthday: date        position
+        changeJob         move ( delta: Vector)
+        changeAddress     rotate ( in angle: float=0.0)
+                         操作
+                                                               55
+类图——类表示法小结
+
+                 ClassName
+  attributeName1: dataType1=defaultValue1
+  attributeName2: dataType2=defaultValue2
+  …
+
+  operationName1(argumentList1): resultType1
+  operationName2(argumentList2): resultType2
+  …
+
+
+                   类表示法小结
+
+
+
+
+                                               56
+类建模——链接和关联
+n 链接（link）：是对象间物理上或概念上的
+ 连接；
+n 关联（association）：描述了有共同结构和
+ 语义的一组链接；
+n 链接是关联的实例。
+
+n 在问题陈述中，链接和关联经常以动词形
+ 式出现。
+
+
+                          57
+类建模——链接和关联
+        Person          OwnsStock
+                                         Company
+类图                  *               *
+      name                              name
+
+
+      John:Person
+      name=“John”
+
+      Mary:Person                       GE:Company
+      name=“Mary”                        name=“GE”
+对象图
+      Sue:Person                        IBM:Company
+      name=“Sue”                        name=“IBM”
+
+      Jeff:Person
+      name=“Jeff”                           多对多关联
+                                                      58
+类建模——链接和关联
+n 多重性（multiplicity）：指定了一个类与关
+ 联类的单个实例可能相关的实例数目。
+n “1”、“*”、“0..1”、“3..5”
+
+n 不要在软件开发早期过度担心多重性。首
+ 先确定类和关联，然后再确定多重性。
+
+
+
+
+                           59
+类建模——关联终端名
+n 关联终端名（association end）：指定了关联终端
+ 的名字。
+n 关联终端名在问题陈述中常以名词形式出现。
+
+n 关联终端名的使用是可选的，但是对于同一个类
+ 的两个对象之间的关联来说，关联终端名是必需
+ 的。关联终端名也可以区分同一对类之间的多重
+ 关联。
+n 在创建类图时，应该正确使用关联终端名，不应
+ 该为每个引用引入一个独立的类。
+
+                               60
+类建模——关联终端名
+
+        owner 1                   *        0..1 container
+           User                       Directory
+authorizedUser    *               *          * contents
+
+
+
+
+                                                            parent
+  Parent    2         *
+                          Child                Person       0..2
+                                               child *
+            错误的模型
+
+                                                  正确的模型
+
+
+
+                                                                     61
+类建模——关联类
+n 关联类（association class）：是一种关联，
+ 也是一种类。描述了关联的属性和操作。
+n 不应把关联类的属性建模为类的属性。
+
+
+
+     Person                          Company
+               *              0..1
+   name                              name
+   birthDate                         address
+   address
+                   WorksFor
+
+                   salary
+                   jobTitle
+                                               62
+类建模——限定关联
+n   限定关联（qualified association）：是这样一种关联，其
+    中被称为限定符（qualifier）的属性会消除在“多”关联
+    端上对象的歧义。
+n   限定符在目标对象间进行选择，将多重性从“多”降到
+    “1”。
+                   Account
+       1     *
+Bank
+                 accountNumber
+
+           未限定
+
+                                                 1   0..1
+                         Bank    accountNumber              Account
+
+                                          限定
+
+
+                                                                      63
+类建模——泛化和继承
+n 泛化（generalization）是指类（父类，superclass）
+ 与其一个或多个变体（子类，subclass）之间的关
+ 系。
+n 在类的层次结构中，子类继承（inherit）其父类
+ 的特征。
+n 不要把子类嵌套得过深。
+
+           Shape
+                              Circle
+  - x_position: int
+                        - radius: int
+  - y_position: int
+
+  + display(): void
+                                        64
+高级类建模——n元关联
+n 要尽量避免n元关联——大部分关联可以分
+ 解成带限定符和属性的二元关联。
+n n元关联的UML符号是以直线连接相关类的
+ 一个菱形。
+n 在实现时要把n元关联提升为类。
+
+
+
+
+                     65
+高级类建模——n元关联
+ Project    *              *
+                               Language
+                                           类图
+           programmer *
+                  Person
+
+
+accountingSystem:Project                  Cobol:Language
+name=“accounting system”                  name=“Cobol”
+                           Mary:Person
+                           name=“Mary”
+
+
+  CADprogram:Project                       C:Language
+name=“CAD program”                        name=“C”
+
+                               对象图
+                                                           66
+高级类建模——聚合
+n   聚合（aggregation）：是一种强类型关联，其中一个聚集对象
+    由多个部件构成。
+n   聚合刻画了装配件（assembly）类与某个部件类相关联的一种
+    关系。
+n   聚合具有传递性（transitivity）和反对称性（antisymmetric）。
+
+
+                  *       割草机       *
+                      *         *
+
+            1         1         *       1
+            刀片        引擎        车轮      档板
+
+                           聚合
+                                             67
+高级类建模——组合
+n 组合（composition）：是有两个约束的聚合：
+ n 一个部件至多属于一个装配件；
+
+ n 一个部件一旦被指定给一个装配件，它就与装配件有着
+  共同的生存期。
+
+   Company          1   *   Division   1   *   Department
+     1
+         WorksFor
+    *
+   Person
+                                  组合
+
+
+
+
+                                                            68
+69
+依赖关系
+n 依赖：如果一个模型元素的变化会影响另一个模型
+ 元素，那么二者之间存在依赖关系。
+
+
+
+
+                       70
+依赖关系
+
+
+
+
+       71
+实现关系
+n 多数情况下，实现关系被用来规定接口和实现接口
+ 的类或组件之间的关系
+
+
+
+     <<interface>>
+      Comparable
+  isEqual(String) : Boolean
+  Hash() : Integer                       特殊的实现标记
+  …
+
+
+                                           String
+                              实现
+                                                               Comparable
+                                   isEqual(String) : Boolean
+                                   Hash() : Integer
+                                   …
+
+                                                                            72
+高级类建模——抽象类
+n   抽象类（abstract class）：是指没有直接的实例的类，但其
+    子孙类有直接的实例。
+n   具体类（concrete class）：是指可以实例化的类，可以有直
+    接的实例。
+n   在UML中，抽象类名用斜体表示，也可以在名称下面或后
+    面放置关键词{abstract}。
+n   抽象类可以定义被子类继承的方法。
+n   抽象类可以定义操作签名，而不提供相应的方法。我们称此
+    为抽象操作（abstract operation）。每个具体子类必须提供
+    自己的实现。
+n   避免使用具体父类是一种好的做法。
+
+                                      73
+高级类建模——抽象类
+                 Employee
+             yearToDateEarnings
+             computePay
+                                            抽象类和抽象操作
+
+
+
+
+FullTimeEmployee         PartTimeEmployee
+weeklyRate               hourlyRate
+computePay               computePay
+
+
+                                  Worker
+
+     避免具体父类
+
+
+                   Butcher        Baker     other
+                                                       74
+高级类建模——约束
+
+
+
+n 约束（constraint）是涉及模型元素的一种布
+ 尔条件，这些元素包括对象、类、属性、链
+ 接、关联和泛化集等。
+n 约束限制了元素可以假定的取值。
+
+
+
+
+                          75
+高级类建模——约束
+
+               boss            Window
+ Employee                                                   Job
+               0..1            length
+  salary                       width                        priority
+                *
+{salary≤boss.salary}
+                         {0.8≤length/width ≤ 1.5}     {priority never increases}
+
+                                对象上的约束
+
+
+
+
+                           *    MemberOf     *
+                Person     1
+                                {subset}
+                                             *
+                                                    Committee
+                                ChairOf
+
+                               关联之间的子集约束
+
+                                                                              76
+高级类建模——包
+
+n 包（package）是一组拥有公共主题的元素
+ （包括类、关联、泛化和更小的包）。
+n 包可以分割模型，使其更易理解和管理。
+
+n 设计包时经常会用下面这些技巧：
+
+ n 仔细刻画每个包的作用域；
+                  PackageName
+ n 在单个包中定义每个类；
+                    包的表示法
+ n 让包变得内聚。
+
+
+
+                                77
+状态建模   ★
+n 状态模型刻画了对象及其关系随着时间的变
+化，描述响应外部激励而发生的操作序列。
+n 状态模型由多个状态机图组成。
+
+n 每个类对应一个状态机图，描述对应用程序
+来说是重要的那些时序行为。
+
+
+
+
+                    78
+状态建模——事件
+n 事件（event）是指在某个时刻发生的事情。
+
+n 两个因果无关的事件是并发的（concurrent）。
+
+n 常见的事件类型：
+ n 信号事件（signal event）：信号是指从一个对象到另一
+  个对象的明确的单向信息流动；信号事件是发送或接收
+  信号的事件。
+ n 变更事件（change event）：是指由满足布尔表达式而引
+  起的事件。
+ n 时间事件（time event）：是指在绝对时间上或在某个时
+  间间隔内发生的事情所引起的事件。
+
+
+                                 79
+状态建模——事件
+
+  《signal》        •when (room temperature< heating set point)
+FlightDeparture   •when (room temperature > cooling set point)
+airline                                  变更事件
+flightNumber
+city
+date
+
+ 信号类和属性           •when (date=January 1, 2000)
+                  •after ( 10 seconds)
+
+                                         时间事件
+
+
+
+
+                                                                 80
+状态建模——状态
+n   状态（state）是对象取值和链接的抽象。
+n   UML中用包含可选状态名的圆角矩形表示状态。
+n   每个对象在某个时刻只能处在一种状态下，在给定时刻，类
+    的不同对象可以存在于多个状态中。
+n   状态确定对象对输入事件的响应，响应可能包括行为调用或
+    状态变化。
+n   事件表示时间点，状态表示时间段。状态对应着对象接收的
+    两次事件之间的时间间隔。
+        加电        断电        加电
+                                 时间
+
+
+             有电        无电
+
+                                      81
+状态建模——迁移和状态
+n 迁移（transition）是指从一个状态到另一个状态的
+ 瞬时变化。从源状态到目标状态一发生变化，就说
+ 触发（fire）了迁移。
+n 当事件发生时，迁移就会触发（除非有可选的警戒
+ 条件会忽略事件）。
+n 警戒条件（guard condition）是指为了让迁移发生
+ 而必须为真的布尔表达式。
+n 当事件发生时，警戒条件就会触发，但只有在条件
+ 为真的时候才会发生迁移。警戒条件仅在事件发生
+ 时检查一次。
+
+                               82
+状态建模——迁移和状态
+
+                    timeout [cars in N/S left lanes]
+   North/south                                         North/south
+  may go straight                                      may turn left
+                                timeout [no cars
+                                in N/S left lanes]
+
+timeout                                                       timeout
+
+                     timeout [no cars
+                     in E/W left lanes]
+   East/west                                            East/west
+   may turn left                                       may go straight
+                    timeout [cars in E/W left lanes]
+
+
+                                 警戒迁移
+
+
+
+
+                                                                         83
+状态建模——状态机图
+
+n 状态机图（statemachine diagram）的结点是状态，
+ 有向弧是状态间的迁移。
+n 状态机图详细说明了由事件序列引起的状态序列。
+
+n 状态模型（ state
+        model）包含了多个状态机图，每
+ 个类一个状态机图，状态机图建模重要的时序行为。
+n 只为那些有时序意义的类构建状态机图。如果某类
+ 对不同的事件响应不同，或有一个以上的状态，那
+ 么它就有重要的时序行为。
+
+
+                                 84
+状态建模——单触发状态图
+n 状态机图可以表示连续循环或单触发生存期，
+在连续循环中不关心循环是如何开始的。
+n 单触发状态机图表示有着有限生存期的对象，
+有初始状态（实心圆）和终止状态（靶心）。
+
+
+    Create             Destroy
+              Alive
+
+
+             初始和终止状态
+
+
+
+                                 85
+状态建模——状态机图行为
+n 转换上的：
+
+ n 效应（effect）：是为响应事件而执行的行为。
+
+ n 表示法是“/”和效应的名称（或描述），跟在引
+  起转换的事件后面。
+
+         right button down/ display pop-up menu
+  Idle                                              Menu visible
+           right button up/ erase pop-up menu
+                                                Cursor moved/
+                                                highlight menu item
+
+
+
+
+                                                                      86
+状态建模——状态机图行为
+n 状态中的：
+
+ n do活动：是指持续一段时间的活动。
+
+ n 进入(entry)和退出(exit)活动：绑定在状态入口和
+  出口的活动。
+ n event：指当特定事件触发时执行的活动。
+
+n 如果某状态有多个活动，则执行的顺序为：
+ 到达迁移上的活动、进入活动、 do 活动、退
+ 出活动、输出迁移上的活动。
+
+                              87
+状态建模——状态机图行为
+
+       Paper jam              Receiving
+  do / flash warning light   entry / pickup
+                             exit / disconnect
+
+        复印机的do活动             状态的进入退出活动
+
+
+
+
+                                                 88
+                                            思考：
+    !"#AB&!BD()*"
+
+             +(,!"-.+(A/B&01"2-(P1B-(D45(&6"78
+
+
+
+
+                     !"#$%&'()G'(+I#    +(,!"-.+(A/B&01"==-(P1B-(D45(&6"78      -&./%00'()G'(+I#
+                                                   :!1[#B"AB&01"
+                                                                             !"#$#B&'B()G'++I-.
+                                                                             '-/M1#$#!I2G+314-G5/
+                                                                             'SI/#$#2&"78""!91':2.
+
+
+                                                                             (&"(-9-(!!A:*.&&(*";<
+
+
+
+                                                                                   1"2 %GP(+I#
+
+
+
+
+n   例如当前处于Gathering input状态，在事件keystroke（满
+    足input==required_length）,enterPress序列下，该对象将
+    执行哪些动作？
+状态建模——状态机图
+
+ 状态机图名称
+
+
+
+
+    State1                                               State2
+                  event (attribs) [condition] / effect
+ do / activity
+ event / effect                                           …
+
+
+
+                     状态机图的基本表示法小结
+
+
+
+
+                                                                  90
+高级状态建模——嵌套状态机图
+n 当要刻画的问题复杂时，可以使用子状态机
+（submachine）来组织模型。
+n 调用子状态机的UML表示法是列出局部状态
+名，后面跟着冒号和子状态机。
+              dispense: DispenseItem
+
+    DispenseItem
+
+     State1                   State2
+                                       …
+                                …
+
+                   子状态机DispenseItem
+                                           91
+高级状态建模——嵌套状态
+n 可以嵌套状态以显示其共同特性、共享其行为。
+
+n 组合状态（composite state）名标识外部轮廓，轮
+ 廓完全围住嵌套状态。
+n 每个嵌套状态会接收其组合状态的输出迁移。
+
+   CarTransmission                        push R
+                              Neutral                   Reverse
+                                           push N
+                     push N             push F
+
+   Forward
+                       upshift                upshift
+             First                 Second                   Third
+                      downshift              downshift
+
+                                                                    92
+高级状态建模——嵌套状态
+
+
+
+
+     软件工程 - 2013 - 第十章 面向对象（1）   93
+高级状态建模——历史状态
+
+n 历史状态代表上次离开复合状态时的最后
+ 一个活动子状态，它用一个包含字母“H”
+ 的小圆圈表示。
+n 每当转换到复合状态的历史状态时，对象
+ 便恢复到上次离开该复合状态时的最后一
+ 个活动子状态，并执行入口动作（如果有
+ 的话）。
+Washing           Rinsing     Spinning
+
+
+
+            H
+
+
+
+
+  Restore Power
+                            Power Cut
+
+
+
+          Power Off
+
+
+                                         -95-
+!"#$%&!"'()
+
+
+                                                'A(%&
+
+
+
+
+                                        !))A)*H,*-.(/0
+
+
+       !""#A%&     .++"1#",
+                                                  -./0.1"!&
+
+                                           1%,2(%&
+
+
+       !"*"+#",
+                                                  &"%'(!'#)
+
+                                           .(/0%))/(
+
+                  !"#'!",
+
+
+
+
+                              #.2"P.44.#'+.5    !"#$!%
+
+                                               '/#A&HP
+
+
+
+
+                                                              96
+交互建模   ★
+n 交互模型描述对象如何交互才能产生有用的
+结果。
+n 交互可以在不同的抽象层次上建模：
+
+ n 在较高层次上，用例描述系统如何与外部参与者
+ 交互；
+ n 顺序图提供了更多的细节，显示一组对象间随着
+ 时间变化所交换的消息；
+ n 活动图提供更深入的细节，显示某次计算中处理
+ 步骤之间的控制流。
+
+                       97
+用例模型——参与者
+n 参与者（actor）：是系统的直接外部用户—
+ —直接与系统通信的一个对象或一组对象，
+ 但不是系统的一部分。
+n 每个参与者都表示以某种方式对系统起作用
+ 的那些对象。
+n 参与者可以是人、设备和其他系统。
+
+n 建模参与者有助于定义系统，识别系统内部
+ 及其边界上的对象。
+
+                       98
+用例模型——用例
+n 用例（use case）：是系统通过与参与者的交互可以
+ 提供的一个功能。
+n 每个用例会涉及一个或多个参与者以及系统本身。
+
+n 用例涉及系统和其参与者之间的消息序列。
+
+n 用例有固定的消息序列，但也会有一些变体。用例
+ 把与一部分系统功能相关的所有行为组合在一起：
+ 普通主线行为、普通行为的变体、异常条件、错误
+ 条件和请求取消。
+
+
+
+                           99
+用例模型——用例描述
+n Use Case的描述：
+
+ n Use Case的名字：唯一标识
+
+ n 参与的Actor(s)：标出其中的主动Actor
+
+ n 入口条件：Use Case启动前需要的条件
+
+ n 事件流：Use Case的动作序列
+
+ n 出口条件：完成后应满足的条件
+
+ n 特殊需求：非功能性需求
+
+
+
+
+                              100
+用例模型——用例描述
+     use case name                                    Use case: PaySalesTax
+  use case identifier    ID: 1
+   brief description     Brief description:
+                         Pay Sales tax to the Tax Authority at the end of the business quarter.
+                         Primary actors:
+ the actors involved     Time
+     in the use case     Second actors:
+                         Tax Authority
+    the system state     Preconditions:
+ before the use case     1. It is the end of the business quarter.
+          can begin
+                         Main flow:
+The actual steps of      1. The use case starts when it is the end of the business quarter.
+      the use case       2. The system determines the amount of Sales Tax owed to the Tax Authority.
+
+                         3. The system sends an electronic payment to the Tax Authority.
+the system state when
+  the use case can has   Postconditions:
+              finished   1. The Tax Authority receives the correct amount of Sales Tax.
+                         Alternative flows:
+     alternative flows
+                         None.                                                                    101
+                                  Use case: ManageBasket
+ID: 2                                                                           事
+Brief description:
+                                                                                件
+                                                                                流
+The customer changes the quantity of an item in the basket.
+                                                                                中
+Primary actors:                                                                 的
+Customer                                                                        分
+                                                                                支
+Second actors:
+                                                                                (
+none
+
+
+
+
+                                                                               Keyword If
+Preconditions:
+1: The shopping basket contents are visible
+Main flow:
+1. The use case starts when the Customer selects an item in the basket
+2. If the Customer selects “delete item”
+  2.1 The system removes the item from the basket
+3. If the Customer types in a new quantity
+  3.1 The system updates the quantity of the item in the basket.
+Postconditions:
+None
+Alternative flows:
+None.
+                                                                         102
+           事件流中的循环：Keyword For
+                                       Use case: FindProduct
+ID: 3
+Brief description:
+The system finds some products based on Customer search criteria and displays them to the Customer.
+Primary actors: Customer
+
+Second actors: none
+Preconditions: None
+Main flow:
+1. The use case starts when the Customer selects “find product”
+2. The system asks the Customer for search criteria.
+3. The Customer enters the requested criteria.
+4. The system searches for products that match the Customer’s criteria.
+5. If the system finds some matching products then
+  5.1 For each product found
+       5.1.1 The system displays a thumbnail sketch of the product.
+       5.1.2 The system displays a summary of the product details.
+       5.1.3 The system displays the product price.
+6. Else
+   6.1 The system tells the Customer that no matching products could be found.
+Postconditions: None
+Alternative flows: None                                                                     103
+        事件流中的循环：Keyword While
+
+                              Use case: ShowCompanyDetails
+ID: 4
+Brief description:
+The system displays the company details to the Customer
+Primary actors: Customer
+Second actors: none
+Preconditions: None
+Main flow:
+1. The use case starts when the Customer selects “show company details”.
+2. The system displays a web page showing the company details.
+3. While the Customer is browsing the company details
+   3.1 The system plays some background music.
+   3.2 The system displays special offers in a banner ad.
+Postconditions:
+1. The system has displayed the company details.
+2. The system has played background music.
+3. The system has displayed special offers.
+Alternative flows:
+None
+                                                                           104
+用例模型——用例图
+n 用例图包括一组用例和一组参与者，主要
+ 用于描述系统和外部环境的关系。
+
+
+
+
+                       105
+用例模型——用例模型的准则
+n 首先确定系统边界。
+
+n 确保关注参与者。
+
+n 每个用例必须给用户提供价值。
+
+n 关联用例和参与者。
+
+n 记住用例是非形式化的。
+
+n 用例可以结构化。
+
+
+
+
+                   106
+高级交互建模——用例关系
+
+
+   《extend》
+               Extend
+
+
+   《include》   Include
+
+
+               Generalization
+
+
+
+
+                  -107-
+高级交互建模——用例关系的含义
+
+•   Extend
+    •   分离扩展路径
+•   Include
+    •   提取公共步骤，便于复用
+•   Generalization
+    •   同一业务目的的不同技术实现
+高级交互建模——用例包含关系
+n 包含（include）关系将一个用例合并到另
+ 一个用例的行为序列中。
+n 被包含的用例就像是子程序。
+
+
+           《include》
+    安全会话
+
+                       验证密码
+
+     做交易   《include》
+
+             用例包含
+
+
+                              109
+包含关系示例
+
+             0C#12"D"#("$,$-.*L"       77*1%L8("VV
+
+
+                              77*1%L8("VV
+
+
+              )*"+D"#("$,$-.*L"                  >"#$%CD"#("$
+ P*4$#$*#1
+                                   77*1%L8("VV
+
+
+
+
+              R"L"S"D"#("$,$-.*L"
+
+
+
+
+                          -110-
+包含关系误用
+
+                               !"#$%&
+             >>" #$% &'())
+
+               >>" #$% &'())
+
+                           !"#$%&'(
+              >>" #$% &'())
+ /01+   #$
+              >>" #$% &'())
+                          '())*+,*
+
+
+
+                               -.#$%&
+
+
+
+
+               -111-
+高级交互建模——用例扩展关系
+n 扩展（extend）关系给用例添加增量行为。
+
+n 将常规动作放在一个基本用例中，将非常规动作
+ 放在其扩展用例中。
+n 扩展用例会把自己加入基用例中，而不是基用例
+ 显式地合并扩展用例。
+                   交易股票             交易期权
+     《extend》
+                《extend》 《extend》    《extend》
+
+   保证金交易           沽空卖出             极限订单
+
+
+                     用例扩展
+                                                112
+扩展关系示例
+
+
+
+
+           (F**F+(FFI
+
+  -.C$'/
+                        11$2/$'344
+
+
+           0$/#*'(FFI                >""#$BC'$
+
+
+
+
+              -113-
+扩展关系误用
+
+
+
+                   >>"#$ "%&'' !"
+
+
+  ##     ! %%     >>"#$ "%&''
+
+                          !"##$$
+
+
+
+
+                -114-
+《extend》vs《include》
+
+n What is interest about 《extend》is that the
+  base use case does not know anything about
+  the extension use cases. It just provides hooks
+  for them. In fact, the base use case is
+  perfectly complete without its extensions. This
+  is very different from 《include》, where the
+  base used cases were incomplete without their
+  inclusion use cases.
+
+                                               115
+高级交互建模——用例泛化关系
+n 泛化（generalization）可以显示通用用例
+ 的一个特殊变体。
+n 父用例表示通用的行为序列，通过插入额
+ 外的步骤或定义步骤，子用例特化父用例。
+            做交易
+
+
+
+
+    交易债券    交易股票    交易期权
+
+            用例泛化
+
+
+                               116
+高级交互建模——用例关系
+n   用例关系的准则：不要过度使用用例关系，更不要将用例
+    关系用到编程当中。用例的目标是澄清需求。
+    n   用例泛化：如果一个用例有几种变体，那么就用抽象用例
+        建模公共的行为，再特化每种变体。
+    n   用例包含：如果一项用例包含有一段定义良好且有可能用
+        在其他场合的行为片段，那么就该为该行为定义一项用例，
+        并把该用例包含在原始用例中。
+    n   用例扩展：如果用可选特性来定义一项有意义的用例，那
+        么要把基行为建模为用例，并用扩展关系来增加特性。
+    n   包含关系和扩展关系：都可以把行为分解成较小的片段。
+        但是，包含关系隐含着被包含行为是配置系统的一个必要
+        的部分，而扩展关系暗示着没有增加的行为的系统也是有
+        意义的。
+                                    117
+顺序模型
+
+
+
+n 顺序模型详细描述用例的主题。
+
+
+
+
+                   118
+顺序模型——场景
+
+n 场景（scenario）是指系统在某个特定
+ 的执行期内所发生的一系列事件。
+n 场景可以看作是用例的一次特定执行。
+
+n 场景可以表示为一系列文本语句。
+
+n 在开发的早期阶段应该在高层表达场景；
+ 在后续阶段可以显示确切的消息。
+
+
+                          119
+顺序模型——顺序图
+
+n 顺序图（sequence diagram）显示了交互的参与
+ 者以及参与者之间的消息序列。
+n 一个对象通过发送消息与其他对象相互作用。一
+ 个对象对消息的接收触发一个操作的执行，从而
+ 可能给其他对象发消息。
+n 顺序图对识别用例中的附加对象很有用：
+
+ n 包含在用例中的对象称为参与对象；
+
+ n 顺序图展示了这些对象间传送消息的时间顺序，反映
+  了对象之间的一次特定交互过程。
+
+                                  120
+顺序模型——顺序图
+
+n 每个参与对象都用一条垂直的生命线
+ （lifeline）表示；
+n 每条消息用从发送方指向接收方的水平箭头
+ 表示；
+n 时间从上往下延伸，但间距是不相关的；
+
+n 图中只显示了消息的顺序，而不是它们的准
+ 确时间。
+
+                       121
+顺序模型——顺序图
+
+      : Student   :RegisterForCoursesForm     :RegistrationController     :CourseCatalogSystem         : Course Catalog
+
+
+           1: create schedule( )
+                                   2: get course offerings( )
+
+                                                                3: get course offerings(forSemester)
+
+                                                                                       4: get course offerings( )
+
+
+
+                                    5: display course offerings( )
+
+
+
+                                    6: display blank schedule( )
+
+
+
+
+ref
+                                                        Select Offerings
+
+
+                                                                                                                     122
+顺序模型——顺序图
+n 每个用例需要一张或多张顺序图来描述其
+ 行为。每张顺序图显示用例的一个特定的
+ 行为序列。
+n 要为用例的每种异常情况绘制一张顺序图。
+
+
+
+
+                       123
+顺序模型——顺序图
+
+  :顾客      :股票经纪人系统       :证券交易所
+        输入买入日期
+
+        申请确认     {验证资金}
+
+        确认买入
+
+        显示订单号       下订单
+
+                  报告交易结束     {执行订单}
+
+
+
+
+            买入股票的顺序图
+
+
+                                      124
+顺序模型——顺序图
+
+  :顾客      :股票经纪人系统     :证券交易所
+
+        输入买入日期
+
+        拒绝买入     {验证资金：资金
+                 不足}
+        取消买入
+
+
+
+
+            买入股票失败的顺序图
+
+
+                                 125
+顺序图示
+例：简单
+手表调时
+
+
+
+
+       126
+顺序图示例：一台打印服务器
+
+                127
+顺序模型
+n 顺序模型的准则：
+
+ n 至少为每个用例编写一种场景；
+
+ n 把场景抽象为顺序图；
+
+ n 划分复杂的交互；
+
+ n 为每种错误条件绘制一张顺序图。
+
+
+
+
+                     128
+高级交互建模——带有临时对象的顺序图
+      objectA                  objectB
+
+                operationE(c, d)
+                                    createC(arg)   objectC
+                                    operationE(m, n)
+
+                                         resultT
+
+                  resultV                              ×     带有临时对
+                                                             象的顺序图
+
+n   UML表示创建的方法是，把对象符号放在表示创建此对象的调用的
+    箭头头部。
+n   一个大“X”标记表示顺序图中被销毁对象生命周期的结束。“X”放
+    在销毁对象的调用箭头的头部；如果对象自行销毁并将控制权返回给
+    另一个对象，那么“X”就放在返回箭头的尾部。
+                                                                     129
+Sequence Diagram Contents: Objects
+
+ :RegisterForCoursesForm   :RegistrationController   SWTSU Catalog :
+                                                     CourseCatalogSystem
+
+
+
+
+               Anonymous Objects              Named Object
+
+
+                                                Lifelines
+
+
+
+
+                                                                           130
+   Sequence Diagram Contents: Actor
+            :RegisterForCoursesForm   :RegistrationController   SWTSU Catalog :
+                                                                CourseCatalogSystem
+: Student                                                                             : Course Catalog
+
+
+
+
+                                                    Actor instances
+
+
+
+
+                                                                                               131
+   Sequence Diagram Contents: Messages
+            :RegisterForCoursesForm         :RegistrationController    SWTSU Catalog :
+                                                                       CourseCatalogSystem
+: Student                                                                                        : Course Catalog
+
+    1: create schedule( )
+
+
+
+
+                            2: get course offerings( )
+                                                         3: get course offerings(for Semester)
+
+                                                                                  4: get course offerings( )
+
+
+                            5: display course offerings( )
+
+
+                            6: display blank schedule( )
+                                                              Message
+       Reflexive
+       Messages
+
+                                                                                                               132
+通信图(communication diagram)
+ n 也是用来描述系统中对象间的动态协作关
+  系；
+ n 顺序图侧重表述对象间传递消息的时序性；
+
+ n 通信图侧重说明哪些对象间有消息传递；
+
+ n 通信图中使用消息编号来标明消息的执行
+  顺序；
+
+
+
+                             133
+通信图示例：打印服务器
+              134
+活动模型
+
+n 活动图（ activity   diagram ）显示了组成复杂过程
+ 的步骤序列。
+n 与顺序图类似，活动图可以显示控制流，但专注
+ 于操作而不是对象。
+n 活动图在设计算法和工作流的早期阶段最为有用；
+
+n 类似流程图，描述一个Use Case的处理流程；
+
+n 活动图可以方便地描述控制转移条件以及并行执
+ 行等要求。
+
+
+                                   135
+活动图示例：打印过程   136
+活动图示例：表示并发和同步
+
+                137
+138
+构件图(component diagram)
+
+ n 构件图描述程序代码的组织结构；
+
+ n 构件：
+
+  n 源代码构件
+
+  n 二进制目标代码构件
+
+  n 可执行构件
+
+  n 文档构件
+
+
+
+
+                         139
+反映程序代码构件间的依赖关系的构件图
+                     140
+     <<component>>                            <<component>>
+         ComponentA                               ComponentB
+
+
+
+
+      <<component>>                           <<component>>
+         ComponentC                               ComponentD
+
+
+!"#$BC"#CD(DF$*+(,
+
+     P((45.C- +4(.
+                      BCD- (./+CD$   S1F1:C;.!(   V7C241F1$:C;.!(
+                      M1D12("(DF
+
+  S+/#718BCD- (.F(.
+
+
+
+
+                                                                    141
+部署图(deployment diagram)
+
+n 描述系统中软硬件的物理配置情况和系统体系
+ 结构；主要元素包括：节点(node)、组件
+ (component)和关系(relationship)
+ n 节点(Nodes)是一个能够执行制品的实体；
+   n 执行环境(Execution Environments)节点
+
+   n 设备(Device)节点
+
+ n 关系表示各节点的连接方式；
+
+ n 节点内部表示分配到该节点运行的构件或对象（制
+  品）。
+                                      142
+描述一个系统的物理体系结构的部署图
+                    143
+内部包含执行环境节点的设备节点与其他设备节点的通信连接
+
+                              144
+UML的三种扩展机制
+
+
+n 1.标记值（Tagged Value）
+  n 附属于UML元素的各种信息（Property）
+  n 形式：{属性名 = 值}
+
+n 2.约束（Constraint）
+  n UML中限制一种或多个元素语义的规则
+
+  n 形式：{约束条件}
+
+
+
+
+                              145
+UML的三种扩展机制
+
+
+
+
+             146
+UML的三种扩展机制
+ n 3.构造型（Stereotype）
+  n 是在已有的模型元素基础上建立一种新的模
+    型元素。它与现有元素相差不多，只是多一
+    些特别的语义
+
+
+
+
+                          147
+用视图描述系统
+
+n 视图：被建模系统的各个方面，它们都反
+ 映同一个系统，具有一致性；
+n 建立完整模型所需的视图种类和数量不定，
+ 按需选取；
+n 视图把建模语言同开发系统的方法、过程
+ 连接起来；
+
+
+
+
+                       148
+用UML描述系统的5个视图
+n Use Case View（用例视图）：
+ n 视图内容：系统行为、动力
+ n 静态表现：Use Case图
+
+ n 动态表现：交互图、状态机图、活动图
+
+ n 观察角度：用户、分析员、测试员
+
+n Logic View（逻辑视图）：
+ n 视图内容：问题及解决方案的术语词汇
+
+ n 静态表现：类图、对象图
+
+ n 动态表现：交互图、状态机图、活动图
+ n 观察角度：类、接口、协作
+                         149
+用UML描述系统的5个视图
+n Process View（进程视图）：
+ n 视图内容：性能、可伸缩性、吞吐量
+ n 静态表现：类图、对象图
+
+ n 动态表现：交互图、状态机图、活动图
+
+ n 观察角度：线程、进程
+
+n Component View（实现视图）：
+ n 视图内容：构件、文件
+
+ n 静态表现：构件图
+
+ n 动态表现：交互图、状态机图、活动图
+ n 观察角度：配置、发布（Releases）
+                          150
+用UML描述系统的5个视图
+ n Deployment View（部署视图）：
+  n 视图内容：部件的发布、交付、安装
+  n 静态表现：部署图
+
+  n 动态表现：交互图、状态机图、活动图
+
+  n 观察角度：拓扑结构的节点
+
+
+
+
+                            151
+用UML描述系统的5个视图
+
+
+ 词汇                       系统装配
+       逻辑视图    实现视图       配置管理
+ 功能
+
+
+       行为   用例视图
+                          系统拓扑
+性能
+                          分布
+可伸缩性   进程视图        部署视图
+                          交付
+吞吐量
+                          安装
+
+                            152
+

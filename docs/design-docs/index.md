@@ -12,4 +12,5 @@
 
 - `core-beliefs.md`：Agent-first 的工作原则。
 - `adr/`：架构决策记录，索引见 `adr/README.md`。
+- [ADR-001](adr/ADR-001-technology-stack.md)：已确定的技术栈，React + TypeScript + Vite + TanStack Router、Hono、Prisma、PostgreSQL 与 StarUML；包含当前不采用 TanStack Start 的理由。
 - `templates/adr.md`：ADR 模板。

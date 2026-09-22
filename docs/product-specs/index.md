@@ -4,6 +4,7 @@
 
 ## 文件
 
+- [需求分析文档](../REQUIREMENTS_ANALYSIS.md)：选课系统需求初稿，包含用例、业务规则、数据权限、非功能要求、验收条件与待确认问题；当前业务故事引用其对应章节。
 - `backlog.md`：产品待办列表，唯一的需求入口。
 - `templates/user-story.md`：用户故事模板，用 `make new-spec SLUG=<slug>` 生成。
 - `traceability.md`：需求追溯矩阵，记录需求到发布的完整链路。

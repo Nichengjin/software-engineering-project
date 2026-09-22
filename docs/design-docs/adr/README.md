@@ -4,4 +4,4 @@
 
 | 编号 | 标题 | 日期 | 状态 |
 | --- | --- | --- | --- |
-| ADR-000 | 示例 | YYYY-MM-DD | 提议中 |
+| [ADR-001](ADR-001-technology-stack.md) | 采用 React、TanStack Router、Hono、Prisma 与 PostgreSQL | 2026-09-22 | 已接受 |

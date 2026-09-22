@@ -1,0 +1,282 @@
+软件过程（3）
+RUP ( Rational Unified Process)
+n What is RUP
+  n Process Framework and a detailed prescriptive process model
+     n   Meta Process / Must customize
+  n Software engineering knowledge base
+     n   Covers almost all activities of software development
+  n Well defined structure for object-oriented design and development
+     n   Based on OO and UML
+  n Like a software product, the Rational Unified Process is designed
+    and documented using the Unified Modeling Language (UML)
+     n   Well documented
+RUP ( Rational Unified Process)
+
+
+n 开发经验（最佳实践）
+   n 迭代式开发：容纳需求变更/减少风险
+   n 管理需求：使用用例和脚本
+
+   n 使用基于构件的体系结构
+
+   n 可视化建模
+   n 验证软件质量：质量评估内建在贯穿于整个开发过程的、
+     由全体成员参与的所有活动中
+   n 控制软件变更
+1. Develop Software Iteratively
+
+n An initial design will likely be flawed with respect to its key
+  requirements
+n Late-phase discovery of design defects results in costly over-
+  runs and/or project cancellation
+
+       The time and money spent implementing a faulty design
+                       are not recoverable
+Waterfall Development
+Waterfall Development: Risk vs. Time
+Iterative Development
+An Iterative Development Lifecycle
+Risk Profile of an Iterative Development
+
+
+
+
+        n   Risks - process, technology, teamwork, customer, business domain
+Iterative Development Characteristics
+
+
+n Critical risks are resolved before making large investments
+
+n Initial iterations enable early user feedback
+
+n Testing and integration are continuous
+
+n Objective milestones provide short-term focus
+
+n Progress is measured by assessing implementations
+
+n Partial implementations can be deployed
+2. Manage Your Requirements
+n Elicit, organize, and document required functionality and constraints
+n Track and document tradeoffs and decisions
+n Business requirements are easily captured and communicated through use cases
+
+n Use cases are important planning instruments
+3. Employ Component-based Architecture
+ n Design, implement and test your architecture up-front!
+ n A systematic approach to define a “good” architecture
+
+    n resilient to change by using well-defined interfaces
+
+    n by using and reverse engineering components
+    n derived from top rank use cases
+
+    n intuitively understandable
+
+
+                                                  Application-
+                                                  specific
+                                                  Business-
+                                                  specific
+ Component-based                                  Middleware
+ Architecture with
+ layers                                            System-
+                                                   software
+ 4. Model Software Visually
+
+n Capture the structure and behavior of architectures and components
+
+n Show how the elements of the system fit together
+
+n Maintain consistency between a design and its implementation
+n Promote unambiguous communication
+5. Verify Software Quality
+
+n Create tests for each key scenario to ensure that all requirements are
+  properly implemented
+n Unacceptable application performance hurts as much as unacceptable
+  reliability
+n Verify software reliability - memory leaks, bottle necks
+n Test every iteration - automate test!
+6. Control Changes to Software
+n Control, track and monitor changes to enable iterative development
+
+n Establish secure workspaces for each developer
+   n Provide isolation from changes made in other workspaces
+   n Control all software artifacts - models, code, docs, etc.
+
+n Automate integration and build management
+Rational Unified Process
+RUP术语(RUP Terminology)
+n Worker
+   n   a Role played by individuals on a project
+   n   some people have many roles
+n Activity
+   n   a unit of work with a clear purpose, broken down into steps
+   n   small, definable, reusable tasks that can be allocated to a single worker
+n Artifact
+   n   a work product produced as a result of an activity
+   n   usually process deliverables, like: use cases, code, plans, test cases, test results
+n Workflow
+   n   The sequence of activities performed in a business that produces a result of observable
+       value to an individual actor of the business.
+Process Notation
+Workers Are Used for Resource Planning
+RUP软件开发生命周期
+                       阶段
+    工作流    初始    精化         构建    移交
+
+    业务建模
+      需求
+   分析与设计
+      实现
+      测试
+      部署
+
+ 配置与变更管理
+    项目管理
+      环境
+           初始   精化1 精化2 构建1构建2构建3移交1移交2
+RUP软件开发生命周期的静态结构
+
+n 核心工作流
+ n 业务建模
+ n 需求
+
+ n 分析与设计
+
+ n 实现
+ n 测试
+
+ n 部署：生成目标系统的可运行版本，移交给用户
+
+ n 配置与变更管理：跟踪维护开发过程中Artifacts的完整性和一致性
+
+ n 项目管理：提供项目管理框架，为软件开发项目制定计划、人员配
+   备、执行和监控等方面的使用准则，并为风险管理提供框架
+ n 环境：软件开发环境，包括过程管理和工具支持
+RUP软件开发生命周期的动态结构
+
+n 工作阶段
+ n Inception（先启）：生命周期目标里程碑
+  n   建立业务模型，定义最终产品视图，确定项目的范围
+ n Elaboration（精化）：生命周期架构里程碑
+  n   设计并确定系统的体系结构，制定项目计划，确定资源需求
+ n Construction（构建）：初始可操作性能里程碑
+  n   开发所有构件和程序，集成为客户需要的产品，测试所有功能
+ n Transition（移交）：产品发布里程碑
+  n   把开发出的产品提交给用户使用
+RUP迭代式开发
+
+n 整个项目开发过程由多个迭代过程组成。
+
+n 每次迭代只考虑一部分系统需求。
+
+n 每个迭代都是风险驱动的。
+
+n 每个迭代都可以看作是一个“小型的瀑布模型”过程。
+ n 以一个交付版本结束
+
+ n 其结果是一个增量，增加一些新的功能
+
+n 每次迭代以不同的重点和强度访问核心工作流。
+Inception                  Elaboration                               Construction   Transition
+
+
+
+
+       Iteration 1             Iteration 2                  Iteration 3
+
+
+
+              “Mini-Waterfall” Process
+             Iteration Planning
+                            Rqmts Capture
+                                   Analysis & Design
+                                       Implementation
+                                                   Test
+                                                          Prepare Release
+Bringing It All Together...
+Tailoring and Implementing RUP
+           n 4 Phases
+           n 9 Core Workflows
+
+           n 31 Roles/Workers
+
+           n 103 Artifacts
+           n 136 Activities
+
+           n 15 Tool Mentors
+
+           n 14 Work Guidelines
+
+           n 43 Word/HTML Templates
+
+           n 8 Project Plan Templates
+
+           n …
+RUP生命周期的特点
+
+n 与螺旋模型相比
+
+ n 相似：重复一系列组成系统生命周期的循环
+ n 差异：
+  n   RUP给出了每个阶段内的若干次迭代过程完成后交付的增量的具体要求，
+      即四个阶段的里程碑
+  n   RUP详细阐述了不同阶段的不同迭代过程经历的九大核心工作流程中活
+      动内容的重点和强度不同
+  n   RUP提供了对每次迭代过程中不同核心工作流程活动的并行化支持
+n 优点：用于指导需求不明确、不稳定的项目开发时具有更强的可操
+
+      作性。
+RUP生命周期的特点
+
+n 与瀑布模型相比
+
+ n 优点：
+  n RUP将成本风险进一步降低为获得一次增量所需的费用
+
+  n RUP进一步降低了产品不能按计划投放市场的风险
+
+  n RUP使项目开发更能适应项目需求的变化
+RUP的人员——角色及其活动
+
+n 角色的划分及相关活动
+
+ n RUP定义了五大类角色集：分析员、开发人员、测试员、经理、
+   其他角色。每一类角色集又包括多个角色，并给出了每个角色对
+   应的活动。
+ n 角色的意义
+  n   将角色和个体区分开来，有效提高了项目中人力资源的利用率。
+ n 角色方面的缺陷
+  n   未给出角色的组织管理方式、角色间的相互地位关系和交互方式。
+ RUP的方法——方法和工具
+
+n 方法：
+
+ n 用例及用例驱动
+    n 用例是捕获需求的有效方法
+    n 用例驱动整个RUP过程
+
+ n 以架构为中心
+
+ n 在面向对象的分析设计中采用UML进行可视化建模
+
+ n 面向对象的设计与构件实现
+n 工具：
+
+ n Rational Solutions
+ RUP的特点
+
+n 优点：
+
+ n 用例驱动、以架构为中心、迭代和增量；
+
+ n 具有二维迭代性，有利于降低风险、适应需求变化；
+ n 是可配置的，具有通用性；
+
+n 缺点：
+
+ n 在理想的项目开发环境下软件过程的一种完美模式；
+ n 未给出具体的剪裁、扩充等配置实施的方法准则。
+

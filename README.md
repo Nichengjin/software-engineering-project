@@ -31,6 +31,14 @@ make init PROJECT=<项目名>   # 替换模板名
 
 ## 团队工作流程
 
+当前选课系统课设的六人分工、进度、交付物与风险安排见 [项目开发计划](docs/PROJECT_DEVELOPMENT_PLAN.md)（v0.3，待团队评审）。
+
+具体功能、业务规则、权限、验收标准与待确认事项见 [需求分析文档](docs/REQUIREMENTS_ANALYSIS.md)（v0.3，待团队评审）。
+
+已定技术栈为 React + TypeScript + Vite + TanStack Router、Hono、Prisma、PostgreSQL，使用 StarUML 建模；不使用 Next.js，当前不采用 TanStack Start。选型依据见 [ADR-001](docs/design-docs/adr/ADR-001-technology-stack.md)。
+
+用于校准课程流程与建模方法的 [课件文字版与索引](docs/lecture-notes/README.md) 已导入，包含 58 份分章节 TXT、合并全文及来源校验记录。
+
 下面是一条需求从提出到发布的完整路径，也是每个团队成员默认要走的流程。细则都在对应文档里，这里只画主线。
 
 ### 1. 需求进待办

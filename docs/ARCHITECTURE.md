@@ -1,6 +1,15 @@
 # 架构总览
 
-这份文档用于描述仓库的顶层结构。下面这些内容是模板占位，等新项目真正落地后，应该尽快替换成真实架构。
+这份文档用于描述仓库的顶层结构。技术栈已于 2026-09-22 确定，总体设计与业务代码尚未完成，下面的目录结构仍是待细化的组织约定。
+
+## 已确定的技术栈
+
+- 前端：React + TypeScript + Vite + TanStack Router，采用单页应用；不使用 Next.js，当前不采用 TanStack Start。
+- 后端：Hono，使用 TypeScript。
+- 数据访问与存储：Prisma + PostgreSQL。
+- 建模工具：StarUML。
+
+决定的依据、边界与后果见 [ADR-001](design-docs/adr/ADR-001-technology-stack.md)。具体包版本、运行环境和 UML 模型尚待总体设计及脚手架阶段确定。
 
 ## 预期的仓库结构
 
