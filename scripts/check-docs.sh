@@ -14,6 +14,8 @@ required_files=(
   "docs/ARCHITECTURE.md"
   "docs/CICD.md"
   "docs/ITERATION_GUIDE.md"
+  "docs/NORTH_STAR.md"
+  "docs/TEAM_ROLES.md"
   "docs/TESTING.md"
   "docs/GIT_WORKFLOW.md"
   "docs/DESIGN.md"

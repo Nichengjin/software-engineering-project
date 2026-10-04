@@ -12,6 +12,8 @@
 - `docs/ITERATION_GUIDE.md`：迭代流程，从待办挑需求到评审、回顾怎么走。
 - `docs/ARCHITECTURE.md`：仓库整体结构和预期边界。
 - `docs/design-docs/core-beliefs.md`：Agent-first 的工作原则和这个模板的设计出发点。
+- `docs/NORTH_STAR.md`：课程流程时间轴与打勾清单，确认当前所处阶段。
+- `docs/TEAM_ROLES.md`：成员分工、需求负责人与评审人，以及提交作者规则。
 
 ## 动手之前要确认
 
