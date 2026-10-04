@@ -18,20 +18,23 @@
 | US-003 | [需求分析](../REQUIREMENTS_ANALYSIS.md) | IT-01 | [开发计划](../PROJECT_DEVELOPMENT_PLAN.md) | 未创建 | 需求分析第 12.3 节文档验收 | 待评审 | 未发布 |
 | US-019 | [选型记录](../design-docs/adr/ADR-001-technology-stack.md) | IT-01 | ADR-001 | 未创建 | ADR-001 文档验收条件，含 Router／Start 取舍 | [文档检查记录](../histories/2026-09/20260922-1420-technology-stack.md)；待合入 | 未发布 |
 | US-020 | [课件文字与索引](../lecture-notes/README.md) | IT-01 | 无新增架构决定 | 未创建 | 课件索引中的 US-020 验收条件 | [资料校验记录](../histories/2026-09/20260922-1535-courseware-text.md)；待合入 | 未发布 |
-| US-004 | [UC-01](../REQUIREMENTS_ANALYSIS.md#uc-01) | 待排期 | 待设计 | 未创建 | AC-01、AC-02 | 未执行 | 未发布 |
-| US-005 | [UC-02](../REQUIREMENTS_ANALYSIS.md#uc-02) | 待排期 | 待设计 | 未创建 | AC-03、AC-04 | 未执行 | 未发布 |
-| US-006 | [UC-03](../REQUIREMENTS_ANALYSIS.md#uc-03) | 待排期 | 待设计 | 未创建 | AC-05，Q-04／Q-05 确认后补齐草稿边界 | 未执行 | 未发布 |
-| US-007 | [UC-03](../REQUIREMENTS_ANALYSIS.md#uc-03) | 待排期 | 待设计 | 未创建 | AC-06 至 AC-10、AC-12、AC-13 | 未执行 | 未发布 |
+| US-004 | [UC-01](../REQUIREMENTS_ANALYSIS.md#uc-01) | 待排期 | 待设计 | 未创建 | AC-01、AC-02、AC-43、AC-44 | 未执行 | 未发布 |
+| US-005 | [UC-02](../REQUIREMENTS_ANALYSIS.md#uc-02) | 待排期 | 待设计 | 未创建 | AC-03、AC-04、AC-45、AC-46 | 未执行 | 未发布 |
+| US-006 | [UC-03](../REQUIREMENTS_ANALYSIS.md#uc-03) | 待排期 | 待设计 | 未创建 | AC-05、AC-47、AC-48 | 未执行 | 未发布 |
+| US-007 | [UC-03](../REQUIREMENTS_ANALYSIS.md#uc-03) | 待排期 | 待设计 | 未创建 | AC-06 至 AC-10、AC-12、AC-13、AC-49、AC-50 | 未执行 | 未发布 |
 | US-008 | [UC-03](../REQUIREMENTS_ANALYSIS.md#uc-03) | 待排期 | 待设计 | 未创建 | AC-11、AC-12 | 未执行 | 未发布 |
-| US-009 | [UC-04](../REQUIREMENTS_ANALYSIS.md#uc-04) | 待排期 | 待设计 | 未创建 | AC-14 至 AC-16 | 未执行 | 未发布 |
+| US-009 | [UC-04](../REQUIREMENTS_ANALYSIS.md#uc-04) | 待排期 | 待设计 | 未创建 | AC-14 至 AC-16、AC-51 | 未执行 | 未发布 |
 | US-010 | [UC-05](../REQUIREMENTS_ANALYSIS.md#uc-05) | 待排期 | 待设计 | 未创建 | AC-17、AC-18 | 未执行 | 未发布 |
 | US-011 | [UC-06](../REQUIREMENTS_ANALYSIS.md#uc-06) | 待排期 | 待设计 | 未创建 | AC-19 至 AC-21 | 未执行 | 未发布 |
 | US-012 | [UC-07](../REQUIREMENTS_ANALYSIS.md#uc-07) | 待排期 | 待设计 | 未创建 | AC-22、AC-23 | 未执行 | 未发布 |
-| US-013 | [UC-08](../REQUIREMENTS_ANALYSIS.md#uc-08) | 待排期 | 待设计 | 未创建 | AC-24、AC-25 | 未执行 | 未发布 |
-| US-014 | [UC-09](../REQUIREMENTS_ANALYSIS.md#uc-09) | 待排期 | 待设计 | 未创建 | AC-26、AC-27 | 未执行 | 未发布 |
-| US-015 | [UC-10](../REQUIREMENTS_ANALYSIS.md#uc-10) | 待排期 | 待设计 | 未创建 | AC-28 至 AC-33 | 未执行 | 未发布 |
+| US-013 | [UC-08](../REQUIREMENTS_ANALYSIS.md#uc-08) | 待排期 | 待设计 | 未创建 | AC-24、AC-25、AC-52 | 未执行 | 未发布 |
+| US-014 | [UC-09](../REQUIREMENTS_ANALYSIS.md#uc-09) | 待排期 | 待设计 | 未创建 | AC-26、AC-27、AC-53 | 未执行 | 未发布 |
+| US-015 | [UC-10](../REQUIREMENTS_ANALYSIS.md#uc-10) | 待排期 | 待设计 | 未创建 | AC-28 至 AC-33、AC-54、AC-55 | 未执行 | 未发布 |
 | US-016 | [UC-11](../REQUIREMENTS_ANALYSIS.md#uc-11) | 待排期 | 待设计 | 未创建 | AC-34 至 AC-36 | 未执行 | 未发布 |
 | US-017 | [权限](../REQUIREMENTS_ANALYSIS.md#security) | 待排期 | 待设计 | 未创建 | AC-18、AC-37 至 AC-42 | 未执行 | 未发布 |
-| US-018 | [非功能](../REQUIREMENTS_ANALYSIS.md#nfr) | 待排期 | 待设计 | 未创建 | NFR-01 至 NFR-09 的验证方法 | 未执行 | 未发布 |
+| US-018 | [非功能](../REQUIREMENTS_ANALYSIS.md#nfr) | 待排期 | 待设计 | 未创建 | NFR-01 至 NFR-10 的验证方法 | 未执行 | 未发布 |
+| US-021 | [UC-12](../REQUIREMENTS_ANALYSIS.md#uc-12) | 待排期 | 待设计 | 未创建 | AC-56 | 未执行 | 未发布 |
+| US-022 | [UC-13](../REQUIREMENTS_ANALYSIS.md#uc-13) | 待排期 | 待设计 | 未创建 | AC-57、AC-58 | 未执行 | 未发布 |
+| US-023 | [UC-14](../REQUIREMENTS_ANALYSIS.md#uc-14) | 待排期 | 待设计 | 未创建 | AC-59 至 AC-61 | 未执行 | 未发布 |
 
 原 US-001 行中的 PR、测试路径及发布版本均为模板示例，已移除，不能作为本项目的交付证据；该编号仍在 backlog 中保留并标记已取消。
