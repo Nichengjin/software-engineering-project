@@ -9,7 +9,7 @@
 - 数据访问与存储：Prisma + PostgreSQL。
 - 建模工具：StarUML。
 
-决定的依据、边界与后果见 [ADR-001](design-docs/adr/ADR-001-technology-stack.md)。具体包版本、运行环境和 UML 模型尚待总体设计及脚手架阶段确定。
+决定的依据、边界与后果见 [ADR-001](design-docs/adr/ADR-001-technology-stack.md)。具体包版本、运行环境和设计模型尚待总体设计及脚手架阶段确定。[面向对象分析 v0.3](design-docs/object-oriented-analysis.md) 已形成业务分析类及选课、关闭、计费交互与状态模型（US-024），待团队评审；分析类不是数据库表或代码模块的承诺。
 
 ## 预期的仓库结构
 
