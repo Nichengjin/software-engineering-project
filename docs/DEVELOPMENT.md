@@ -74,11 +74,11 @@ SQL 迁移额外守住全角色 SSN、人员与 identity 一事务匹配、角�
 
 ## 依赖审计边界
 
-根据上游实际调用评估保留两个未修复依赖，不使用 `audit fix --force` 升级 Prisma 主版本或盲目覆写依赖：
+2026-10-05 集中合入前修复两项传递依赖，不使用 `audit fix --force` 升级 Prisma 主版本。消费者限定的 overrides 与锁文件一起提交：
 
-- Prisma 6.19.3 配置层固定 deepmerge-ts 7.1.5；[GHSA-ggr8-5vv4-36mx](https://github.com/RebeccaStevens/deepmerge-ts/security/advisories/GHSA-ggr8-5vv4-36mx) 需要两份 JS 配置在同路径包含递归对象图。本项目无 `prisma.config.*`／package.json Prisma 对象，schema 文本／数据库内容不产生此输入；若新增可执行配置需重新评估，不能称版本已修复。
-- ExcelJS 4.4.0 [只导入零参数 uuid.v4](https://github.com/exceljs/exceljs/blob/v4.4.0/lib/xlsx/xform/sheet/cf-ext/cf-rule-ext-xform.js)，用于写出条件格式 ID；[GHSA-w5hq-g745-h8pq](https://github.com/uuidjs/uuid/security/advisories/GHSA-w5hq-g745-h8pq) 影响 v3／v5／v6 的 caller buffer 写入，不影响该实际调用或普通 xlsx 读取。保留 uuid 8.3.2；ZIP／公式／资源限额仍必须实施，不能视此分析为整个 ExcelJS 已安全。
+- Prisma 6.19.3 配置层的 deepmerge-ts 从 7.1.5 升到 8.0.2，修复 [GHSA-ggr8-5vv4-36mx](https://github.com/RebeccaStevens/deepmerge-ts/security/advisories/GHSA-ggr8-5vv4-36mx)。保留 Prisma6，已回归 client generate、真实迁移与 seed 测试；没有可执行 Prisma 配置的现有边界不变。
+- ExcelJS 4.4.0 的 uuid 从 8.3.2 升到仍提供 CommonJS 的 11.1.1，修复 [GHSA-w5hq-g745-h8pq](https://github.com/uuidjs/uuid/security/advisories/GHSA-w5hq-g745-h8pq)。ExcelJS 的零参数 uuid.v4 路径已通过条件格式导出／导入复验，真实 xlsx 业务测试亦通过；ZIP／公式／资源限额仍必须实施，不能视版本升级为整个 ExcelJS 已安全。
 
-esbuild 的 Windows `serve/servedir` 文件读取问题通过兼容的 tsx 4.23.15→esbuild 0.28.x 更新修复，Vite 7.3.6 自身也允许 0.28；不全局强制旧 tsx 跨范围 override。`npm audit` 仍报 Prisma／deepmerge-ts 和 ExcelJS／uuid 的五个依赖树条目（3 high、2 moderate），并非零风险或五个独立可达操作。后续升级需回归真实迁移、xlsx 与各 app 构建。
+esbuild 的 Windows `serve/servedir` 文件读取问题通过兼容的 tsx 4.23.15→esbuild 0.28.x 更新修复，Vite 7.3.6 自身也允许 0.28；不全局强制旧 tsx 跨范围 override。本次 `npm ci`、`npm audit --package-lock-only --audit-level=high` 为 0 vulnerabilities，完整 `make ci` 为 134 tests passed／全部构建通过；扫描结果只反映当时已知漏洞，不代表零风险。详见 [检查修复 history](histories/2026-10/20261005-merge-checks.md)。
 
 Vitest 已从有 redirect-mock 文件读取问题的 3.x 升到修复版本 4.1.11；若旧消费者仍报告 Vitest 漏洞，应更新根 lock 并 `npm ci`。npm 10 在从旧 Vitest lock 升级时曾遇 Arborist peer-resolution bug，本次用 npm 11.16.0 生成兼容 v3 lock 后，npm 10.9.9 的 `npm ci` 已验证；未来依赖升级可使用该命令生成 lock，但安装仍以 checked-in lock 为准。
