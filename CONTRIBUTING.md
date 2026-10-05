@@ -13,7 +13,7 @@
 
 ## 分支与提交
 
-按 `docs/GIT_WORKFLOW.md` 执行：主干开发，`<type>/<需求编号>-<slug>` 命名分支，Conventional Commits 提交信息，squash merge 合入 `main`。
+按 `docs/GIT_WORKFLOW.md` 执行：主干开发，新任务用 `<type>/<member>/<需求编号>-<slug>` 命名分支，Conventional Commits 提交信息，通过 PR 使用保留原提交的 merge commit 合入 `main`，不使用 squash／rebase merge。成员拥有各自的短期任务分支，不设长期个人分支；旧格式分支保留。
 
 ## 完成定义（Definition of Done）
 
