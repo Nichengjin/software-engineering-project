@@ -20,7 +20,7 @@
 | 4a 外部模拟 | 依赖步骤 2，可并行 | 独立 HTTP／文件状态／故障控制；41 项 HTTP 测试通过 | [模拟说明](../../SIMULATORS.md)，已与后端真实 HTTP 联测 |
 | 4b 后端 UC-01—14 | 依赖步骤 3 | 全部契约路由、真实事务／恢复／xlsx／补选已实现；36 项自测通过 | [后端详细设计](../../design-docs/backend-detail.md)；独立验收待办 |
 | 4c 前端 UC-01—14 | 依赖 steps 2—3 | 三角色页面、确认／错误／空态、版本保护／轮询；8 项测试及三角色浏览器检查 | [前端说明](../../FRONTEND.md)；完整浏览器 AC／NFR 待独立执行 |
-| 4d 集成与自查 | 依赖 3、4a—c 精确文件传输 | 本线程 `make ci`：10 文件／108 tests、strict typecheck、全部 app build；真实浏览器→API→PG→模拟完成 | [本轮 history](../../histories/2026-10/20261005-0312-system-design.md)；本地未提交／推送／合入／部署 |
+| 4d 集成与自查 | 依赖 3、4a—c 精确文件传输 | 本线程 `make ci`：10 文件／108 tests、strict typecheck、全部 app build；真实浏览器→API→PG→模拟完成 | [实现 history](../../histories/2026-10/20261005-0312-system-design.md)；后续已按 [分支计划](2026-10-05-collaboration-history.md) 保存本地提交并复验，未推送／正式合入／部署 |
 | 后续：独立验收与交付 | 依赖实现候选 | [TEST_PLAN](../../TEST_PLAN.md)、[64 条用例](../../testing/acceptance-cases.md) 已准备，独立结果未产生 | 冯海伦执行功能／性能／故障／权限／跨浏览器；团队评审、授权后的 PR／发布 |
 
 - [x] 核对指定基点和导航，需求 v0.6／OOA v0.3 不改。

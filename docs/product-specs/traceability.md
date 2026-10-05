@@ -16,7 +16,7 @@
 
 | 需求 | Spec | 迭代 | ADR / Plan | PR | 独立验收设计 | 独立验收／文档检查证据 | 发布 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| US-002 | [开发计划](../PROJECT_DEVELOPMENT_PLAN.md)、[团队分工](../TEAM_ROLES.md) | IT-01 | 同 Spec | 未创建 | 计划第 8 节团队评审 | 待评审 | 未发布 |
+| US-002 | [开发计划](../PROJECT_DEVELOPMENT_PLAN.md)、[团队分工](../TEAM_ROLES.md) | IT-01 | [本地提交与分支](../exec-plans/active/2026-10-05-collaboration-history.md) | 未创建 | 计划第 8 节团队评审 | [集中拆分与检查记录](../histories/2026-10/20261005-1249-collaboration-workflow.md)；团队评审待办 | 未发布 |
 | US-003 | [需求分析](../REQUIREMENTS_ANALYSIS.md) | IT-01 | [开发计划](../PROJECT_DEVELOPMENT_PLAN.md) | 未创建 | 需求分析第 12.3 节文档验收 | 待评审 | 未发布 |
 | US-019 | [选型记录](../design-docs/adr/ADR-001-technology-stack.md) | IT-01 | ADR-001 | 未创建 | ADR-001 文档验收条件，含 Router／Start 取舍 | [文档检查记录](../histories/2026-09/20260922-1420-technology-stack.md)；待合入 | 未发布 |
 | US-020 | [课件文字与索引](../lecture-notes/README.md) | IT-01 | 无新增架构决定 | 未创建 | 课件索引中的 US-020 验收条件 | [资料校验记录](../histories/2026-09/20260922-1535-courseware-text.md)；待合入 | 未发布 |
