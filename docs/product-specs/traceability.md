@@ -87,3 +87,9 @@
 初期远程检查与设置阻断记入 [协作 history](../histories/2026-10/20261005-1249-collaboration-workflow.md)。检查修复、依赖升级、授课历史时钟复现与 134 项完整开发回归见 [检查 history](../histories/2026-10/20261005-merge-checks.md)。集中合入不补造成员审批；独立验收与发布证据仍待实际执行。
 
 US-002 成员说明及 Agent 指令随 [PR #23](https://github.com/Nichengjin/software-engineering-project/pull/23) 提供：[成员入口](../member-guides/README.md)。历史 [接手脚本](../../scripts/member-pr.mjs) 与 [25 项模拟测试](../../scripts/member-pr.test.ts) 保留但本轮不执行 `--apply`；未来真实新工作从最新 main 新分支开始。设置已确认默认 main／仅 merge commit，上表保留原 PR，不预填成员替代编号或审批结果。
+
+## 2026-10-05 合入确认
+
+上表现有 #6—23 已全部通过 merge commit 合入 main；GitHub API 的 18 个 `mergedAt` 与主线双亲节点逐项核对通过，原 30 个普通提交完整保留，详见 [实际合入记录](../exec-plans/active/2026-10-05-collaboration-history.md#10-实际合入确认)。US-002 的成员指南随 #23 合入，US-027 的检查修复分布于 #6／7／22／23；其余需求仍按上表对应 PR 追溯。
+
+完整 [远程 CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37324793707) 包含 134 tests、真实 PG15、strict typecheck、所有 app build；[供应链检查](https://github.com/Nichengjin/software-engineering-project/actions/runs/37324793608) 通过。US-018 独立验收、团队评审与发布仍未执行，需求不因合入自动变为“完成”。
