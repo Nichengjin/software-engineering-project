@@ -5,7 +5,7 @@ CI 已接入 npm workspaces／Node 22／TypeScript／Vitest／真实 PostgreSQL 
 ## 默认包含的内容
 
 - `ci.yml`：PR／main 使用 SHA 固定的 checkout／setup-node，`npm ci`；disposable PG15 service 后运行 `scripts/ci.sh`，保留 docs、hygiene、shell／Action pinning，加 Prisma generate／test migrations、strict typecheck、全量 Vitest 和三个 app build；Markdown 排除 node_modules。
-- `supply-chain-security.yml`：在 PR 上做依赖变更检查，并在 PR、定时任务和手动触发时运行 OSV 扫描。
+- `supply-chain-security.yml`：public PR 使用 Dependency Review；本 private 仓库缺少该能力，使用全量 lockfile 的 npm high／critical 门禁，见 [供应链边界](SUPPLY_CHAIN_SECURITY.md)。保留 PR、定时任务和手动触发的 OSV 全量扫描，不静默放过扫描失败。
 - `release.yml`：推送 `v*` tag 时自动触发，也支持手动触发。打包仓库级制品、生成 SBOM 和 provenance，并创建 GitHub Release，自动生成 release notes。
 - `dependabot.yml`：每周一为 GitHub Actions 提升级 PR。接入技术栈后追加对应的依赖生态。
 
@@ -28,7 +28,7 @@ CI 已接入 npm workspaces／Node 22／TypeScript／Vitest／真实 PostgreSQL 
 
 CI 的 `wylie_test` 是 runner 专用临时数据库，只在隔离 runner 中使用 trust 身份验证，没有共享密码或持久化卷；开发／演示 PG 则生成随机 SCRAM 密码且只绑定 loopback。workflow 的 `DATABASE_URL` 只用于测试隔离比较，CI 不迁移、seed 或 reset 开发／生产库。测试缺 PG 不 skip，数据库失败应让 job 红。
 
-当前底座已本地验证 locked install、Prisma client、PG15 迁移与集成测试；GitHub workflow 尚未远程执行，不能把本地通过记为 GitHub CI 通过。完整 app build／业务测试需先集成对应 app 源码，入口缺失会显式失败。
+当前完整候选已本地验证 locked install、Prisma client、PG15 迁移、134 项测试、strict typecheck 与全部应用构建。GitHub 检查已实际运行；合入前逐项核对当前 head 的检查，早期阶段的基础 CI 不等于 #23 的完整业务 CI。远程结果以具体 run 为准，不能把本地通过记为 GitHub CI 通过。
 
 ## 推荐接入顺序
 

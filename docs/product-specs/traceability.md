@@ -64,9 +64,9 @@
 
 源码中的后端用例名和 AC 分组说明见 [后端详细设计第 7 节](../design-docs/backend-detail.md#7-实测命令覆盖与尚未验收事项)。一个开发测试可能覆盖多个规则，不能将 108 个测试数直接换算为 64 条 AC 的验收通过率。
 
-## 2026-10-05 后续授权的真实 PR 映射（均未合入）
+## 2026-10-05 后续授权的真实 PR 映射（创建时均未合入）
 
-以下只登记与需求直接相关的任务，不把所有祖先提交重复算为本 PR 的新增贡献。集成入口和完整 CI 分别见 #22、#23，依赖顺序见 [分支计划第 8 节](../exec-plans/active/2026-10-05-collaboration-history.md#8-已创建的真实-pr-与远程限制)。除 #6 待审外，其余均为草稿；远程检查有失败，未更新需求为完成。
+以下只登记与需求直接相关的任务，不把所有祖先提交重复算为本 PR 的新增贡献。集成入口和完整 CI 分别见 #22、#23，依赖顺序见 [分支计划第 8 节](../exec-plans/active/2026-10-05-collaboration-history.md#8-已创建的真实-pr-与远程限制)。创建阶段除 #6 待审外其余均为草稿、检查有失败；最新决定改为组长集中使用原 PR 合入，不创建替代编号。实际合入以各链接的 `mergedAt` 及执行记录为准，未因集成而将需求改为独立验收完成。
 
 | 需求 | 已创建 PR |
 | --- | --- |
@@ -84,6 +84,6 @@
 | US-021 | [#18 窗口页面](https://github.com/Nichengjin/software-engineering-project/pull/18)、[#22 写事务入口](https://github.com/Nichengjin/software-engineering-project/pull/22) |
 | US-018 独立验收 | 仍未创建，开发测试和初稿用例不替代独立实测 |
 
-远程检查与设置阻断记入 [协作 history](../histories/2026-10/20261005-1249-collaboration-workflow.md)。没有审批、合并或发布结果，合入时仍须更新正式验收与发布证据。
+初期远程检查与设置阻断记入 [协作 history](../histories/2026-10/20261005-1249-collaboration-workflow.md)。检查修复、依赖升级、授课历史时钟复现与 134 项完整开发回归见 [检查 history](../histories/2026-10/20261005-merge-checks.md)。集中合入不补造成员审批；独立验收与发布证据仍待实际执行。
 
-US-002 成员接手工具随 [PR #23](https://github.com/Nichengjin/software-engineering-project/pull/23) 分支提供：[逐人说明](../GIT_WORKFLOW.md#成员脚本本人创建替代-pr)、[脚本](../../scripts/member-pr.mjs)、[25 项模拟测试](../../scripts/member-pr.test.ts)。设置已确认默认 main／仅 merge commit；脚本尚未由成员执行，上表仍记录原 PR，不预填替代编号或审批结果。
+US-002 成员说明及 Agent 指令随 [PR #23](https://github.com/Nichengjin/software-engineering-project/pull/23) 提供：[成员入口](../member-guides/README.md)。历史 [接手脚本](../../scripts/member-pr.mjs) 与 [25 项模拟测试](../../scripts/member-pr.test.ts) 保留但本轮不执行 `--apply`；未来真实新工作从最新 main 新分支开始。设置已确认默认 main／仅 merge commit，上表保留原 PR，不预填成员替代编号或审批结果。

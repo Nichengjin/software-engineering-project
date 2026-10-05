@@ -1,6 +1,6 @@
 # 架构总览
 
-这份文档描述仓库顶层结构。技术栈已于 2026-09-22 确定；2026-10-05 US-026 形成 [总体设计](design-docs/system-design.md)、[HTTP／DTO 契约](design-docs/api-contract.md) 和 [9 张原生 UML 图](design-docs/design-models.md)。US-027 与业务模块已形成本地实现候选，实际自测与集成进度见 [执行计划](exec-plans/active/2026-10-05-delivery-execution.md)；团队评审、独立验收与合入未完成。
+这份文档描述仓库顶层结构。技术栈已于 2026-09-22 确定；2026-10-05 US-026 形成 [总体设计](design-docs/system-design.md)、[HTTP／DTO 契约](design-docs/api-contract.md) 和 [9 张原生 UML 图](design-docs/design-models.md)。US-027 与业务模块已形成实现候选，实际自测见 [执行计划](exec-plans/active/2026-10-05-delivery-execution.md)，集中主线合入进度见 [协作记录](exec-plans/active/2026-10-05-collaboration-history.md)；团队评审、独立验收与发布仍未完成。
 
 ## 已确定的技术栈
 

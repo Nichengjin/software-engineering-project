@@ -15,7 +15,9 @@
 
 当前成果的 [提交与分支计划](exec-plans/active/2026-10-05-collaboration-history.md) 对应 US-002／IT-01，跨 IT-02—04 执行；其中编号是规划标识，不代表已创建的 GitHub PR。分支属主不自动等于每条提交作者。
 
-2026-10-05 后续授权执行：远程 `main` 已从现有分析基线建立，18 条任务分支已推送，PR #6—23 均指向 main（首个待审，其余草稿）。初次 API 修改设置返回 403；用户手动调整后已读回确认：默认 main，只允许 merge commit。真实 PR 与工作包映射见上述计划第 8 节；尚无正式合入。成员替代 PR 使用下方脚本，由成员本人执行后登记新编号。
+2026-10-05 后续授权执行：远程 `main` 已从现有分析基线建立，18 条任务分支已推送，PR #6—23 均指向 main。初次 API 修改设置返回 403；用户手动调整后已读回确认：默认 main，只允许 merge commit。真实 PR 与工作包映射见上述计划第 8 节，合入状态以实时 GitHub `mergedAt` 和执行记录为准。
+
+最新决定是成员本轮无法参与，由组长集中处理**现有** #6—23，严格按 #6、#7……#23 的数字顺序使用 merge commit。不得为本轮创建替代／成员 PR，不得借成员姓名伪造认证、审批、独立开发或测试。保留已有提交 Author、Committer、日期与 AI 来源。
 
 ## 提交信息
 
@@ -53,47 +55,11 @@ Git 本地可以用 `git merge --no-ff <branch>` 创建同样的合并拓扑，�
 
 ## 成员脚本：本人创建替代 PR
 
-关联 US-002／IT-01。共用 [member-pr.mjs](../scripts/member-pr.mjs)，用成员标识选择各自任务；无需复制六份逻辑。准备 Node.js 22.12+、Git 和近期版本 GitHub CLI `gh`，成员先接受本仓库 **Write** 协作者邀请，并以自己的账号登录 `gh auth login --hostname github.com`。Git 中的姓名／邮箱不能代替 GitHub 登录，也不需要把 token 或密码填进脚本。
+本节为历史可选机制，当前停用。2026-10-05 曾准备 [member-pr.mjs](../scripts/member-pr.mjs)，供原 PR 创建者不是任务成员时，由成员本人认证后创建指向相同提交的替代 Draft PR，再关联并关闭原 PR。它只服务这批**原 PR 的一次性交接**，不提交代码、不审批、不合并，也不是未来功能开发的自动化工具。其模拟测试为 `npm test -- scripts/member-pr.test.ts`。
 
-脚本通过 GitHub API 创建指向已有提交的远程分支引用，等效于把相同提交推到新分支；不需要 npm install、数据库、压缩包，不操作本地 Git 工作区，不重新 commit 或更改 Git 身份。仅检查明确填写的 `--login` 与真实登录相同；姓名与 GitHub 账号的对应仍由成员和组长核对，不靠猜测邮箱。
+该方案已被最新决定取代：本轮组长直接集中处理现有 #6—23，任何人都不得运行 `--apply`、创建 `-member-pr` 分支或重复 PR。保留本节只是如实记录曾存在的可选机制，不是当前操作清单。
 
-### 第一次获取脚本与预览
-
-在成员自己的电脑上打开终端；下例适用于 macOS／Linux／Windows PowerShell 或 Git Bash。使用一个尚不存在的新目录，避免干扰已有项目。脚本随 PR #23 分支提供，尚未进入 main，从下方分支获取：
-
-```sh
-gh repo clone Nichengjin/software-engineering-project wylie-handoff -- --branch ci/fanzhao/us-027-checks
-```
-
-进入新建的 `wylie-handoff` 目录后，按本人这一行运行。`YOUR_LOGIN` 必须替换为本人真实 GitHub 用户名，不是表里的成员标识：
-
-| 成员 | 预览命令 | 当前任务／旧 PR |
-| --- | --- | --- |
-| 倪成锦 | `node scripts/member-pr.mjs nichengjin --login Nichengjin` | #6、8、10、13、14、20、22 已由本人账号创建，保留原 PR |
-| 浩宇 | `node scripts/member-pr.mjs haoyu --login YOUR_LOGIN` | P03b #11、P05b #16 |
-| 马喆 | `node scripts/member-pr.mjs mazhe --login YOUR_LOGIN` | P06 #15 |
-| 冯海洋 | `node scripts/member-pr.mjs fenghaiyang --login YOUR_LOGIN` | P07a #17、P07b #18、P08c #21 |
-| 范昭 | `node scripts/member-pr.mjs fanzhao --login YOUR_LOGIN` | P02a #7、P02c #9、P04a #12、P08b #19、P09a #23 |
-| 冯海伦 | `node scripts/member-pr.mjs fenghailun` | 无待替换 PR，只提示独立验收安排；不伪造用例／报告 |
-
-默认只发 GET 请求，不创建、关闭或修改任何远程对象。成员检查预览列出的任务与提交，再在同一命令后加 `--apply` 执行。可加 `--task P03b` 只处理一项；建议先处理一项核对后再批量。示例：
-
-```sh
-node scripts/member-pr.mjs haoyu --login YOUR_LOGIN --task P03b
-node scripts/member-pr.mjs haoyu --login YOUR_LOGIN --task P03b --apply
-```
-
-### 执行效果、失败与后续修改
-
-- 同一 head／base 不能同时创建两份开放 PR，脚本使用 `<原分支>-member-pr`，提交 SHA、作者、时间和依赖图保持不变。新 PR 由当前认证成员创建，始终为 **Draft**，复制原说明为历史附件并注明接手来源；不宣称本人已审核或独立开发。
-- 顺序为：检查身份／权限／原 PR → 建接手引用 → 建新 PR → 读回核对作者、仓库、版本和标记 → 在旧 PR 留替代链接 → 关闭旧 PR。原 PR 不删除、原分支不删除，评论／审批／检查不迁移成新 PR 的通过记录。
-- 默认最多替换所选成员的全部已准备任务；错误立即停止，已完成的任务保留。请求失败或响应丢失后先重跑预览，再用同一命令继续；已有同账号、同版本、同标记的新 PR 会复用，评论会去重，不重建。已有不同作者／提交／状态则停止人工核对，绝不强推。
-- 执行期间不要让其他人修改、合并这些原分支或接手分支。脚本多次读回版本，但 GitHub 的创建／评论／关闭不是一个原子事务，不能保证阻止最后一次读取后的所有并发操作；发生变化时由组长协调。新 PR 已创建但关闭权限不足时，旧 PR 保持开放，组长核对替代链接后再处理。
-- 各成员可以独立创建草稿，不必等待前置合入。合并仍按工作包依赖排序；关闭旧 PR **不等于前置已合入**，组长须更新 [任务索引](exec-plans/active/2026-10-05-collaboration-history.md#8-已创建的真实-pr-与远程限制) 和追溯矩阵。原 PR 的成员接手评论及新 PR 的“前置”链接用于找到替代编号。
-- 脚本不自动拉取源码到其他目录、做业务测试、创建后续修改、审批、转为待审、合并或发布。接手后保留 `wylie-handoff` 作为脚本副本；需要修改代码时另开开发 clone，在其中执行 `gh pr checkout 新PR编号`，实际检查／修改／测试后按正常流程 commit、push。不要在脚本副本中 checkout 早期任务分支，否则该分支可能没有脚本。
-- 冯海伦从 [测试计划](TEST_PLAN.md) 与 [开发说明](DEVELOPMENT.md) 开始独立执行，有真实用例／报告变更后再建自己的测试分支和 PR；当前脚本不提前创建未来 P10／P11 的空分支。
-
-测试：`npm test -- scripts/member-pr.test.ts`，模拟 GitHub 写入、响应丢失与重跑；真实成员账号的写入流程须由成员运行，不能用组长账号代测其身份。现有 CI／依赖阻断并未因接手而解除，成员执行会正常触发新 PR 检查。
+未来实际新工作必须从最新 `main` 新建正常任务分支，先有需求与迭代，再做真实修改、验证、history、commit 和 push，最后由本人认证账号创建 Draft PR。没有新任务不造提交或 PR；姓名、Git Author 或分工表不能替代 GitHub 登录和人类许可。新人入口及 PowerShell 示例见 [成员指南](member-guides/README.md)。冯海伦的独立验收仍须实际执行并记录，不能由脚本或开发自测替代。
 
 ## 版本号与发布
 
