@@ -12,3 +12,9 @@
 Prisma6 配置层的 deepmerge-ts 升至 8.0.2，ExcelJS 的 uuid 升至仍提供 CommonJS 的 11.1.1；使用按消费者限定的 overrides，不全局覆写其他消费者、不升级 Prisma 主版本。两者分别修复 GHSA-ggr8-5vv4-36mx／GHSA-w5hq-g745-h8pq，许可证仍为 BSD-3-Clause／MIT。npm10 的首次 lock-only install 没有更新既有嵌套版本，`npm ls` 正确拒绝；使用定向 `npm update deepmerge-ts uuid --package-lock-only --ignore-scripts` 后重新 locked install。
 
 `npm ci` 与 `npm audit --package-lock-only --audit-level=high` 为 0 vulnerabilities，`npm ls` 核对实际版本。ExcelJS 创建 dataBar 条件格式并写出／重新读取，精确断言文本、数值与规则类型通过，覆盖原 uuid.v4 的实际调用。完整业务回归的授课时间问题另行复现修复，不以审计通过代替业务测试。
+
+## 授课历史时钟复现与修复
+
+首次完整回归 130 passed／3 failed：TeachingHistory.createdAt 默认取数据库真实时间，但结束取 Runtime 的业务时钟，固定测试时间早于真实时钟时违反 time_order 约束。补充 AC14／51 回归，精确断言首次开始、七秒后取消、十一秒后重新选择的新历史；修复前实际红于 createdAt 不等于独立期望值。创建记录显式使用 `rt.now(tx)`，不改时钟、测试日期或 SQL 约束来掩盖问题。
+
+修复后 Node22.23.3 的 `make ci`：11 files／134 tests passed，真实 PostgreSQL15 迁移、strict typecheck、所有应用构建通过；这仍是开发自测，不是成员独立验收。首次使用 `npx --call` 包装 Node22 使 npm_config_call 泄漏到嵌套 npm exec，改为直接将已下载 Node22 加入 PATH 后完成复验，没有改业务命令绕过检查。

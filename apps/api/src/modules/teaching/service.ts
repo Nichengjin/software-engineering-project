@@ -42,7 +42,7 @@ export class TeachingService {
         }
         for (const o of selected.filter(o => !current.some(c => c.externalOfferingId === o.id))) {
           await tx.offering.update({ where: { externalOfferingId: o.id }, data: { professorId } });
-          await tx.teachingHistory.create({ data: { professorId, offeringId: o.id } });
+          await tx.teachingHistory.create({ data: { professorId, offeringId: o.id, createdAt: await this.rt.now(tx) } });
         }
         await tx.teachingVersion.upsert({ where: { professorId_termId: { professorId, termId } }, create: { professorId, termId, version: 1 }, update: { version: { increment: 1 } } });
         await this.rt.audit(tx, actor, 'teaching.replace', 'Professor', professorId);
