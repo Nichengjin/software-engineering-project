@@ -22,9 +22,29 @@ jobs:
           persist-credentials: false
 
       - name: 依赖变更审查
+        if: '!github.event.repository.private'
         uses: actions/dependency-review-action@2031cfc080254a8a887f58cffee85186f0e49e48 # v4.9.0
         with:
           config-file: .github/dependency-review-config.yml
+
+      # This private repository lacks the Dependency Review API entitlement.
+      # Audit the entire locked tree instead; errors and high findings fail.
+      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+        if: github.event.repository.private
+        with:
+          node-version: '22'
+
+      - name: 私有仓库锁文件审计
+        if: github.event.repository.private
+        run: |
+          if test -f package-lock.json; then
+            npm audit --package-lock-only --audit-level=high
+          elif test -f package.json; then
+            echo 'Dependency manifest exists without a lockfile' >&2
+            exit 1
+          else
+            echo 'Analysis-only revision: no npm dependency manifest to audit'
+          fi
 
   osv-scan:
     runs-on: ubuntu-latest
