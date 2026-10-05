@@ -1,0 +1,716 @@
+{
+  "catalogs": [
+    {
+      "termId": "10000000-0000-4000-8000-000000000001",
+      "courses": [
+        {
+          "id": "MATH101",
+          "name": "离散数学",
+          "department": "科学部",
+          "credits": "3.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "PHYS101",
+          "name": "基础物理",
+          "department": "科学部",
+          "credits": "4.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "CS201",
+          "name": "算法设计",
+          "department": "科学部",
+          "credits": "3.50",
+          "prerequisiteCourseIds": [
+            "MATH101"
+          ]
+        },
+        {
+          "id": "ART101",
+          "name": "视觉艺术",
+          "department": "人文部",
+          "credits": "2.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "HIST101",
+          "name": "世界历史",
+          "department": "人文部",
+          "credits": "3.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "WRITE101",
+          "name": "学术写作",
+          "department": "人文部",
+          "credits": "2.50",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "MUSIC101",
+          "name": "音乐欣赏",
+          "department": "人文部",
+          "credits": "2.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "BIO101",
+          "name": "生物概论",
+          "department": "科学部",
+          "credits": "4.00",
+          "prerequisiteCourseIds": []
+        }
+      ],
+      "offerings": [
+        {
+          "id": "T1-MATH101-A",
+          "courseId": "MATH101",
+          "termId": "10000000-0000-4000-8000-000000000001",
+          "meetings": [
+            {
+              "dayOfWeek": 1,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2025-09-01",
+              "throughDate": "2026-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T1-PHYS101-A",
+          "courseId": "PHYS101",
+          "termId": "10000000-0000-4000-8000-000000000001",
+          "meetings": [
+            {
+              "dayOfWeek": 2,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2025-09-01",
+              "throughDate": "2026-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T1-CS201-A",
+          "courseId": "CS201",
+          "termId": "10000000-0000-4000-8000-000000000001",
+          "meetings": [
+            {
+              "dayOfWeek": 3,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2025-09-01",
+              "throughDate": "2026-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T1-ART101-A",
+          "courseId": "ART101",
+          "termId": "10000000-0000-4000-8000-000000000001",
+          "meetings": [
+            {
+              "dayOfWeek": 4,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2025-09-01",
+              "throughDate": "2026-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T1-HIST101-A",
+          "courseId": "HIST101",
+          "termId": "10000000-0000-4000-8000-000000000001",
+          "meetings": [
+            {
+              "dayOfWeek": 5,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2025-09-01",
+              "throughDate": "2026-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T1-WRITE101-A",
+          "courseId": "WRITE101",
+          "termId": "10000000-0000-4000-8000-000000000001",
+          "meetings": [
+            {
+              "dayOfWeek": 1,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2025-09-01",
+              "throughDate": "2026-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T1-MUSIC101-A",
+          "courseId": "MUSIC101",
+          "termId": "10000000-0000-4000-8000-000000000001",
+          "meetings": [
+            {
+              "dayOfWeek": 2,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2025-09-01",
+              "throughDate": "2026-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T1-BIO101-A",
+          "courseId": "BIO101",
+          "termId": "10000000-0000-4000-8000-000000000001",
+          "meetings": [
+            {
+              "dayOfWeek": 3,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2025-09-01",
+              "throughDate": "2026-01-15"
+            }
+          ]
+        }
+      ],
+      "revision": "1"
+    },
+    {
+      "termId": "10000000-0000-4000-8000-000000000002",
+      "courses": [
+        {
+          "id": "MATH101",
+          "name": "离散数学",
+          "department": "科学部",
+          "credits": "3.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "PHYS101",
+          "name": "基础物理",
+          "department": "科学部",
+          "credits": "4.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "CS201",
+          "name": "算法设计",
+          "department": "科学部",
+          "credits": "3.50",
+          "prerequisiteCourseIds": [
+            "MATH101"
+          ]
+        },
+        {
+          "id": "ART101",
+          "name": "视觉艺术",
+          "department": "人文部",
+          "credits": "2.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "HIST101",
+          "name": "世界历史",
+          "department": "人文部",
+          "credits": "3.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "WRITE101",
+          "name": "学术写作",
+          "department": "人文部",
+          "credits": "2.50",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "MUSIC101",
+          "name": "音乐欣赏",
+          "department": "人文部",
+          "credits": "2.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "BIO101",
+          "name": "生物概论",
+          "department": "科学部",
+          "credits": "4.00",
+          "prerequisiteCourseIds": []
+        }
+      ],
+      "offerings": [
+        {
+          "id": "T2-MATH101-A",
+          "courseId": "MATH101",
+          "termId": "10000000-0000-4000-8000-000000000002",
+          "meetings": [
+            {
+              "dayOfWeek": 1,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-02-01",
+              "throughDate": "2026-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T2-PHYS101-A",
+          "courseId": "PHYS101",
+          "termId": "10000000-0000-4000-8000-000000000002",
+          "meetings": [
+            {
+              "dayOfWeek": 2,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-02-01",
+              "throughDate": "2026-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T2-CS201-A",
+          "courseId": "CS201",
+          "termId": "10000000-0000-4000-8000-000000000002",
+          "meetings": [
+            {
+              "dayOfWeek": 3,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-02-01",
+              "throughDate": "2026-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T2-ART101-A",
+          "courseId": "ART101",
+          "termId": "10000000-0000-4000-8000-000000000002",
+          "meetings": [
+            {
+              "dayOfWeek": 4,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-02-01",
+              "throughDate": "2026-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T2-HIST101-A",
+          "courseId": "HIST101",
+          "termId": "10000000-0000-4000-8000-000000000002",
+          "meetings": [
+            {
+              "dayOfWeek": 5,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-02-01",
+              "throughDate": "2026-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T2-WRITE101-A",
+          "courseId": "WRITE101",
+          "termId": "10000000-0000-4000-8000-000000000002",
+          "meetings": [
+            {
+              "dayOfWeek": 1,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2026-02-01",
+              "throughDate": "2026-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T2-MUSIC101-A",
+          "courseId": "MUSIC101",
+          "termId": "10000000-0000-4000-8000-000000000002",
+          "meetings": [
+            {
+              "dayOfWeek": 2,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2026-02-01",
+              "throughDate": "2026-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T2-BIO101-A",
+          "courseId": "BIO101",
+          "termId": "10000000-0000-4000-8000-000000000002",
+          "meetings": [
+            {
+              "dayOfWeek": 3,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2026-02-01",
+              "throughDate": "2026-07-15"
+            }
+          ]
+        }
+      ],
+      "revision": "1"
+    },
+    {
+      "termId": "10000000-0000-4000-8000-000000000003",
+      "courses": [
+        {
+          "id": "MATH101",
+          "name": "离散数学",
+          "department": "科学部",
+          "credits": "3.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "PHYS101",
+          "name": "基础物理",
+          "department": "科学部",
+          "credits": "4.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "CS201",
+          "name": "算法设计",
+          "department": "科学部",
+          "credits": "3.50",
+          "prerequisiteCourseIds": [
+            "MATH101"
+          ]
+        },
+        {
+          "id": "ART101",
+          "name": "视觉艺术",
+          "department": "人文部",
+          "credits": "2.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "HIST101",
+          "name": "世界历史",
+          "department": "人文部",
+          "credits": "3.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "WRITE101",
+          "name": "学术写作",
+          "department": "人文部",
+          "credits": "2.50",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "MUSIC101",
+          "name": "音乐欣赏",
+          "department": "人文部",
+          "credits": "2.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "BIO101",
+          "name": "生物概论",
+          "department": "科学部",
+          "credits": "4.00",
+          "prerequisiteCourseIds": []
+        }
+      ],
+      "offerings": [
+        {
+          "id": "T3-MATH101-A",
+          "courseId": "MATH101",
+          "termId": "10000000-0000-4000-8000-000000000003",
+          "meetings": [
+            {
+              "dayOfWeek": 1,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-09-01",
+              "throughDate": "2027-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T3-PHYS101-A",
+          "courseId": "PHYS101",
+          "termId": "10000000-0000-4000-8000-000000000003",
+          "meetings": [
+            {
+              "dayOfWeek": 2,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-09-01",
+              "throughDate": "2027-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T3-CS201-A",
+          "courseId": "CS201",
+          "termId": "10000000-0000-4000-8000-000000000003",
+          "meetings": [
+            {
+              "dayOfWeek": 3,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-09-01",
+              "throughDate": "2027-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T3-ART101-A",
+          "courseId": "ART101",
+          "termId": "10000000-0000-4000-8000-000000000003",
+          "meetings": [
+            {
+              "dayOfWeek": 4,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-09-01",
+              "throughDate": "2027-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T3-HIST101-A",
+          "courseId": "HIST101",
+          "termId": "10000000-0000-4000-8000-000000000003",
+          "meetings": [
+            {
+              "dayOfWeek": 5,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2026-09-01",
+              "throughDate": "2027-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T3-WRITE101-A",
+          "courseId": "WRITE101",
+          "termId": "10000000-0000-4000-8000-000000000003",
+          "meetings": [
+            {
+              "dayOfWeek": 1,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2026-09-01",
+              "throughDate": "2027-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T3-MUSIC101-A",
+          "courseId": "MUSIC101",
+          "termId": "10000000-0000-4000-8000-000000000003",
+          "meetings": [
+            {
+              "dayOfWeek": 2,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2026-09-01",
+              "throughDate": "2027-01-15"
+            }
+          ]
+        },
+        {
+          "id": "T3-BIO101-A",
+          "courseId": "BIO101",
+          "termId": "10000000-0000-4000-8000-000000000003",
+          "meetings": [
+            {
+              "dayOfWeek": 3,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2026-09-01",
+              "throughDate": "2027-01-15"
+            }
+          ]
+        }
+      ],
+      "revision": "1"
+    },
+    {
+      "termId": "10000000-0000-4000-8000-000000000004",
+      "courses": [
+        {
+          "id": "MATH101",
+          "name": "离散数学",
+          "department": "科学部",
+          "credits": "3.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "PHYS101",
+          "name": "基础物理",
+          "department": "科学部",
+          "credits": "4.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "CS201",
+          "name": "算法设计",
+          "department": "科学部",
+          "credits": "3.50",
+          "prerequisiteCourseIds": [
+            "MATH101"
+          ]
+        },
+        {
+          "id": "ART101",
+          "name": "视觉艺术",
+          "department": "人文部",
+          "credits": "2.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "HIST101",
+          "name": "世界历史",
+          "department": "人文部",
+          "credits": "3.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "WRITE101",
+          "name": "学术写作",
+          "department": "人文部",
+          "credits": "2.50",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "MUSIC101",
+          "name": "音乐欣赏",
+          "department": "人文部",
+          "credits": "2.00",
+          "prerequisiteCourseIds": []
+        },
+        {
+          "id": "BIO101",
+          "name": "生物概论",
+          "department": "科学部",
+          "credits": "4.00",
+          "prerequisiteCourseIds": []
+        }
+      ],
+      "offerings": [
+        {
+          "id": "T4-MATH101-A",
+          "courseId": "MATH101",
+          "termId": "10000000-0000-4000-8000-000000000004",
+          "meetings": [
+            {
+              "dayOfWeek": 1,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2027-02-01",
+              "throughDate": "2027-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T4-PHYS101-A",
+          "courseId": "PHYS101",
+          "termId": "10000000-0000-4000-8000-000000000004",
+          "meetings": [
+            {
+              "dayOfWeek": 2,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2027-02-01",
+              "throughDate": "2027-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T4-CS201-A",
+          "courseId": "CS201",
+          "termId": "10000000-0000-4000-8000-000000000004",
+          "meetings": [
+            {
+              "dayOfWeek": 3,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2027-02-01",
+              "throughDate": "2027-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T4-ART101-A",
+          "courseId": "ART101",
+          "termId": "10000000-0000-4000-8000-000000000004",
+          "meetings": [
+            {
+              "dayOfWeek": 4,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2027-02-01",
+              "throughDate": "2027-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T4-HIST101-A",
+          "courseId": "HIST101",
+          "termId": "10000000-0000-4000-8000-000000000004",
+          "meetings": [
+            {
+              "dayOfWeek": 5,
+              "startMinute": 540,
+              "endMinute": 630,
+              "fromDate": "2027-02-01",
+              "throughDate": "2027-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T4-WRITE101-A",
+          "courseId": "WRITE101",
+          "termId": "10000000-0000-4000-8000-000000000004",
+          "meetings": [
+            {
+              "dayOfWeek": 1,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2027-02-01",
+              "throughDate": "2027-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T4-MUSIC101-A",
+          "courseId": "MUSIC101",
+          "termId": "10000000-0000-4000-8000-000000000004",
+          "meetings": [
+            {
+              "dayOfWeek": 2,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2027-02-01",
+              "throughDate": "2027-07-15"
+            }
+          ]
+        },
+        {
+          "id": "T4-BIO101-A",
+          "courseId": "BIO101",
+          "termId": "10000000-0000-4000-8000-000000000004",
+          "meetings": [
+            {
+              "dayOfWeek": 3,
+              "startMinute": 840,
+              "endMinute": 930,
+              "fromDate": "2027-02-01",
+              "throughDate": "2027-07-15"
+            }
+          ]
+        }
+      ],
+      "revision": "1"
+    }
+  ]
+}
