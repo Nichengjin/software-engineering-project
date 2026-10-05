@@ -15,7 +15,7 @@
 
 当前成果的 [提交与分支计划](exec-plans/active/2026-10-05-collaboration-history.md) 对应 US-002／IT-01，跨 IT-02—04 执行；其中编号是规划标识，不代表已创建的 GitHub PR。分支属主不自动等于每条提交作者。
 
-2026-10-05 实际核对：远程还没有 `main`，默认分支是 `docs/us-024-object-analysis`。上述主干规则是目标约定；本次仅从现有基线准备本地任务分支，没有擅自建立或改换远程主干。
+2026-10-05 后续授权执行：远程 `main` 已从现有分析基线建立，18 条任务分支已推送，PR #6—23 均指向 main（首个待审，其余草稿）。默认分支仍是 `docs/us-024-object-analysis`；修改设置的 API 返回 403，管理员需手动切换。真实 PR 与工作包映射见上述计划第 8 节；尚无正式合入。
 
 ## 提交信息
 
@@ -45,7 +45,7 @@ Refs: US-001
 
 ### GitHub 配置与本地合并的区别
 
-仓库设置目标为：启用 merge commits、禁用 squash／rebase merge；若规则要求 linear history，需由管理员获授权后调整，否则无法接收 merge commit。保留 PR、评审和 CI 要求。本轮仅修改规范，未修改远程合并选项、规则或保护状态。
+仓库设置目标为：启用 merge commits、禁用 squash／rebase merge；若规则要求 linear history，需由管理员获授权后调整，否则无法接收 merge commit。保留 PR、评审和 CI 要求。本轮尝试修改设置被当前 GitHub 授权拒绝，读回确认三种合并方式仍全部允许；未修改保护规则或成员权限。执行合并时仍须主动选择 Create a merge commit，不得把文档约定误称为已启用的分支保护。
 
 Git 本地可以用 `git merge --no-ff <branch>` 创建同样的合并拓扑，但没有 GitHub PR、审批或 Actions 记录。它只能作为本地集成／预演，不能填成已完成平台 PR，也不绕过正式合入要求。即使分支当时可以快进，`--no-ff` 也会保留合并节点；已合入且无新提交时不会凭空新增节点。
 

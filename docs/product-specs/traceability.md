@@ -10,9 +10,9 @@
 - 发布列填包含该需求的 tag。
 - “验收设计”只引用预期行为；“测试证据”才记录实际执行结果。初稿可先登记对应关系，未合入、未测试、未发布时明确保留待补状态。
 
-## 矩阵
+## 实现候选初稿的验收矩阵
 
-下表保留独立验收状态；开发自测已经执行的证据另见下一节，不把 Agent 自测记成冯海伦验收。
+下表保留初稿时的 PR 记录及独立验收状态；后续已创建 PR 的当前映射见末节，未将创建 PR 等同合入。开发自测已经执行的证据另见下一节，不把 Agent 自测记成冯海伦验收。
 
 | 需求 | Spec | 迭代 | ADR / Plan | PR | 独立验收设计 | 独立验收／文档检查证据 | 发布 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -49,6 +49,8 @@
 
 本地 `make ci` 实际通过：10 文件、108 项测试、strict typecheck、全应用 build。[本轮 history](../histories/2026-10/20261005-0312-system-design.md) 记录真实浏览器／PG／HTTP 模拟联测、发现并修复的问题与限制。全部 PR／发布仍未创建。
 
+上述为实现阶段的状态；后续授权已创建 PR #6—23，见末节。尚未合入或发布，独立验收状态不变。
+
 | 需求 | 测试实现与证据 |
 | --- | --- |
 | US-004、017 | `apps/api/test/rules.test.ts`、`backend.integration.test.ts`：独立 seed 密码盐、持久化 session／CSRF／改密、角色与所有权拒绝；真实三角色 seed 登录与改密 |
@@ -61,3 +63,25 @@
 | US-027 | `packages/db/src/*.integration.test.ts`、`packages/contracts/src/contracts.test.ts`、`scripts/database-url.test.ts`；迁移／约束／随机 seed／隔离库／600 权限；监督 portal 与完整 build |
 
 源码中的后端用例名和 AC 分组说明见 [后端详细设计第 7 节](../design-docs/backend-detail.md#7-实测命令覆盖与尚未验收事项)。一个开发测试可能覆盖多个规则，不能将 108 个测试数直接换算为 64 条 AC 的验收通过率。
+
+## 2026-10-05 后续授权的真实 PR 映射（均未合入）
+
+以下只登记与需求直接相关的任务，不把所有祖先提交重复算为本 PR 的新增贡献。集成入口和完整 CI 分别见 #22、#23，依赖顺序见 [分支计划第 8 节](../exec-plans/active/2026-10-05-collaboration-history.md#8-已创建的真实-pr-与远程限制)。除 #6 待审外，其余均为草稿；远程检查有失败，未更新需求为完成。
+
+| 需求 | 已创建 PR |
+| --- | --- |
+| US-002、025、026 | [#6 计划／设计](https://github.com/Nichengjin/software-engineering-project/pull/6) |
+| US-026、027 | [#8 契约／数据库](https://github.com/Nichengjin/software-engineering-project/pull/8) |
+| US-027 | [#7 workspace](https://github.com/Nichengjin/software-engineering-project/pull/7)、[#9 seed／运行](https://github.com/Nichengjin/software-engineering-project/pull/9)、[#22 集成](https://github.com/Nichengjin/software-engineering-project/pull/22)、[#23 CI／协作记录](https://github.com/Nichengjin/software-engineering-project/pull/23) |
+| US-004、017 | [#10 认证／安全](https://github.com/Nichengjin/software-engineering-project/pull/10)、[#11 登录公共层](https://github.com/Nichengjin/software-engineering-project/pull/11) |
+| US-005 | [#12 目录模拟](https://github.com/Nichengjin/software-engineering-project/pull/12)、[#13 同步](https://github.com/Nichengjin/software-engineering-project/pull/13)、[#16 学生页面](https://github.com/Nichengjin/software-engineering-project/pull/16) |
+| US-006—008 | [#14 课表规则](https://github.com/Nichengjin/software-engineering-project/pull/14)、[#16 学生页面](https://github.com/Nichengjin/software-engineering-project/pull/16) |
+| US-009—011 | [#15 授课／名册／成绩](https://github.com/Nichengjin/software-engineering-project/pull/15) |
+| US-012 | [#16 成绩单页面](https://github.com/Nichengjin/software-engineering-project/pull/16)、[#22 查询入口](https://github.com/Nichengjin/software-engineering-project/pull/22) |
+| US-013、014、023 | [#17 人员与导入](https://github.com/Nichengjin/software-engineering-project/pull/17) |
+| US-015、022 | [#20 关闭／补选事务](https://github.com/Nichengjin/software-engineering-project/pull/20)、[#21 教务操作](https://github.com/Nichengjin/software-engineering-project/pull/21) |
+| US-016 | [#12 计费模拟](https://github.com/Nichengjin/software-engineering-project/pull/12)、[#19 计费发送](https://github.com/Nichengjin/software-engineering-project/pull/19) |
+| US-021 | [#18 窗口页面](https://github.com/Nichengjin/software-engineering-project/pull/18)、[#22 写事务入口](https://github.com/Nichengjin/software-engineering-project/pull/22) |
+| US-018 独立验收 | 仍未创建，开发测试和初稿用例不替代独立实测 |
+
+远程检查与设置阻断记入 [协作 history](../histories/2026-10/20261005-1249-collaboration-workflow.md)。没有审批、合并或发布结果，合入时仍须更新正式验收与发布证据。

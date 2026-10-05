@@ -1,7 +1,7 @@
 # 提交与成员任务分支计划
 
 - 关联 US-002／IT-01 的协作与配置管理约定，执行跨 IT-02—04；不新增业务需求。
-- 状态：2026-10-05 用户随后授权步骤 1；已在隔离 worktree 准备 18 条本地任务分支、27 项实现提交及 3 次依赖合并，收尾另记 1 条文档提交。未推送、创建 PR、合入远程主干或修改远程设置。
+- 状态：2026-10-05 本地步骤 1 完成后，用户进一步授权远程操作；已从分析基线创建远程 `main`、推送 18 条任务分支并创建 PR #6—23。#6 待审，其余为草稿，均以 `main` 为目标；未审批、合并或发布。默认分支／合并选项修改被当前授权拒绝，设置尚未改变。
 - 输入：已完成的 [实现候选](2026-10-05-delivery-execution.md)、用户认可的 31 项提交内容及六人分工。人名／邮箱已由用户提供，邮箱仅登记于 ignored 私有文件，不在本文复制。
 - 本表是后续组织工作和集中提交的计划，不是成员已经完成工作的记录；独立验收与评审仍需实际执行。
 
@@ -11,13 +11,13 @@
 
 每条任务分支计划对应一个 PR，用 merge commit 保留原提交，不 squash、不 rebase merge。原会话中的 P01—P11 是工作包编号；跨属主的工作包拆为 a／b／c 子 PR。最初规划 21 条分支、31 项普通提交；本次只准备已存在的前 27 项，P10／P11a／P11b 及第 28—31 项等待独立测试与复现，未创建空分支或空提交。3 次本地依赖合并不是主干合并或已批准 PR，不与未来正式 PR 合并节点混算。
 
-按用户后续确认采用堆叠分支：允许从尚未合入的前置任务 tip 创建后续分支，保留相同祖先提交；有多条必要前置时在任务分支内合并依赖。本轮 P03a／P04a 从共同底座分叉，P05b／P07a 从教授阶段分叉，不人为构造冲突。正式 PR 仍按依赖分批面向主干发起；前置经 merge commit 合入后，再核对后续 PR 差异。前置审阅发生修改时，同步到所有依赖分支并重新测试。
+按用户后续确认采用堆叠分支：允许从尚未合入的前置任务 tip 创建后续分支，保留相同祖先提交；有多条必要前置时在任务分支内合并依赖。本轮 P03a／P04a 从共同底座分叉，P05b／P07a 从教授阶段分叉，不人为构造冲突。PR 已集中创建，按依赖分批转为待审；前置经 merge commit 合入后，再核对后续 PR 差异。前置审阅发生修改时，同步到所有依赖分支并重新测试。当前后续 PR 的 Files changed 包含尚未合入的前置，不可误当单任务净差异。
 
 ## 2. 分支、属主、依赖和提交归属
 
-“前置”现在记录实际起点及依赖合并，不要求它们已经进入主干。顺序已按源码依赖修正：人员服务依赖课表服务；计费服务先于关闭；完整入口在 P09b，完整 CI 在 P09a。所有 PR 均未创建。远程没有 `main`，目标主干的建立／选择需后续授权，见第 5 节。
+“前置”现在记录实际起点及依赖合并，不要求它们已经进入主干。顺序已按源码依赖修正：人员服务依赖课表服务；计费服务先于关闭；完整入口在 P09b，完整 CI 在 P09a。真实 PR 对照及设置限制见第 8 节。
 
-| PR 规划号 | 任务属主 | 分支（P01—P09 已本地创建） | 提交序号 | 实际起点／依赖 |
+| PR 规划号 | 任务属主 | 分支（P01—P09 已推送） | 提交序号 | 实际起点／依赖 |
 | --- | --- | --- | --- | --- |
 | P01 | 倪成锦 | `docs/nichengjin/us-026-design` | 1—3 | 已有分析／文档基线 |
 | P02a | 范昭 | `chore/fanzhao/us-027-workspace` | 4 | P01 |
@@ -95,7 +95,7 @@ P05b 包含成绩单页面，以已含公共层和教学服务的 P06 为基点�
 
 原本地 `feat/us-026-design-to-implementation` 仍保留候选工作区和未提交文件，未为拆分 checkout／reset。开始拆分前保存完整候选到仅本地恢复引用 `refs/backup/history-candidate-20261005`（不推送）。工作在独立 `history-stage` worktree 完成，保留现有 5 个提交。
 
-`git ls-remote --heads origin main docs/us-024-object-analysis` 实际只返回分析分支；远程默认也指向该分支，没有 `main`。本地任务分支均以既有分析基线为祖先，不擅自创建远程主干。后续推送／发 PR 前，需明确是在该基线上建立 `main`，还是先以现有默认分支为目标；选择与远程操作另获授权。
+本地步骤 1 开始时，`git ls-remote --heads origin main docs/us-024-object-analysis` 只返回分析分支。用户随后授权后，从相同分析基线建立了远程 `main`，而非直接把全部业务推入主干。远程默认仍为分析分支，修改默认分支与合并选项的 API 返回 403，读回确认设置未变；由管理员在 GitHub Settings 完成。
 
 每个分支结束比较预期差异、作者／提交者和验证输出；整合后与原候选逐文件比较，除明确列出的后续改动外应一致。数据库已应用迁移保持字节不变，环境文件、私有邮箱登记、数据库、凭据、模拟状态和临时产物不进入提交。遇到拆分导致依赖断裂，修正边界或停止该分支，不回退损坏原候选；不为增加历史节点重引已修复 bug。
 
@@ -107,7 +107,9 @@ P05b 包含成绩单页面，以已含公共层和教学服务的 P06 为基点�
 - [x] 保留 31 项提交内容，分配 21 条任务分支与依赖；登记私有身份信息。
 - [x] 核对远程无 main，保存本地候选恢复快照并准备隔离拆分环境。
 - [x] 已有第 1—27 项分配到 18 条本地任务分支，逐步检查；整合 tree 与拆分前快照完全相同，随后只更新本文等收尾文档。
-- [ ] 获授权后配置 GitHub merge 选项及必要的规则兼容；真实 PR／评审／合并。
+- [x] 后续获授权创建远程 main、推送 18 条任务分支、创建 18 个真实 PR。
+- [ ] 管理员调整默认分支及 GitHub merge 选项；当前授权不能修改仓库设置。
+- [ ] 处理远程检查失败，成员真实审阅后按依赖顺序 merge commit 合入。
 - [ ] 冯海伦独立验收、缺陷修复／回归和交付复现，记录实际结果。
 
 ## 7. 本地验证证据与查看方式
@@ -128,4 +130,32 @@ git diff refs/backup/history-candidate-20261005 ci/fanzhao/us-027-checks -- apps
 - 3 次必要的本地依赖合并分别为 P04b 接 P04a、P06 接 P03b、P09b 接 P05b；均无冲突，不代表平台批准或主干合并。
 - 本地日志与机器检查记录保留在 ignored `.local/history-staging/`。不推送备份引用、私有登记、日志、测试环境或状态文件。
 
-本轮没有远程 CI／PR 结果。全仓 Markdown 的 176 项既有课程原文问题及依赖审计 3 high／2 moderate 仍是后续 PR 前需要处理或评估的已知限制，不因本地 `make ci` 通过而消失。
+以上为本地拆分阶段结果。全仓 Markdown 的 176 项既有课程原文问题及依赖审计 3 high／2 moderate 仍是合入前需要处理或评估的已知限制，不因本地 `make ci` 通过而消失。
+
+## 8. 已创建的真实 PR 与远程限制
+
+| 工作包 | GitHub PR | 前置工作包 |
+| --- | --- | --- |
+| P01 | [#6](https://github.com/Nichengjin/software-engineering-project/pull/6) | 无，待审 |
+| P02a | [#7](https://github.com/Nichengjin/software-engineering-project/pull/7) | P01 |
+| P02b | [#8](https://github.com/Nichengjin/software-engineering-project/pull/8) | P02a |
+| P02c | [#9](https://github.com/Nichengjin/software-engineering-project/pull/9) | P02b |
+| P03a | [#10](https://github.com/Nichengjin/software-engineering-project/pull/10) | P02c |
+| P03b | [#11](https://github.com/Nichengjin/software-engineering-project/pull/11) | P03a |
+| P04a | [#12](https://github.com/Nichengjin/software-engineering-project/pull/12) | P02c |
+| P04b | [#13](https://github.com/Nichengjin/software-engineering-project/pull/13) | P03a、P04a |
+| P05a | [#14](https://github.com/Nichengjin/software-engineering-project/pull/14) | P04b |
+| P06 | [#15](https://github.com/Nichengjin/software-engineering-project/pull/15) | P05a、P03b |
+| P05b | [#16](https://github.com/Nichengjin/software-engineering-project/pull/16) | P06 |
+| P07a | [#17](https://github.com/Nichengjin/software-engineering-project/pull/17) | P06 |
+| P07b | [#18](https://github.com/Nichengjin/software-engineering-project/pull/18) | P07a |
+| P08b | [#19](https://github.com/Nichengjin/software-engineering-project/pull/19) | P07b |
+| P08a | [#20](https://github.com/Nichengjin/software-engineering-project/pull/20) | P08b |
+| P08c | [#21](https://github.com/Nichengjin/software-engineering-project/pull/21) | P08a |
+| P09b | [#22](https://github.com/Nichengjin/software-engineering-project/pull/22) | P08c、P05b |
+| P09a | [#23](https://github.com/Nichengjin/software-engineering-project/pull/23) | P09b |
+
+- #7—23 均为草稿；全部 PR 由当前认证账号 Nichengjin 集中创建，不是各成员独立发起。GitHub 不允许 PR 创建者批准自己的 PR；当前协作者列表仅有该账号，正式他人审批需成员实际参与。
+- 仅精确推送任务 refs 与新 main；没有推送私有备份 refs、环境、凭据或标签，未操作现有 Dependabot PR #1—5，未强推或部署。
+- 仓库当前允许 merge commit，也仍允许 squash／rebase；默认分支仍是 `docs/us-024-object-analysis`。管理员需把默认分支改为 `main`，保留 merge commit 并关闭 squash／rebase；本次未新增保护规则或成员权限。
+- 远程检查已经实际执行：[#6 CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37269531769) 基础检查通过，但课程原文 Markdown lint 失败；[供应链检查](https://github.com/Nichengjin/software-engineering-project/actions/runs/37269531737) 的 dependency-review 报仓库不支持该能力。完整实现还需结合 #23 的真实检查结果，不据本地结果填远程通过。
