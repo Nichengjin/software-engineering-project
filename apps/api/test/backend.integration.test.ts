@@ -176,6 +176,21 @@ describe('UC01–14 PostgreSQL 持久化开发自测（不替代独立验收）'
     hook = undefined; now = new Date('2026-10-09T23:59:59.999Z'); await application.schedules.write(studentActors[0]!,termId,0,choices(),'SUBMIT');
     now = new Date('2026-10-10T00:00:00Z'); await expect(application.schedules.write(studentActors[0]!,termId,1,choices(),'SAVE')).rejects.toMatchObject({code:'PHASE_FORBIDDEN'});
   });
+  it('AC14/51：授课历史使用同一业务时钟记录开始、取消与重选', async () => {
+    const selected = await db.teachingHistory.findFirstOrThrow({ where: { professorId, offeringId: 'o3' } });
+    expect(selected.createdAt.toISOString()).toBe('2026-10-05T08:00:00.000Z');
+    now = new Date('2026-10-05T08:00:07Z');
+    await application.teaching.write(professor, termId, 1, ['o1', 'o2']);
+    const cancelled = await db.teachingHistory.findUniqueOrThrow({ where: { id: selected.id } });
+    expect(cancelled.endedAt?.toISOString()).toBe('2026-10-05T08:00:07.000Z');
+    expect(await db.teachingHistory.count({ where: { professorId, endedAt: null } })).toBe(2);
+    now = new Date('2026-10-05T08:00:11Z');
+    await application.teaching.write(professor, termId, 2, ['o1', 'o2', 'o3']);
+    const reselected = await db.teachingHistory.findFirstOrThrow({ where: { professorId, offeringId: 'o3', endedAt: null } });
+    expect(reselected.createdAt.toISOString()).toBe('2026-10-05T08:00:11.000Z');
+    expect(reselected.id).not.toBe(selected.id);
+    expect(await db.teachingHistory.count({ where: { professorId, offeringId: 'o3' } })).toBe(2);
+  });
   it('AC14–18/39/51：授课争抢仅一位教授，失败取消也不生效；名册仅已注册', async () => {
     await application.teaching.write(professor,termId,1,['o1','o2']);
     const results = await Promise.allSettled([application.teaching.write(professor,termId,2,['o1','o3']),application.teaching.write(otherProfessor,termId,0,['o3'])]);
