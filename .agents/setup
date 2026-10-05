@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+if ! node -e 'const [major, minor] = process.versions.node.split(".").map(Number); process.exit(major < 22 || (major === 22 && minor < 12) ? 1 : 0)'; then
+  echo 'Node.js 22.12 or newer is required' >&2
+  exit 1
+fi
+echo '[setup] Install locked npm dependencies'
+npm ci
+echo '[setup] Prepare local PostgreSQL 15 (service starts separately)'
+bash scripts/postgres-prepare.sh
+echo '[setup] Generate Prisma client and shared packages'
+npm run db:generate
+npm run build -w @wylie/contracts -w @wylie/db
+echo '[setup] Ready; run amp orb services ensure, then npm run db:migrate and npm run db:seed'

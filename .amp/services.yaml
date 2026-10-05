@@ -1,0 +1,11 @@
+services:
+  postgres:
+    command: bash scripts/postgres-run.sh
+    port: 5432
+  app:
+    command: npm run dev
+    port: 5173
+    health: /
+    portal:
+      title: Wylie College
+      description: Local development system; credentials are in the ignored local demo file.
