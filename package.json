@@ -1,0 +1,32 @@
+{
+  "name": "wylie-college",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.12" },
+  "packageManager": "npm@10.9.9",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env scripts/dev.mjs",
+    "build": "npm run build -w @wylie/contracts -w @wylie/db && npm run build -w @wylie/api -w @wylie/web -w @wylie/simulators",
+    "typecheck": "npm run build -w @wylie/contracts -w @wylie/db && tsc -p tsconfig.json",
+    "test": "node --env-file-if-exists=.env node_modules/vitest/vitest.mjs run",
+    "test:unit": "npm test -- --exclude '**/*.integration.test.ts'",
+    "test:integration": "npm test -- .integration.test",
+    "db:generate": "npm run db:generate -w @wylie/db",
+    "db:migrate": "node --env-file-if-exists=.env scripts/db.mjs migrate",
+    "db:migrate:dev": "node --env-file-if-exists=.env scripts/db.mjs develop",
+    "db:migrate:test": "node --env-file-if-exists=.env scripts/db.mjs test",
+    "db:seed": "node --env-file-if-exists=.env scripts/db.mjs seed",
+    "db:fixtures": "npm run build -w @wylie/contracts && tsx scripts/export-fixtures.ts",
+    "env:local": "node scripts/local-env.mjs",
+    "db:local:prepare": "bash scripts/postgres-prepare.sh",
+    "ci": "bash scripts/ci.sh"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.11",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  }
+}

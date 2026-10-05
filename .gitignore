@@ -46,3 +46,9 @@ venv/
 # Misc generated artifacts
 *.swp
 *.swo
+
+# Local database, generated credentials and Amp portal state
+.local/
+.amp/portals/
+.amp/in/
+*.tsbuildinfo
