@@ -85,3 +85,5 @@
 | US-018 独立验收 | 仍未创建，开发测试和初稿用例不替代独立实测 |
 
 远程检查与设置阻断记入 [协作 history](../histories/2026-10/20261005-1249-collaboration-workflow.md)。没有审批、合并或发布结果，合入时仍须更新正式验收与发布证据。
+
+US-002 成员接手工具随 [PR #23](https://github.com/Nichengjin/software-engineering-project/pull/23) 分支提供：[逐人说明](../GIT_WORKFLOW.md#成员脚本本人创建替代-pr)、[脚本](../../scripts/member-pr.mjs)、[25 项模拟测试](../../scripts/member-pr.test.ts)。设置已确认默认 main／仅 merge commit；脚本尚未由成员执行，上表仍记录原 PR，不预填替代编号或审批结果。
