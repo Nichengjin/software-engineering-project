@@ -9,7 +9,7 @@
 - 数据访问与存储：Prisma + PostgreSQL。
 - 建模工具：StarUML。
 
-决定的依据、边界与后果见 [ADR-001](design-docs/adr/ADR-001-technology-stack.md)、[ADR-002](design-docs/adr/ADR-002-single-instance-consistency.md)。运行选择 Node22 LTS、npm workspaces、Prisma6、PostgreSQL15，一个 API 进程（gate＋数据库锁／事务），独立 HTTP 模拟与文件状态；持久化 session 和同事务 outbox 60 秒重试，明确不支持多实例且性能待测。精确依赖版本由底座锁定。[OOA v0.3](design-docs/object-oriented-analysis.md) 待团队评审；分析类不逐一映射数据库表或模块。
+决定的依据、边界与后果见 [ADR-001](design-docs/adr/ADR-001-technology-stack.md)、[ADR-002](design-docs/adr/ADR-002-single-instance-consistency.md)。运行选择 Node22 LTS、npm workspaces、Prisma6、PostgreSQL15，一个 API 进程（gate＋数据库锁／事务），独立 HTTP 模拟与文件状态；持久化 session 和同事务 outbox 60 秒重试，明确不支持多实例。本机500／2000用户实测及局限见 [测试报告](TEST_REPORT.md)，不视为部署容量认证。精确依赖版本由底座锁定。[OOA v0.3](design-docs/object-oriented-analysis.md) 待团队评审；分析类不逐一映射数据库表或模块。
 
 ## 当前仓库结构
 
@@ -19,6 +19,7 @@
 - `packages/contracts/`、`packages/db/`：Zod DTO／枚举，以及 Prisma schema／迁移／虚构 seed。
 - 根 `compose.yaml`、`.agents/setup`、`.amp/services.yaml`：本地 PostgreSQL、orb 初始化与监督运行。
 - `scripts/`：仓库级自动化脚本，供人和 Agent 直接调用。
+- `tests/acceptance/`、`tests/e2e/`、`tests/load/`：随机独立数据库验收、有限Chrome端到端与负载脚本；不修改产品业务规则，命令见 [测试策略](TESTING.md)。
 - `docs/`：仓库知识库，也是本地规则和上下文的正式来源。
 
 实现目录已经收口：`apps/api`／`apps/web`／`apps/simulators`、`packages/db`／`packages/contracts`，workspace 包名分别为 `@wylie/api`／`@wylie/web`／`@wylie/simulators`／`@wylie/db`／`@wylie/contracts`。API 3000、模拟 3001、Vite 5173 同源 `/api` 代理；部署只暴露 SPA/API 入口。web／simulators 不依赖 db，API 通过 db 的 Prisma client 和 contracts DTO 工作。字段约束、目录权威与恢复协议以总体设计及 API 为准。
