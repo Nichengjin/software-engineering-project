@@ -6,3 +6,4 @@
 | --- | --- | --- | --- |
 | [ADR-001](ADR-001-technology-stack.md) | 采用 React、TanStack Router、Hono、Prisma 与 PostgreSQL | 2026-09-22 | 已接受 |
 | [ADR-002](ADR-002-single-instance-consistency.md) | 单 API 实例、持久化会话及事务 outbox | 2026-10-05 | 已选择供授权执行；团队评审未进行 |
+| [ADR-003](ADR-003-catalog-refresh-generations.md) | 合并尚未开始的目录刷新轮次 | 2026-10-07 | 本地修复候选；未合入、未团队评审 |

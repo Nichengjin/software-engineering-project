@@ -3,14 +3,11 @@ import { writeFile, mkdir } from 'node:fs/promises';
 import { cpus, freemem, hostname, platform, release, totalmem } from 'node:os';
 import { resolve } from 'node:path';
 import { monitorEventLoopDelay, performance } from 'node:perf_hooks';
-import { AsyncLocalStorage } from 'node:async_hooks';
-import type { Server } from 'node:http';
-import { serve } from '@hono/node-server';
 import { Client } from 'pg';
-import { startRuntime } from '../../apps/api/src/runtime/start.js';
 import { activeRegistration } from '../../apps/api/src/runtime/context.js';
 import type { Snapshot } from '../../apps/api/src/runtime/external.js';
 import { createFixture, choices, type Auth } from '../acceptance/fixture.js';
+import { isolatedSimulator, startLoadProcess, type WorkerStats } from './process.js';
 
 type Operation = 'catalog' | 'schedule' | 'save' | 'submit' | 'grades';
 type Sample = { operation: Operation; startedAt: string; durationMs: number; status: number | null; errorCode: string | null; success: boolean; within120s: boolean };
@@ -54,36 +51,16 @@ function loadSnapshot(base: Snapshot, userCount: number): Snapshot {
   return { revision: `load-${userCount}`, termId: base.termId, courses, offerings };
 }
 
-async function listen(fetch: (request: Request) => Response | Promise<Response>) {
-  const server = serve({ fetch, port: 0, hostname: '127.0.0.1' });
-  await new Promise<void>((resolveReady, reject) => { server.once('listening', resolveReady); server.once('error', reject); });
-  const address = server.address(); assert(address && typeof address !== 'string');
-  return { origin: `http://127.0.0.1:${address.port}`, close: () => new Promise<void>((done, reject) => {
-    (server as Server).closeAllConnections(); server.close(error => error ? reject(error) : done());
-  }) };
-}
-
 async function runScale(userCount: number, scaleSeed: number) {
-  const fixture = await createFixture(userCount); let stopRuntime: (() => Promise<void>) | undefined; let http: Awaited<ReturnType<typeof listen>> | undefined;
+  const fixture = await createFixture(userCount, isolatedSimulator);
+  let http: Awaited<ReturnType<typeof startLoadProcess>> | undefined; let apiStats: WorkerStats | undefined;
   const startedWall = new Date(); const setupStarted = performance.now();
   // Optional test-side probes only: no product timeouts, pool sizes or locking change.
   const diagnostic = args.get('diagnostics') === 'true';
-  const stages: Record<string, { durations: number[]; failures: number; active: number; peakActive: number }> = {};
   const errorCauses: Record<string, number> = {};
-  const serverResponses: Record<string, number> = {};
   const databaseSamples: unknown[] = [];
   const loop = monitorEventLoopDelay({ resolution: 20 });
   let probe: Client | undefined; let probeTimer: ReturnType<typeof setInterval> | undefined; let probePending: Promise<void> | undefined;
-  const record = (name: string, duration: number) => {
-    const stage = stages[name] ??= { durations: [], failures: 0, active: 0, peakActive: 0 };
-    stage.durations.push(duration);
-  };
-  const measured = async <T>(name: string, action: () => Promise<T>): Promise<T> => {
-    const stage = stages[name] ??= { durations: [], failures: 0, active: 0, peakActive: 0 };
-    stage.peakActive = Math.max(stage.peakActive, ++stage.active); const start = performance.now();
-    try { return await action(); } catch (error) { stage.failures++; throw error; }
-    finally { stage.active--; record(name, performance.now() - start); }
-  };
   try {
     const snapshot = loadSnapshot(fixture.snapshot, userCount);
     await fixture.control('catalog', { termId: snapshot.termId, courses: snapshot.courses, offerings: snapshot.offerings });
@@ -96,8 +73,8 @@ async function runScale(userCount: number, scaleSeed: number) {
         await tx.registration.createMany({ data: primary.map(offeringId => ({ studentId: fixture.students[index]!.id, offeringId, source: 'SUBMIT' as const })) });
       }
     }, { timeout: 300_000 });
-    stopRuntime = await startRuntime(fixture.application, fixture.url, () => { throw new Error('Runtime leadership lost'); });
-    http = await listen(fixture.application.app.fetch);
+    http = await startLoadProcess({ mode: 'api', url: fixture.url, simulatorUrl: fixture.simulatorUrl,
+      externalToken: fixture.options.externalToken, config: fixture.config, clock: fixture.clock.now.toISOString(), diagnostic });
 
     const auth: Auth[] = new Array(userCount); const loginStarted = performance.now();
     for (let offset = 0; offset < userCount; offset += 25) await Promise.all(fixture.students.slice(offset, offset + 25).map(async (student, delta) => {
@@ -109,24 +86,6 @@ async function runScale(userCount: number, scaleSeed: number) {
     const setupMs = performance.now() - setupStarted; const loginMs = performance.now() - loginStarted;
     if (diagnostic) {
       fixture.logs.length = 0;
-      const { catalog, runtime } = fixture.application;
-      const freshContext = new AsyncLocalStorage<{ calledAt: number }>();
-      const fresh = catalog.fresh.bind(catalog); const external = runtime.external.catalog.bind(runtime.external);
-      const apply = catalog.apply.bind(catalog); const transaction = runtime.transaction.bind(runtime);
-      catalog.fresh = (...parameters) => measured('catalog.fresh.total', () => freshContext.run({ calledAt: performance.now() }, () => fresh(...parameters)));
-      runtime.external.catalog = (...parameters) => {
-        const context = freshContext.getStore();
-        if (context) record('catalog.fresh.queue', performance.now() - context.calledAt);
-        return measured('catalog.external.http', () => external(...parameters));
-      };
-      catalog.apply = (...parameters) => measured('catalog.apply', () => apply(...parameters));
-      runtime.transaction = (termIds, fn) => {
-        const start = performance.now();
-        return measured('transaction.total', () => transaction(termIds, tx => {
-          record('transaction.connectionAndLocks', performance.now() - start);
-          return measured('transaction.body', () => fn(tx));
-        }));
-      };
       probe = new Client({ connectionString: fixture.url, application_name: 'load-diagnostic', statement_timeout: 3000 });
       await probe.connect(); loop.enable();
       const sampleDatabase = async () => {
@@ -147,18 +106,9 @@ async function runScale(userCount: number, scaleSeed: number) {
     type PhaseTiming = { startedAt: string; endedAt: string | undefined; actualMs: number | undefined };
     const runStarted = performance.now(); const warmupTiming: PhaseTiming = { startedAt: new Date().toISOString(), endedAt: undefined, actualMs: undefined }; const phaseTimes: Record<string, PhaseTiming> = { warmup: warmupTiming };
     const cpuStart = process.cpuUsage();
-    const collectLogs = () => {
-      if (diagnostic) for (const entry of fixture.logs) {
-        const key = `${entry.route ?? 'background'}:${entry.status ?? entry.errorCode ?? 'unknown'}`;
-        serverResponses[key] = (serverResponses[key] ?? 0) + 1;
-        if (typeof entry.durationMs === 'number') record(`server.${key}`, entry.durationMs);
-      }
-      fixture.logs.length = 0;
-    };
     const monitor = setInterval(() => {
       activeCurve.push({ atMs: Math.round(performance.now() - runStarted), runningUsers, inFlight, rssBytes: process.memoryUsage().rss, freeMemoryBytes: freemem() });
-      collectLogs();
-      if (activeCurve.length % (diagnostic ? 15 : 60) === 0) console.log(JSON.stringify({ scale: userCount, phase, elapsedSeconds: Math.round((performance.now() - runStarted) / 1000), inFlight, measured: samples.length, ...(diagnostic ? { stages: Object.fromEntries(Object.entries(stages).filter(([name]) => !name.startsWith('server.')).map(([name, stage]) => [name, { active: stage.active, completed: stage.durations.length, lastMs: stage.durations.at(-1), failures: stage.failures }])), errorCauses, database: databaseSamples.at(-1) } : {}) }));
+      if (activeCurve.length % (diagnostic ? 15 : 60) === 0) console.log(JSON.stringify({ scale: userCount, phase, elapsedSeconds: Math.round((performance.now() - runStarted) / 1000), inFlight, measured: samples.length, ...(diagnostic ? { errorCauses, database: databaseSamples.at(-1) } : {}) }));
     }, 1000);
     const choose = (value: number): Operation => value < .40 ? 'catalog' : value < .65 ? 'schedule' : value < .80 ? 'save' : value < .90 ? 'submit' : 'grades';
     const request = async (vu: Vu, operation: Operation) => {
@@ -214,8 +164,8 @@ async function runScale(userCount: number, scaleSeed: number) {
     // before comparing schedules/registrations, not later during fixture disposal.
     const drainStarted = performance.now();
     const drainTiming: PhaseTiming = { startedAt: new Date().toISOString(), endedAt: undefined, actualMs: undefined }; phaseTimes.serverDrain = drainTiming;
-    try { await stopRuntime(); stopRuntime = undefined; }
-    finally { clearInterval(monitor); collectLogs(); }
+    try { apiStats = await http.stop(); }
+    finally { clearInterval(monitor); }
     drainTiming.endedAt = new Date().toISOString(); drainTiming.actualMs = performance.now() - drainStarted;
     activeCurve.push({ atMs: Math.round(performance.now() - runStarted), runningUsers, inFlight, rssBytes: process.memoryUsage().rss, freeMemoryBytes: freemem() });
     const cpu = process.cpuUsage(cpuStart); const wallMs = performance.now() - runStarted;
@@ -237,19 +187,18 @@ async function runScale(userCount: number, scaleSeed: number) {
       scale: userCount, startedAt: startedWall.toISOString(), setupMs, loginMs, workload: { distinctAuthenticatedUsers: userCount, groups, offeringsPerGroup: 6, catalogCourses: snapshot.courses.length, catalogOfferings: snapshot.offerings.length, groupSizeMaximum: 10, capacity: 10, submitBehavior: 'legally exchange the fourth registration between group offerings o3 and o4', weights: { catalog: .4, schedule: .25, save: .15, submit: .1, grades: .1 }, thinkTimeMs: [options.thinkMinMs, options.thinkMaxMs], clientTimeoutMs: options.timeoutMs },
       phases: phaseTimes, metrics: { initiatedTransactions: initiated, successfulTransactions: successes.length, successfulWithin120s: samples.filter(sample => sample.within120s).length, successfulWithin120sRatioOfAllInitiated: initiated ? samples.filter(sample => sample.within120s).length / initiated : null, latencyMs: { p50: percentile(sorted, .5), p95: percentile(sorted, .95), p99: percentile(sorted, .99), max: sorted.at(-1) ?? null }, errors, byOperation: Object.fromEntries((['catalog','schedule','save','submit','grades'] as Operation[]).map(operation => { const rows = samples.filter(sample => sample.operation === operation); return [operation, { initiated: rows.length, successful: rows.filter(sample => sample.success).length, errors: rows.filter(sample => !sample.success).length }]; })), catalog: { initiated: catalog.length, successful: catalogSuccess.length, successfulWithin10s: catalogSuccess.filter(sample => sample.durationMs <= 10_000).length, successfulWithin10sRatioOfSuccessful: catalogSuccess.length ? catalogSuccess.filter(sample => sample.durationMs <= 10_000).length / catalogSuccess.length : null, successfulWithin10sRatioOfInitiated: catalog.length ? catalogSuccess.filter(sample => sample.durationMs <= 10_000).length / catalog.length : null } },
       validation: { passed: active.length === userCount * 4 && !overCapacity.length && !overFour.length && !contentMismatches.length && !clientExpectationMismatches, expectedActiveRegistrations: userCount * 4, actualActiveRegistrations: active.length, maximumOfferingOccupancy: Math.max(...byOffering.values()), overCapacityOfferings: overCapacity, studentsOverFour: overFour, scheduleContentMismatches: contentMismatches.length, clientExpectationMismatches },
+      apiProcess: apiStats,
       resources: { processCpuUserMs: cpu.user / 1000, processCpuSystemMs: cpu.system / 1000, processCpuPercentOfOneCore: wallMs ? (cpu.user + cpu.system) / 1000 / wallMs * 100 : null, processPeakRssBytes: Math.max(...activeCurve.map(point => point.rssBytes)), activeUsers: activeCurve, hostFreeMemoryBytesAtEnd: freemem() },
-      ...(diagnostic ? { diagnostics: { scope: 'warmup + steady + client/server drain; optional probes add overhead', errorCauses, serverResponses, databaseSamples, eventLoopMs: { mean: loop.mean / 1e6, p99: loop.percentile(99) / 1e6, max: loop.max / 1e6 }, stages: Object.fromEntries(Object.entries(stages).map(([name, stage]) => {
-        const values = stage.durations.sort((a, b) => a - b);
-        return [name, { count: values.length, failures: stage.failures, active: stage.active, peakActive: stage.peakActive, p50Ms: percentile(values, .5), p95Ms: percentile(values, .95), maxMs: values.at(-1) ?? null }];
-      })) } } : {}),
+      ...(diagnostic ? { diagnostics: { scope: 'API: startup + login + warmup + steady + drain; client/PG: warmup + steady + drain; optional probes add overhead', errorCauses, databaseSamples,
+        clientEventLoopMs: { mean: loop.mean / 1e6, p99: loop.percentile(99) / 1e6, max: loop.max / 1e6 } } } : {}),
     };
   } finally {
     clearInterval(probeTimer); await probePending; loop.disable(); await probe?.end();
-    await http?.close().catch(() => {}); await stopRuntime?.().catch(() => {}); await fixture.dispose();
+    try { await http?.stop(); } finally { await fixture.dispose(); }
   }
 }
 
-const report = { schemaVersion: 1, generatedAt: new Date().toISOString(), command: process.argv.map(value => value.includes('password') ? '[REDACTED]' : value), environment: { hostname: hostname(), os: `${platform()} ${release()}`, architecture: process.arch, cpu: cpus()[0]?.model ?? 'unknown', logicalCpuCount: cpus().length, totalMemoryBytes: totalmem(), node: process.version, topology: 'one Node/Hono API listener + one PostgreSQL database + one real HTTP catalog/billing simulator; all localhost; one disposable database per scale; scales run serially' }, options: { ...options, output: options.output }, results: [] as unknown[] };
+const report = { schemaVersion: 2, generatedAt: new Date().toISOString(), command: process.argv.map(value => value.includes('password') ? '[REDACTED]' : value), environment: { hostname: hostname(), os: `${platform()} ${release()}`, architecture: process.arch, cpu: cpus()[0]?.model ?? 'unknown', logicalCpuCount: cpus().length, totalMemoryBytes: totalmem(), node: process.version, topology: 'separate Node processes for load client, single Hono API, and HTTP catalog/billing simulator; PostgreSQL separate process; all on one host/loopback; disposable database per scale; scales serial' }, options: { ...options, output: options.output }, results: [] as unknown[] };
 await mkdir(resolve(options.output, '..'), { recursive: true });
 for (const [index, userCount] of options.users.entries()) {
   console.log(`Starting ${userCount}-user scale`);

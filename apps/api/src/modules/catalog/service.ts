@@ -3,25 +3,36 @@ import { Runtime, type Tx, activeRegistration, json } from '../../runtime/contex
 import type { Admission } from '../../runtime/gate.js';
 import { ApiError } from '../../errors.js';
 import { emptyChoices, overlaps, passing, type Choices, type Issue } from '../../rules.js';
+import type { Catalog } from '@wylie/contracts';
 
 export class CatalogService {
-  private queues = new Map<string, Promise<unknown>>();
+  private queues = new Map<string, { job: Promise<Snapshot>; pending: boolean; applyDuringClose: boolean }>();
+  private views = new Map<string, { job: Promise<Catalog>; pending: boolean }>();
   constructor(readonly rt: Runtime) {}
   async fresh(termId: string, admission?: Admission, closing = false): Promise<Snapshot> {
-    const before = this.queues.get(termId) ?? Promise.resolve();
+    const previous = this.queues.get(termId);
+    if (previous?.pending) {
+      previous.applyDuringClose ||= Boolean(admission || closing);
+      return previous.job;
+    }
+    const before = previous?.job ?? Promise.resolve();
     const job = before.catch(() => {}).then(async () => {
+      // Join only a fetch that has not started yet. Arrivals during HTTP/apply
+      // share the next generation, never a snapshot fetched before they arrived.
+      batch.pending = false;
       const snapshot = await this.rt.external.catalog(termId);
-      if (!closing && !admission && this.rt.gates.status(termId) !== 'OPEN') return snapshot;
+      if (!batch.applyDuringClose && this.rt.gates.status(termId) !== 'OPEN') return snapshot;
       let owned: Admission | undefined;
-      if (!closing && !admission) owned = this.rt.gates.admit(termId);
+      if (!batch.applyDuringClose) owned = this.rt.gates.admit(termId);
       try { await this.apply(snapshot); } finally { owned?.release(); }
       return snapshot;
     });
-    this.queues.set(termId, job);
-    try { return await job; } finally { if (this.queues.get(termId) === job) this.queues.delete(termId); }
+    const batch = { job, pending: true, applyDuringClose: Boolean(admission || closing) };
+    this.queues.set(termId, batch);
+    try { return await job; } finally { if (this.queues.get(termId) === batch) this.queues.delete(termId); }
   }
   async assertRevision(tx: Tx, snapshot: Snapshot) {
-    const stored = await tx.catalogSnapshot.findUnique({ where: { termId: snapshot.termId } });
+    const stored = await tx.catalogSnapshot.findUnique({ where: { termId: snapshot.termId }, select: { revision: true } });
     if (stored?.revision !== snapshot.revision) throw new ApiError(409, 'CATALOG_CHANGED', '课程目录已更新，请重新加载');
   }
   async prerequisites(tx: Tx, studentId: string, courseIds: string[]): Promise<Set<string>> {
@@ -30,7 +41,7 @@ export class CatalogService {
     return new Set(rows.filter(r => r.value && passing.has(r.value)).map(r => r.courseId));
   }
   async issues(tx: Tx, snapshot: Snapshot, studentId: string, primary: string[], alternate: string[] = [], options: { capacity?: boolean; professor?: boolean; closed?: boolean } = {}): Promise<Issue[]> {
-    const local = await tx.offering.findMany({ where: { termId: snapshot.termId }, include: { registrations: { where: activeRegistration } } });
+    const local = await tx.offering.findMany({ where: { termId: snapshot.termId, externalOfferingId: { in: [...primary, ...alternate] } }, include: { registrations: { where: activeRegistration } } });
     const byId = new Map(local.map(o => [o.externalOfferingId, o]));
     const remote = new Map(snapshot.offerings.map(o => [o.id, o])); const courses = new Map(snapshot.courses.map(c => [c.id, c]));
     const passed = await this.prerequisites(tx, studentId, snapshot.courses.flatMap(c => c.prerequisiteCourseIds));
@@ -54,7 +65,7 @@ export class CatalogService {
   async apply(snapshot: Snapshot) {
     await this.rt.transaction([snapshot.termId], async tx => {
       const term = await this.rt.term(tx, snapshot.termId); if (term.closeState === 'CLOSED') return;
-      const previous = await tx.catalogSnapshot.findUnique({ where: { termId: snapshot.termId } });
+      const previous = await tx.catalogSnapshot.findUnique({ where: { termId: snapshot.termId }, select: { revision: true } });
       if (previous?.revision === snapshot.revision) return;
       for (const c of snapshot.courses) await tx.courseMirror.upsert({ where: { externalCourseId: c.id }, create: { externalCourseId: c.id, name: c.name, department: c.department, credits: c.credits, prerequisiteIds: c.prerequisiteCourseIds, revision: snapshot.revision }, update: { name: c.name, department: c.department, credits: c.credits, prerequisiteIds: c.prerequisiteCourseIds, revision: snapshot.revision } });
       for (const o of snapshot.offerings) {
@@ -96,15 +107,29 @@ export class CatalogService {
     else await tx.catalogNotice.create({ data: { ...where, revision: snapshot.revision, message } });
   }
   async view(termId: string, professorId?: string, provided?: Snapshot) {
+    if (provided) return this.project(termId, professorId, provided);
+    const key = JSON.stringify([termId, professorId ?? null]);
+    const previous = this.views.get(key);
+    if (previous?.pending) return previous.job;
+    const job = (previous?.job ?? Promise.resolve()).catch(() => {}).then(async () => {
+      batch.pending = false;
+      return this.project(termId, professorId);
+    });
+    const batch = { job, pending: true }; this.views.set(key, batch);
+    try { return await job; } finally { if (this.views.get(key) === batch) this.views.delete(key); }
+  }
+  private async project(termId: string, professorId?: string, provided?: Snapshot): Promise<Catalog> {
     const snapshot = provided ?? await this.rt.external.catalog(termId);
     const term = await this.rt.term(this.rt.db, termId);
     if (term.closeState !== 'CLOSED') await this.assertRevision(this.rt.db, snapshot);
-    const rows = await this.rt.db.offering.findMany({ where: { termId }, include: { professor: true, registrations: { where: activeRegistration } } });
+    const rows = await this.rt.db.offering.findMany({ where: { termId }, include: { professor: true, _count: { select: { registrations: { where: activeRegistration } } } } });
+    const byId = new Map(rows.map(row => [row.externalOfferingId, row]));
+    const courses = new Map(snapshot.courses.map(course => [course.id, course]));
     const qualified = professorId ? new Set((await this.rt.db.qualification.findMany({ where: { professorId } })).map(q => q.courseId)) : null;
-    const observed = await this.rt.db.catalogSnapshot.findUnique({ where: { termId } });
+    const observed = await this.rt.db.catalogSnapshot.findUnique({ where: { termId }, select: { observedAt: true } });
     return { termId, revision: snapshot.revision, observedAt: (observed?.observedAt ?? await this.rt.now()).toISOString(), offerings: snapshot.offerings.map(o => {
-      const c = snapshot.courses.find(c => c.id === o.courseId)!; const local = rows.find(r => r.externalOfferingId === o.id);
-      return { id: o.id, termId, courseId: c.id, courseName: c.name, department: c.department, credits: c.credits, prerequisiteCourseIds: c.prerequisiteCourseIds, meetings: o.meetings, professor: local?.professor ? { id: local.professor.id, name: local.professor.name } : null, enrolledCount: local?.registrations.length ?? 0, capacity: 10 as const, status: local?.status ?? (term.closeState === 'CLOSED' ? 'CANCELLED' : 'OPEN'), ...(qualified ? { eligibleToTeach: qualified.has(c.id) } : {}) };
+      const c = courses.get(o.courseId)!; const local = byId.get(o.id);
+      return { id: o.id, termId, courseId: c.id, courseName: c.name, department: c.department, credits: c.credits, prerequisiteCourseIds: c.prerequisiteCourseIds, meetings: o.meetings, professor: local?.professor ? { id: local.professor.id, name: local.professor.name } : null, enrolledCount: local?._count.registrations ?? 0, capacity: 10 as const, status: local?.status ?? (term.closeState === 'CLOSED' ? 'CANCELLED' : 'OPEN'), ...(qualified ? { eligibleToTeach: qualified.has(c.id) } : {}) };
     }) };
   }
 }

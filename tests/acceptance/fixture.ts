@@ -12,6 +12,7 @@ import { activeRegistration, type Hook } from '../../apps/api/src/runtime/contex
 import { httpExternal, type Snapshot } from '../../apps/api/src/runtime/external.js';
 import { recover } from '../../apps/api/src/runtime/start.js';
 import { startSimulatorServer } from '../../apps/simulators/src/server.js';
+import type { SimulatorOptions } from '../../apps/simulators/src/app.js';
 import { testDatabaseUrl } from '../../scripts/database-url.mjs';
 
 export const choices = (primary = ['M1', 'M2', 'M3', 'M4'], alternate = ['B1', 'B2']) => ({
@@ -27,7 +28,15 @@ export function barrier() {
 
 // Own a whole disposable database: runtime leadership/advisory locks are database-wide.
 // Never migrate, truncate, seed or drop the caller's database.
-export async function createFixture(studentCount = 80) {
+async function localSimulator(options: SimulatorOptions) {
+  const server = await startSimulatorServer(options, 0);
+  const address = server.address(); assert(address && typeof address !== 'string');
+  return { origin: `http://127.0.0.1:${address.port}`, close: async () => {
+    if ('closeAllConnections' in server) server.closeAllConnections();
+    await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
+  } };
+}
+export async function createFixture(studentCount = 80, startSimulator = localSimulator) {
   const base = testDatabaseUrl(process.env);
   const database = `acceptance_${randomUUID().replaceAll('-', '')}_test`;
   const admin = new Client({ connectionString: base });
@@ -37,7 +46,7 @@ export async function createFixture(studentCount = 80) {
   const url = parsed.toString();
   await admin.query(`CREATE DATABASE "${database}"`);
   const db = new PrismaClient({ datasourceUrl: url });
-  let server: Awaited<ReturnType<typeof startSimulatorServer>> | undefined;
+  let server: Awaited<ReturnType<typeof localSimulator>> | undefined;
   try {
     execFileSync(process.execPath, ['node_modules/prisma/build/index.js', 'migrate', 'deploy', '--schema', 'packages/db/prisma/schema.prisma'], {
       env: { ...process.env, DATABASE_URL: url }, stdio: 'pipe',
@@ -87,9 +96,8 @@ export async function createFixture(studentCount = 80) {
     const catalogues = Object.values(ids).map(id => id === ids.T2 ? snapshot : { ...snapshot, termId: id, offerings: [] });
     const options = { seedPath: join(directory, 'seed.json'), statePath: join(directory, 'state.json'), externalToken: randomToken(), controlToken: randomToken(), controlEnabled: true };
     await writeFile(options.seedPath, JSON.stringify({ catalogs: catalogues }));
-    server = await startSimulatorServer(options, 0);
-    const address = server.address(); assert(address && typeof address !== 'string');
-    const simulatorUrl = `http://127.0.0.1:${address.port}`;
+    server = await startSimulator(options);
+    const simulatorUrl = server.origin;
     const config = { publicOrigin: 'http://localhost:5173', secureCookie: false, csrfSigningKey: randomToken(), impactSigningKey: randomToken(), pricePerCreditYuan: '125.00' };
     const logs: Record<string, unknown>[] = [];
     const fault = { handler: undefined as ((name: Hook) => Promise<void>) | undefined };
@@ -128,16 +136,14 @@ export async function createFixture(studentCount = 80) {
     async function close() { await application.close.request(actor(registrar.id), ids.T2); await application.runtime.settle(); }
     async function dispose() {
       await application.runtime.settle();
-      if (server && 'closeAllConnections' in server) server.closeAllConnections();
-      await new Promise<void>((resolve, reject) => server!.close(e => e ? reject(e) : resolve()));
+      await server!.close();
       await db.$disconnect();
       await admin.query(`DROP DATABASE "${database}" WITH (FORCE)`); await admin.end();
       await rm(directory, { recursive: true, force: true });
     }
     return { db, url, ids, students, professors, registrar, password, snapshot, clock, fault, config, logs, application, makeApplication, actor, request, login, register, members, sync, close, control, simulatorUrl, options, dispose };
   } catch (error) {
-    if (server && 'closeAllConnections' in server) server.closeAllConnections();
-    if (server) await new Promise<void>(resolve => server!.close(() => resolve()));
+    await server?.close();
     await db.$disconnect(); await admin.query(`DROP DATABASE "${database}" WITH (FORCE)`); await admin.end();
     await rm(directory, { recursive: true, force: true }); throw error;
   }

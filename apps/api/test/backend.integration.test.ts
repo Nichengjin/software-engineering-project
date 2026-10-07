@@ -298,6 +298,24 @@ describe('UC01–14 PostgreSQL 持久化开发自测（不替代独立验收）'
     const s=await application.schedules.view(studentIds[0]!,termId);expect(s.registrations).toHaveLength(3);expect((s.saved as dto.Choices).primaryOfferingIds).not.toContain('o2');expect(s.version).toBe(2);
     expect(await db.catalogNotice.count({where:{kind:'OFFERING_DELETED'}})).toBe(1);
   });
+  it('目录人数只计有效注册，远端顺序、教授和资格按标识匹配，不暴露注册明细', async () => {
+    await db.registration.createMany({ data: [
+      { studentId: studentIds[0]!, offeringId: 'o1', source: 'SUBMIT', state: 'ENROLLED' },
+      { studentId: studentIds[1]!, offeringId: 'o1', source: 'SUBMIT', state: 'COMMITTED' },
+      { studentId: studentIds[2]!, offeringId: 'o1', source: 'SUBMIT', state: 'REMOVED' },
+      { studentId: studentIds[3]!, offeringId: 'o3', source: 'SUBMIT', state: 'ENROLLED' },
+    ] });
+    await db.offering.update({ where: { externalOfferingId: 'o3' }, data: { professorId: otherProfessorId } });
+    await db.qualification.delete({ where: { professorId_courseId: { professorId, courseId: 'c3' } } });
+    const provided = { ...snapshot, courses: [...snapshot.courses].reverse(), offerings: [snapshot.offerings[2]!, snapshot.offerings[0]!, snapshot.offerings[1]!] };
+    const result = await application.catalog.view(termId, professorId, provided);
+    dto.catalogSchema.parse(result);
+    expect(result.offerings.map(o => ({ id: o.id, name: o.courseName, count: o.enrolledCount, professor: o.professor?.id, eligible: o.eligibleToTeach }))).toEqual([
+      { id: 'o3', name: 'Course3', count: 1, professor: otherProfessorId, eligible: false },
+      { id: 'o1', name: 'Course1', count: 2, professor: professorId, eligible: true },
+      { id: 'o2', name: 'Course2', count: 0, professor: professorId, eligible: true },
+    ]);
+  });
   it('AC59–61：真实xlsx逐行3新/1重复/1坏，前导零和公式拒绝，历史不覆盖/上线拒绝、资格去重', async () => {
     const workbook=new ExcelJS.Workbook();const sheet=workbook.addWorksheet('students');sheet.addRow(['name','birthDate','ssn','status']);
     for(let i=1;i<=3;i++)sheet.addRow([`Import${i}`,'2005-01-01',`001-00-000${i}`,'ACTIVE']);sheet.addRow(['Duplicate','2005-01-01','000-00-0000','ACTIVE']);sheet.addRow(['','2005-01-01','001-00-0004','ACTIVE']);
