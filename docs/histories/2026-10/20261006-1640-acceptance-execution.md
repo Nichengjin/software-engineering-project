@@ -46,4 +46,6 @@
 
 10-06测试结束时，成果为 `test/nichengjin/us-018-acceptance-execution` 上的未提交改动。用户随后授权按冯海伦作者身份提交并push，10-07集中整理到 `test/fenghailun/us-018-acceptance-execution`；Git Author采用用户此前登记的冯海伦身份，Committer为Amp，保留AI来源和真实提交时间。实际自动化执行及文档整理由Agent完成，不替代冯海伦本人独立验收、认证或团队评审。授权仅涵盖提交与推送，不创建PR、不合入main、不发布。
 
-提交前复核在 [本线程](https://ampcode.com/threads/T-01a1120b-09a1-7799-a395-ae682a74fc2e) 执行：首轮 `make ci` 206通过／1失败，发现AC-35/36在首次目录同步未完成时取重启快照。仅修正测试等待条件，保留完整快照比较和真实60秒重试／幂等断言；定向复测通过，随后完整 `make ci` 12文件／207测试、类型检查及全部构建通过，详见报告TEST-07与提交前复核记录。本次不重跑正式负载或更改原性能结论；PR、远程CI、合入及发布仍待实际执行。
+提交前复核在 [本线程](https://ampcode.com/threads/T-01a1120b-09a1-7799-a395-ae682a74fc2e) 执行：首轮 `make ci` 206通过／1失败，发现AC-35/36在首次目录同步未完成时取重启快照。仅修正测试等待条件，保留完整快照比较和真实60秒重试／幂等断言；定向复测通过，随后完整 `make ci` 12文件／207测试、类型检查及全部构建通过，详见报告TEST-07与提交前复核记录。本次不重跑正式负载或更改原性能结论。
+
+10-07 用户随后要求合入：[PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 的 repository-checks、dependency-review、osv-scan 通过后，以 merge commit `5259bbd` 合入 main，保留原提交 `95d0ab4`；按用户要求合并提交 Author 为冯海伦，合入后 main 的 [远程 CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37588458377) 通过。未经成员评审，未打 tag 或发布；US-018 仍进行中。

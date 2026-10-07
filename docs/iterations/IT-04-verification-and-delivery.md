@@ -23,4 +23,4 @@
 - [x] 建立 [逐AC执行账本](../testing/acceptance-execution.md) 与测试报告。
 - [ ] 补齐账本中的部分子场景，复核容量问题及跨平台／独立机器／七天观察；复核结论集中写入测试报告第7节。
 
-本轮测试代码与文档的提交分支为 `test/fenghailun/us-018-acceptance-execution`，尚无本轮PR／远程CI／合入／发布tag。按完成定义实际完成合入、CI、验收和追溯后再更新backlog，US-018保持进行中；课程提交与材料定稿未完成。
+本轮测试代码与文档的提交分支为 `test/fenghailun/us-018-acceptance-execution`，10-07 经 [PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 合入 main，远程CI通过；尚无发布tag。按完成定义实际完成合入、CI、验收和追溯后再更新backlog，US-018保持进行中；课程提交与材料定稿未完成。
