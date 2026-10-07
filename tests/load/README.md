@@ -1,6 +1,6 @@
 # US-018 NFR-01—03 load runner
 
-The runner uses the acceptance fixture's disposable PostgreSQL database and real catalog/billing simulator, starts the real runtime workers and exposes the Hono application through a temporary real HTTP listener. Each authenticated virtual user owns four registrations and six legal choices. At most ten users share a six-offering group, and submit transactions exchange the fourth registration between two valid offerings, so submissions exercise successful transactional work without competing for an already-full class.
+The runner uses the acceptance fixture's disposable PostgreSQL database and real catalog/billing simulator. The load client, single Hono API and simulator now run in three separate Node processes on the same host; PostgreSQL is also a separate process. The API uses the real runtime and a temporary HTTP listener, with the fixture's fixed business clock. Configuration is sent over private IPC, not command arguments. Each authenticated virtual user owns four registrations and six legal choices. At most ten users share a six-offering group, and submit transactions exchange the fourth registration between two valid offerings, so submissions exercise successful transactional work without competing for an already-full class.
 
 Full serial run (5-minute warm-up plus 30-minute steady phase at each scale):
 
@@ -16,7 +16,7 @@ node --env-file-if-exists=.env node_modules/tsx/dist/cli.mjs tests/load/nfr01-03
 
 Defaults are `--warmup-seconds=300`, `--steady-seconds=1800`, `--think-min-ms=5000`, `--think-max-ms=15000`, `--timeout-seconds=120`, and `--seed=1803`. Results include every steady-phase transaction initiated (failed and timed-out requests remain in the denominator), NFR ratios, latency percentiles, error codes, active-user/resource samples, actual phase times, environment/topology, catalog size, and post-run database invariants.
 
-For a diagnostic reproduction, add `--diagnostics=true`. Test-side wrappers measure catalog queue wait, real external HTTP, transaction connection/lock wait, and transaction body time. The report also includes server response totals, sanitized client exception names/codes/syscalls, event-loop delay, and five-second PostgreSQL activity samples through a separate observer connection. These probes add overhead and aggregate warmup, steady and client/server drain together; they are not steady-only NFR metrics. No product locks, timeouts or pool settings are changed.
+For a diagnostic reproduction, add `--diagnostics=true`. Test-side wrappers in the API child measure total refresh wait (including shared generations), real external HTTP, transaction connection/lock wait, and transaction body time. Schema version 2 records API statistics in `apiProcess`, including response totals and event-loop delay; API probes include startup/login as well as warmup, steady and drain. Client diagnostics retain sanitized exception names/codes/syscalls, client event-loop delay, and five-second PostgreSQL activity samples. These probes add overhead and are not steady-only NFR metrics. No product locks, timeouts or pool settings are changed.
 
 `--ramp-seconds=20` spreads virtual users' first requests across 20 seconds **inside warmup**. All users remain active for the steady phase; think times, operation weights and error denominators do not change. Ramp must not exceed warmup. The default is zero to preserve the original simultaneous-start reproduction. Record this parameter when comparing runs: on macOS, a synchronized connection burst can overflow the loopback listener's TCP accept queue even for an HTTP server with no database.
 
@@ -30,4 +30,12 @@ The process exits nonzero if a scale aborts, any final invariant fails, fewer th
 
 Before validating registrations, the runner stops runtime polling and drains admitted server operations. Client timeout alone does not mean a write stopped: `phases.serverDrain` records this extra wait, and a late server success never changes the original failed client sample into a success. Older reports without this phase sampled invariants before server drain and must not be described as quiescent final state.
 
-The tool reports process CPU and host memory, not PostgreSQL/simulator per-process CPU. It is a single-host topology and does not emulate network latency. A full two-scale run has 70 minutes of measured phases plus account/data setup, login, final in-flight think/request completion, validation, and cleanup; reserve additional setup time, especially for 2,000 password logins.
+The tool reports client CPU/RSS and API child CPU/peak RSS separately, plus host memory; it does not report PostgreSQL/simulator CPU. It is a single-host topology and does not emulate network latency. A full two-scale run has 70 minutes of measured phases plus account/data setup, login, final in-flight think/request completion, validation, and cleanup; reserve additional setup time, especially for 2,000 password logins. For the original second scale alone, use `--users=2000 --seed=1001806`; use `--ramp-seconds=20` inside the default 300-second warmup to avoid synchronized connection bursts without changing steady load.
+
+No-database TCP control (native Node and Hono adapter, separate server process, 2000 new non-reused connections, simultaneous versus spread over two seconds):
+
+```sh
+node --import tsx tests/load/tcp-control.ts --output=.amp/in/artifacts/tcp-control.json
+```
+
+On Linux this records actual file limits, `somaxconn`, SYN backlog and listen-overflow/drop counter deltas without changing kernel settings. Linux can still overflow a listening queue even if retransmission eventually lets all HTTP requests succeed. Passing this control does not prove the full API meets capacity requirements. Non-Linux kernel fields are null. Reports and diagnostic artifacts should be retained separately for each run, including failures.

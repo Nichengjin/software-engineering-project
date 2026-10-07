@@ -21,6 +21,7 @@
 - [x] 10-06 本地测试：73项真实PG／HTTP验收集成，最终全量207测试及构建通过；真实API进程重启、60秒重试与事务回滚已验证。
 - [x] 真实macOS Chrome流程、在线传播、两档负载及同机干净依赖复现已实际执行；[报告](../TEST_REPORT.md) 区分通过、未达标与环境干扰，不等于所有NFR通过。
 - [x] 建立 [逐AC执行账本](../testing/acceptance-execution.md) 与测试报告。
+- [x] 10-07 倪成锦分支形成PERF-01本地修复候选：TCP对照、三进程负载、目录下一轮合并和查询缩小；215项回归及完整2000用户5＋30分钟长测通过，264615交易全部达标，排空后8000注册及客户端一致。证据与限制见 [修复计划](../exec-plans/active/2026-10-07-performance-fix.md) 和报告第5.2节，未提交／推送或合入，不等同独立机器／全部NFR通过。
 - [ ] 补齐账本中的部分子场景，复核容量问题及跨平台／独立机器／七天观察；复核结论集中写入测试报告第7节。
 
 本轮测试代码与文档的提交分支为 `test/fenghailun/us-018-acceptance-execution`，10-07 经 [PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 合入 main，远程CI通过；尚无发布tag。按完成定义实际完成合入、CI、验收和追溯后再更新backlog，US-018保持进行中；课程提交与材料定稿未完成。

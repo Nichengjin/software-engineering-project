@@ -101,3 +101,9 @@ US-002 成员说明及 Agent 指令随 [PR #23](https://github.com/Nichengjin/so
 | US-018，覆盖US-004—017、021—023 | [73项验收集成](../../tests/acceptance/scenarios.integration.test.ts)、[Chrome脚本](../../tests/e2e/browser-runner.ts)、[负载](../../tests/load/nfr01-03.ts)；最终本地 `make ci` 207项通过；[逐AC账本](../testing/acceptance-execution.md)、[测试报告](../TEST_REPORT.md)、[history](../histories/2026-10/20261006-1640-acceptance-execution.md) | 提交分支 `test/fenghailun/us-018-acceptance-execution`，用户授权冯海伦Author／Amp Committer；未覆盖子场景、NFR结果及复核结论见报告与账本。10-07 经 [PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 以 merge commit `5259bbd` 合入 main，PR 检查与合入后 [远程 CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37588458377) 通过；未经成员评审，尚无发布 tag |
 
 本节更新实际执行状态，不改写上方历史记录。测试数量不等于AC完成数；US-018仍进行中。
+
+## 2026-10-07 US-018／PERF-01 本地修复候选
+
+| 需求／范围 | 实际证据 | PR／发布及限制 |
+| --- | --- | --- |
+| US-018，目录吞吐与TCP分层排查 | [ADR-003](../design-docs/adr/ADR-003-catalog-refresh-generations.md)、[修复计划](../exec-plans/active/2026-10-07-performance-fix.md)、[history](../histories/2026-10/20261007-1918-catalog-throughput.md)；目录屏障及真实PG投影回归，LinuxTCP对照及三进程负载；本地 `make ci` 215项通过，完整2000用户5＋30分钟264615交易全部达标，排空后8000注册及客户端一致。原始证据与限制见 [测试报告第5.2节](../TEST_REPORT.md#52-linux-orb-的目录修复与三进程复测2026-10-07) | 倪成锦负责、Amp执行，分支 `fix/nichengjin/us-018-catalog-throughput` 未提交／推送或合入。PERF-01本地复测通过待复核，非独立机器／生产容量认证；PERF-02和US-018整体继续进行中，未发布 |
