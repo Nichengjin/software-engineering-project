@@ -22,6 +22,8 @@
 - [x] 真实macOS Chrome流程、在线传播、两档负载及同机干净依赖复现已实际执行；[报告](../TEST_REPORT.md) 区分通过、未达标与环境干扰，不等于所有NFR通过。
 - [x] 建立 [逐AC执行账本](../testing/acceptance-execution.md) 与测试报告。
 - [x] 10-07 倪成锦分支形成PERF-01修复：TCP对照、三进程负载、目录下一轮合并和查询缩小；215项回归及完整2000用户5＋30分钟长测通过，264615交易全部达标，排空后8000注册及客户端一致。用户授权提交、push，经 [PR #25](https://github.com/Nichengjin/software-engineering-project/pull/25) 检查通过并merge commit合入；证据与限制见 [修复计划](../exec-plans/active/2026-10-07-performance-fix.md) 和报告第5.2节，不等同独立机器／全部NFR或成员评审通过。
+- [x] 10-07 US-028：依据分工、完整提交历史与执行线程，七名撰稿subagent形成[六份个人汇报及小组总结初稿](../work-reports/README.md)，各有独立目录。初稿不是本人确认的贡献记录；用户随后授权逐人署名提交及倪成锦Author的merge commit，实际交付见[本轮history](../histories/2026-10/20261007-2304-work-report-drafts.md)。
+- [ ] US-028：六人补充真实经历并审核，组长汇总确认贡献比例、签名及课程格式；不以初稿形成勾选材料定稿。
 - [ ] 补齐账本中的部分子场景，复核容量问题及跨平台／独立机器／七天观察；复核结论集中写入测试报告第7节。
 
 本轮测试代码与文档的提交分支为 `test/fenghailun/us-018-acceptance-execution`，10-07 经 [PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 合入 main，远程CI通过；尚无发布tag。按完成定义实际完成合入、CI、验收和追溯后再更新backlog，US-018保持进行中；课程提交与材料定稿未完成。
