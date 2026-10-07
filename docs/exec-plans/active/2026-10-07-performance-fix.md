@@ -30,8 +30,14 @@
 - 只读目录按学期＋教授标识隔离并共享尚未开始的HTTP／投影，不复用已完成结果或触发镜像应用；缩小字段选择与有效人数计数保持DTO及业务语义。见ADR-003。
 - 队列合并不能承诺2000档必过；若正式测量仍失败，保留未关闭状态及实际结果，不调整门槛。
 
-## 本地结果与待交付
+## 实测结果与交付记录
 
-本次Linux同机分进程完整2000档通过；PERF-01本地复测通过，待合入／独立复核。总交易p95 6413.64ms、最大9923.79ms，不承诺更大规模／真实网络。40用户1ms负向测试仍15名客户端确认集合差异，超时后重新读取另属PERF-02，本轮不扩展产品范围。
+本次Linux同机分进程完整2000档通过；PERF-01修复已合入，待独立复核。总交易p95 6413.64ms、最大9923.79ms，不承诺更大规模／真实网络。40用户1ms负向测试仍15名客户端确认集合差异，超时后重新读取另属PERF-02，本轮不扩展产品范围。
 
-未提交／推送、未创建PR或合入、未发布；US-018整体仍进行中，Windows／Edge、独立机器与七天可用性及团队评审仍待办。
+用户后续授权的提交、push、merge commit已执行：[原提交 80d0142](https://github.com/Nichengjin/software-engineering-project/commit/80d0142edb1f406c121c706b6df21ece27846be9) 为倪成锦Author／Amp Committer；[PR #25](https://github.com/Nichengjin/software-engineering-project/pull/25) 于Asia/Shanghai 21:10:12以 [两父merge commit 5d3690b](https://github.com/Nichengjin/software-engineering-project/commit/5d3690b38cba8f4705240168e99aa1cd0079c417) 合入main，父节点为原main与原提交，保留完整历史。
+
+[PR CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37625656581) 215测试、strict类型检查、全部构建及Markdown 0 errors通过；[供应链检查](https://github.com/Nichengjin/software-engineering-project/actions/runs/37625656516) 通过。实际合入状态同步报告、ADR、IT-04、history和追溯，不将用户集中合入补记成独立成员审批。
+
+合入后 [main CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37626410721) 在两父合并节点上再次通过215项、类型检查、构建及Markdown检查；工作流成功。不触发发布工作流。
+
+未发布或部署；US-018整体仍进行中，Windows／Edge、独立机器与七天可用性及团队评审仍待办。
