@@ -1,7 +1,7 @@
 # ADR-003：合并尚未开始的目录刷新轮次
 
 - 日期：2026-10-07；US-018／IT-04；负责人倪成锦。
-- 状态：用户授权的本地修复候选，未合入、未团队评审。
+- 状态：用户授权执行，已随 [PR #25](https://github.com/Nichengjin/software-engineering-project/pull/25) 合入；团队／独立复核未执行。
 - 背景：[PERF-01及执行计划](../../exec-plans/active/2026-10-07-performance-fix.md)。逐写请求排一次目录HTTP与事务，导致同学期等待随请求数增长。
 
 ## 决定

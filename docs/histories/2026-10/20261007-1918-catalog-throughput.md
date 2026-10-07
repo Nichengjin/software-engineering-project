@@ -42,4 +42,10 @@
 
 ### 交付状态
 
-本地修复与完整复测通过；未提交／未推送，未创建PR或合入，未发布。US-018保持进行中；原macOS失败保留，PERF-01待合入／独立复核，不外推生产容量；PERF-02、完整AC／NFR和课程交付未因此完成。
+候选形成时本地修复与完整复测通过、未远程交付；用户后续授权提交、push及merge commit合入main。倪成锦Author／Amp Committer的 [原提交 80d0142](https://github.com/Nichengjin/software-engineering-project/commit/80d0142edb1f406c121c706b6df21ece27846be9) 已推送，经 [PR #25](https://github.com/Nichengjin/software-engineering-project/pull/25) 于Asia/Shanghai 21:10:12以 [merge commit 5d3690b](https://github.com/Nichengjin/software-engineering-project/commit/5d3690b38cba8f4705240168e99aa1cd0079c417) 合入。实际两父节点核对通过，原提交完整保留；未伪造成员独立评审。
+
+[PR CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37625656581) 215项、strict类型检查、全部构建与Markdown 0 errors及 [供应链检查](https://github.com/Nichengjin/software-engineering-project/actions/runs/37625656516) 通过。同步报告、ADR、IT-04、追溯及发布候选的合入状态，未改产品或重跑35分钟测量。
+
+合入后 [main CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37626410721) 再次215项通过，类型检查、构建和Markdown 0 errors通过；完整合并节点已验证。
+
+未发布或部署。US-018保持进行中；原macOS失败保留，PERF-01修复已合入待独立复核，不外推生产容量；PERF-02、完整AC／NFR和课程交付未因此完成。

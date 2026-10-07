@@ -102,8 +102,8 @@ US-002 成员说明及 Agent 指令随 [PR #23](https://github.com/Nichengjin/so
 
 本节更新实际执行状态，不改写上方历史记录。测试数量不等于AC完成数；US-018仍进行中。
 
-## 2026-10-07 US-018／PERF-01 本地修复候选
+## 2026-10-07 US-018／PERF-01 修复与合入
 
 | 需求／范围 | 实际证据 | PR／发布及限制 |
 | --- | --- | --- |
-| US-018，目录吞吐与TCP分层排查 | [ADR-003](../design-docs/adr/ADR-003-catalog-refresh-generations.md)、[修复计划](../exec-plans/active/2026-10-07-performance-fix.md)、[history](../histories/2026-10/20261007-1918-catalog-throughput.md)；目录屏障及真实PG投影回归，LinuxTCP对照及三进程负载；本地 `make ci` 215项通过，完整2000用户5＋30分钟264615交易全部达标，排空后8000注册及客户端一致。原始证据与限制见 [测试报告第5.2节](../TEST_REPORT.md#52-linux-orb-的目录修复与三进程复测2026-10-07) | 倪成锦负责、Amp执行，分支 `fix/nichengjin/us-018-catalog-throughput` 未提交／推送或合入。PERF-01本地复测通过待复核，非独立机器／生产容量认证；PERF-02和US-018整体继续进行中，未发布 |
+| US-018，目录吞吐与TCP分层排查 | [ADR-003](../design-docs/adr/ADR-003-catalog-refresh-generations.md)、[修复计划](../exec-plans/active/2026-10-07-performance-fix.md)、[history](../histories/2026-10/20261007-1918-catalog-throughput.md)；目录屏障及真实PG投影回归，LinuxTCP对照及三进程负载；本地及 [PR CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37625656581) 215项通过，完整2000用户5＋30分钟264615交易全部达标，排空后8000注册及客户端一致。原始证据与限制见 [测试报告第5.2节](../TEST_REPORT.md#52-linux-orb-的目录修复与三进程复测2026-10-07) | 倪成锦Author／Amp Committer，分支 `fix/nichengjin/us-018-catalog-throughput` 已推送，用户授权 [PR #25](https://github.com/Nichengjin/software-engineering-project/pull/25) 以 [merge commit 5d3690b](https://github.com/Nichengjin/software-engineering-project/commit/5d3690b38cba8f4705240168e99aa1cd0079c417) 合入main，原提交保留。PERF-01待独立复核，非生产容量认证；PERF-02和US-018整体继续进行中，未发布 |

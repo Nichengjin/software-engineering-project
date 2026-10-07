@@ -5,7 +5,7 @@
 - 原10-06被测版本：[主线 0670297](https://github.com/Nichengjin/software-engineering-project/commit/0670297c8b0bfe963116b46481120fc1d799ea8a)；当轮测试代码与文档位于任务分支 `test/fenghailun/us-018-acceptance-execution`，当轮产品代码未修改。
 - 依据：[测试计划](TEST_PLAN.md)、[需求分析](REQUIREMENTS_ANALYSIS.md)、[原始 64 AC 设计](testing/acceptance-cases.md)。逐项结果及未覆盖子场景见 [执行账本](testing/acceptance-execution.md)。
 - 原测试提交口径：用户授权以冯海伦为 Git Author、Amp 为 Committer 集中提交；实际自动化执行与整理由 Agent 完成，不代表冯海伦本人独立验收或团队签字。
-- 10-07 性能修复：倪成锦负责的本地分支 `fix/nichengjin/us-018-catalog-throughput`，基于 [主线 d7046aa](https://github.com/Nichengjin/software-engineering-project/commit/d7046aaf0f16168e0d397b92dc9a420dd1afa269)，Amp执行；Linux三进程复测见第5.2节，不改写原macOS失败，未提交／推送或合入。
+- 10-07 性能修复：倪成锦Author／Amp Committer，分支 `fix/nichengjin/us-018-catalog-throughput`，基于 [主线 d7046aa](https://github.com/Nichengjin/software-engineering-project/commit/d7046aaf0f16168e0d397b92dc9a420dd1afa269)；用户授权后经 [PR #25](https://github.com/Nichengjin/software-engineering-project/pull/25) 以 [merge commit 5d3690b](https://github.com/Nichengjin/software-engineering-project/commit/5d3690b38cba8f4705240168e99aa1cd0079c417) 合入main。Linux三进程复测见第5.2节，不改写原macOS失败，尚未发布。
 
 ## 1. 结论及使用边界
 
@@ -15,9 +15,9 @@
 
 当轮最终 `make ci` 12文件／207测试、strict类型检查与全部构建通过。功能回归通过不能覆盖原2000用户档的实测失败；该档的校验快照无超容量、无每生超过四门、课表与数据库注册集合一致，但806名学生与客户端最后确认注册不符。后续发现旧脚本未在取快照前等待服务端排空，不能将其当作最终静止状态，见第5.1节。
 
-**10-07 Linux修复候选完整复测通过**：2000已认证用户、5分钟预热＋30分钟稳态，264615／264615交易成功且≤120秒，105899／105899目录查询成功且≤10秒；排空后8000条有效注册、容量≤10、每生≤4、课表与客户端零错配，退出0。本地215项回归通过；范围、原失败与余量限制见第5.2节。PERF-01为本地复测通过、待合入／复核，不等同生产容量或正式关闭。
+**10-07 Linux修复候选完整复测通过**：2000已认证用户、5分钟预热＋30分钟稳态，264615／264615交易成功且≤120秒，105899／105899目录查询成功且≤10秒；排空后8000条有效注册、容量≤10、每生≤4、课表与客户端零错配，退出0。本地及PR的215项回归通过；范围、原失败与余量限制见第5.2节。PERF-01修复已合入、待独立复核，不等同生产容量或正式关闭。
 
-Windows Chrome／Edge、独立机器复现、七天可用性仍需补测；原矩阵尚未覆盖的子场景逐行保留，不回填“通过”。US-018 保持“进行中”。原测试代码与当时报告已经 [PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 合入 main，PR 检查及合入后 [远程 CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37588458377) 通过；新性能修复及报告增量未合入，尚未发布。
+Windows Chrome／Edge、独立机器复现、七天可用性仍需补测；原矩阵尚未覆盖的子场景逐行保留，不回填“通过”。US-018 保持“进行中”。原测试代码与当时报告已经 [PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 合入 main，PR 检查及合入后 [远程 CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37588458377) 通过；性能修复及报告经PR #25合入，尚未发布。
 
 ## 2. 环境、数据与隔离
 
@@ -183,7 +183,9 @@ npm run test:load -- --users=2000 --ramp-seconds=20 --seed=1001806 --diagnostics
 | 事务连接及锁等待p95／max | 1525.78／2746.20ms；全局写锁保持不变 |
 | 资源 | API峰值RSS834.85MiB、客户端峰值549.96MiB、host free最低1946.31MiB；稳态活跃用户采样全部2000 |
 
-API诊断包含启动、登录、预热、稳态和排空，不与稳态分母混用；外部目录HTTP共6134次，无失败，最大830.50ms。这次无异常验证了正常负载终态，不覆盖客户端超时后自动重同步。总交易最大值9923.79ms接近目录10秒门槛，不能据此承诺更大规模、不同机器、网络时延或外部故障下仍达标。PERF-01本地修复及完整复测通过，未合入／团队复核，正式关闭与发布待办；原失败结果保留。
+API诊断包含启动、登录、预热、稳态和排空，不与稳态分母混用；外部目录HTTP共6134次，无失败，最大830.50ms。这次无异常验证了正常负载终态，不覆盖客户端超时后自动重同步。总交易最大值9923.79ms接近目录10秒门槛，不能据此承诺更大规模、不同机器、网络时延或外部故障下仍达标。PERF-01修复及完整复测通过，已合入，团队／独立复核、正式关闭与发布待办；原失败结果保留。
+
+用户后续授权提交、push及merge commit合入：PR #25于Asia/Shanghai 21:10:12合入main，保留 [倪成锦原提交 80d0142](https://github.com/Nichengjin/software-engineering-project/commit/80d0142edb1f406c121c706b6df21ece27846be9) 与两父合并节点。合入前 [PR CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37625656581) 215项、类型检查、构建、Markdown 0 errors及 [安全检查](https://github.com/Nichengjin/software-engineering-project/actions/runs/37625656516) 通过。用户集中合入不记作其他成员审批，不发布tag或部署。
 
 ## 6. 测试过程问题及处理
 
@@ -198,10 +200,10 @@ API诊断包含启动、登录、预热、稳态和排空，不与稳态分母�
 | TEST-05 | 当前agent-browser日期fill置空、find不支持select、tab返回tabId；双标签测试误选已选课程 | 日期采用原生DOM setter＋input/change，select用受支持命令，按实际tabId切换；测试驱动修正，不改产品 |
 | TEST-06 | 客户端超时结束后服务端仍可能处理请求，旧校验快照早于服务端排空 | 等待runtime停止轮询、排空已准入业务后再校验；40用户故意超时复现先失败后通过，保留原快照局限 |
 | TEST-07 | 10-07提交前回归中，AC-35/36在首次后台目录同步未完成时取重启基线，重启后新增其他学期快照导致整份比较失败 | 取基线前等待四个夹具学期的首次目录快照齐全；保留完整快照相等、真实60秒重试及幂等断言，不改产品代码；定向复测通过 |
-| PERF-01（本地复测通过，待合入／复核） | 原macOS 2000用户档未达标；晚间复现定位到connect重置及目录长队列 | 10-07目录下一轮合并、查询缩小、三进程隔离，Linux完整2000档退出0，见第5.2节；未调大超时／内核，原失败不改写，尚未正式关闭 |
+| PERF-01（修复已合入，待独立复核） | 原macOS 2000用户档未达标；晚间复现定位到connect重置及目录长队列 | 10-07目录下一轮合并、查询缩小、三进程隔离，Linux完整2000档退出0，PR #25检查通过并merge commit合入；未调大超时／内核，原失败不改写，尚未正式关闭 |
 | PERF-02（未关闭） | 原806名客户端差异不能当作排空后终态；超时请求可能继续提交 | 采样顺序已修；10-07正常2000长测零错配，但40用户1ms故意超时仍15名客户端差异；超时结果与客户端重新读取尚需验证，不声称数据损坏或自动重同步已修复 |
 
-TEST／ENV编号记录测试工具或环境问题，其处理不冒充产品缺陷修复；PERF-01本地复测通过待合入／复核，PERF-02仍未关闭。原始长测未保存底层网络cause，不能逐笔追认同一原因；10-07分进程仍同机，不隔离硬件、OS与代码的各自性能贡献。历史未达标保留，不通过调整分母消失。
+TEST／ENV编号记录测试工具或环境问题，其处理不冒充产品缺陷修复；PERF-01修复已合入待独立复核，PERF-02仍未关闭。原始长测未保存底层网络cause，不能逐笔追认同一原因；10-07分进程仍同机，不隔离硬件、OS与代码的各自性能贡献。历史未达标保留，不通过调整分母消失。
 
 2026-10-07提交前首轮 `make ci` 为206通过／1失败，失败点为TEST-07；修正后定向执行 `npm test -- tests/acceptance/scenarios.integration.test.ts -t 'AC-35/36'` 通过（62.85秒），其余72项未在定向命令中执行。证据为本地 `.amp/in/artifacts/us018-prepush-ci.log` 与 `us018-prepush-restart-regression.log`。本次未重跑浏览器和正式500／2000负载，不改写10-06实测结果。
 
@@ -214,4 +216,4 @@ TEST／ENV编号记录测试工具或环境问题，其处理不冒充产品缺�
 1. 按 [执行账本](testing/acceptance-execution.md) 补齐仍为“部分”的精确页面／故障／审计组合；不能仅凭自动化数量勾完64条AC。
 2. 10-07有余量的Linux三进程完整2000档已本地通过；尚需独立环境／网络及超时客户端重同步复核，Windows两浏览器、另一台机器启动、7天可用性真实执行。
 3. 复核测试计划与报告，确认已知局限；完成后在本节记录复核人、日期、覆盖范围和结论。
-4. 原测试PR／远程CI与合入已完成（[PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24)）；新性能修复仍本地未提交／推送、未合入或远程CI，发布追溯待打 tag；课程封面定稿、个人总结等不属于本轮性能修复。
+4. 原测试PR #24及性能修复PR #25已检查通过并合入；实际交付证据见 [修复计划](exec-plans/active/2026-10-07-performance-fix.md)，发布追溯待打 tag；课程封面定稿、个人总结等不属于本轮性能修复。
