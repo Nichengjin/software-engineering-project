@@ -98,6 +98,6 @@ US-002 成员说明及 Agent 指令随 [PR #23](https://github.com/Nichengjin/so
 
 | 需求／范围 | 实际证据 | PR／发布及限制 |
 | --- | --- | --- |
-| US-018，覆盖US-004—017、021—023 | [73项验收集成](../../tests/acceptance/scenarios.integration.test.ts)、[Chrome脚本](../../tests/e2e/browser-runner.ts)、[负载](../../tests/load/nfr01-03.ts)；最终本地 `make ci` 207项通过；[逐AC账本](../testing/acceptance-execution.md)、[测试报告](../TEST_REPORT.md)、[history](../histories/2026-10/20261006-1640-acceptance-execution.md) | 提交分支 `test/fenghailun/us-018-acceptance-execution`，用户授权冯海伦Author／Amp Committer；未覆盖子场景、NFR结果及复核结论见报告与账本。本轮尚无PR／远程CI／合入／发布，不能借用上轮134项远程CI作证 |
+| US-018，覆盖US-004—017、021—023 | [73项验收集成](../../tests/acceptance/scenarios.integration.test.ts)、[Chrome脚本](../../tests/e2e/browser-runner.ts)、[负载](../../tests/load/nfr01-03.ts)；最终本地 `make ci` 207项通过；[逐AC账本](../testing/acceptance-execution.md)、[测试报告](../TEST_REPORT.md)、[history](../histories/2026-10/20261006-1640-acceptance-execution.md) | 提交分支 `test/fenghailun/us-018-acceptance-execution`，用户授权冯海伦Author／Amp Committer；未覆盖子场景、NFR结果及复核结论见报告与账本。10-07 经 [PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 以 merge commit `5259bbd` 合入 main，PR 检查与合入后 [远程 CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37588458377) 通过；未经成员评审，尚无发布 tag |
 
 本节更新实际执行状态，不改写上方历史记录。测试数量不等于AC完成数；US-018仍进行中。

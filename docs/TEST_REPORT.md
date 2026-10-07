@@ -14,7 +14,7 @@
 
 最终 `make ci` 12文件／207测试、strict类型检查与全部构建通过。功能回归通过不能覆盖2000用户档的实测失败；该档的校验快照无超容量、无每生超过四门、课表与数据库注册集合一致，但806名学生与客户端最后确认注册不符。后续发现旧脚本未在取快照前等待服务端排空，不能将其当作最终静止状态，见第5.1节。
 
-Windows Chrome／Edge、独立机器复现、七天可用性仍需补测；原矩阵尚未覆盖的子场景逐行保留，不回填“通过”。US-018 保持“进行中”，本轮尚未创建 PR、远程 CI 验证、合入或发布。
+Windows Chrome／Edge、独立机器复现、七天可用性仍需补测；原矩阵尚未覆盖的子场景逐行保留，不回填“通过”。US-018 保持“进行中”。测试代码与本报告已经 [PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 合入 main，PR 检查及合入后 [远程 CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37588458377) 通过；尚未发布。
 
 ## 2. 环境、数据与隔离
 
@@ -169,4 +169,4 @@ TEST／ENV编号记录测试工具或环境问题，其处理不冒充产品缺�
 1. 按 [执行账本](testing/acceptance-execution.md) 补齐仍为“部分”的精确页面／故障／审计组合；不能仅凭自动化数量勾完64条AC。
 2. 在有余量且隔离的环境复核2000用户容量；Windows两浏览器、另一台机器启动、7天可用性真实执行。
 3. 复核测试计划与报告，确认已知局限；完成后在本节记录复核人、日期、覆盖范围和结论。
-4. 完成PR／远程CI、合入与发布追溯；课程封面定稿、个人总结等不属于本轮测试执行。
+4. PR／远程CI与合入已完成（[PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24)），发布追溯待打 tag；课程封面定稿、个人总结等不属于本轮测试执行。
