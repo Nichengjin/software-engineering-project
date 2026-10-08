@@ -113,3 +113,5 @@ US-002 成员说明及 Agent 指令随 [PR #23](https://github.com/Nichengjin/so
 | 需求／范围 | 实际证据 | PR／发布及限制 |
 | --- | --- | --- |
 | US-028，六份个人工作汇报与小组总结初稿 | [七份初稿入口](../work-reports/README.md)、[逐人提交及验证history](../histories/2026-10/20261007-2304-work-report-drafts.md)；七个原提交，其中六份个人报告各自单独署名，小组及公共记录倪成锦Author、实际Committer为Amp；本地 `make ci` 215项、类型检查及构建通过，本轮Markdown与相对链接／提交引用检查通过 | 已推送任务分支，经[PR #27](https://github.com/Nichengjin/software-engineering-project/pull/27)检查通过，以倪成锦Author的双亲merge commit合入main并保留原提交。集中合入不是本人审核、贡献确认或课程交付；US-028待评审，材料定稿、签名及发布未完成 |
+
+US-028后续修订：[倪成锦v0.2报告](../work-reports/nichengjin/report.md)按需求到交付八阶段扩写，补足决策原因、真实问题、修复验证与复盘，并附独立数据库／HTTP模拟下四状态实拍；本轮验证见同一history续记。用户授权以倪成锦Author提交并推送 `docs/nichengjin/us-028-report-expansion`，实际远程提交以该分支为准；其他成员与小组报告未改，v0.2尚未合入，不沿用PR #27的交付状态，不变更US-028待评审状态。

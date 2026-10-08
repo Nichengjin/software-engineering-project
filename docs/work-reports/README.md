@@ -4,6 +4,7 @@
 - 状态：六份个人汇报与一份小组总结已形成，待本人／团队修改确认，尚未定稿或签字。
 - 依据：[课程提交要求](../lecture-requirements/2026年软件工程课程设计要求.md)、[团队分工](../TEAM_ROLES.md)、完整 Git 历史、已有 history 与 Amp 执行线程。
 - 证据基线：[main 651697c](https://github.com/Nichengjin/software-engineering-project/commit/651697c88ee727a405b84cb8b62b2c6ae3a6dc7e)，测试结果参考[测试报告 v0.3](../TEST_REPORT.md)。这是截至该版本的记录，后续变更须更新对应报告。
+- 本轮修订：倪成锦报告扩为v0.2，按需求到交付的八个阶段补足决策、真实故障、修复验证、复盘及四张独立环境实拍；用户授权以倪成锦Author提交并推送 `docs/nichengjin/us-028-report-expansion`，本轮尚未合入main，其他五名成员与小组报告保留v0.1。
 
 ## 七份初稿入口
 
@@ -29,7 +30,7 @@
 
 ## 每份文档的附件放在自己的目录
 
-各人后续在自己的报告目录创建 `attachments/`；全组图表或签字材料放 `team/attachments/`。本轮没有必需截图，不创建空附件或不存在的图片引用。
+各人在自己的报告目录维护 `attachments/`；全组图表或签字材料放 `team/attachments/`。倪成锦v0.2新增保存无注册、正式提交、冲突保留旧注册、关闭与计费送达四张实际截图，环境、前置数据与断言见其报告第十章；另引用已有A01分析图，不复制共享模型。其他目录不创建空附件或不存在的图片引用。
 
 例如，浩宇实际补充一张版本冲突截图后，可使用文件名 `20261008-student-version-conflict.png`，在报告中写相对引用 `attachments/20261008-student-version-conflict.png`，附拍摄日期、被测版本、环境、输入及结果说明。截图只展示实际状态，不作为未执行测试的替代证据。
 
