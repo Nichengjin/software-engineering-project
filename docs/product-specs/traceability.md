@@ -115,3 +115,9 @@ US-002 成员说明及 Agent 指令随 [PR #23](https://github.com/Nichengjin/so
 | US-028，六份个人工作汇报与小组总结初稿 | [七份初稿入口](../work-reports/README.md)、[逐人提交及验证history](../histories/2026-10/20261007-2304-work-report-drafts.md)；七个原提交，其中六份个人报告各自单独署名，小组及公共记录倪成锦Author、实际Committer为Amp；本地 `make ci` 215项、类型检查及构建通过，本轮Markdown与相对链接／提交引用检查通过 | 已推送任务分支，经[PR #27](https://github.com/Nichengjin/software-engineering-project/pull/27)检查通过，以倪成锦Author的双亲merge commit合入main并保留原提交。集中合入不是本人审核、贡献确认或课程交付；US-028待评审，材料定稿、签名及发布未完成 |
 
 US-028后续修订：[倪成锦v0.2报告](../work-reports/nichengjin/report.md)按需求到交付八阶段扩写，补足决策原因、真实问题、修复验证与复盘，并附独立数据库／HTTP模拟下四状态实拍；本轮验证见同一history续记。原提交[eb5b95a](https://github.com/Nichengjin/software-engineering-project/commit/eb5b95a60b47b9db735e45e256a53effd86997a0)已推送，2026-10-08经[PR #28](https://github.com/Nichengjin/software-engineering-project/pull/28)的[完整CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37740235676)及[供应链检查](https://github.com/Nichengjin/software-engineering-project/actions/runs/37740235675)通过，以倪成锦Author／Amp Committer的双亲merge commit合入main并保留原提交；其他成员与小组报告未改，不沿用PR #27的交付状态，不变更US-028待评审状态。
+
+## 2026-10-08 US-028 五份成员报告扩充
+
+用户补充确认各成员与Agent共同完成代码、人类负责决策，Amp名称主要来自统一撰写提交信息；据此更正旧材料对成员参与的笼统推断，不改写原Git历史。五个subagent分别扩充浩宇、马喆、冯海洋、冯海伦和范昭的报告至v0.2，主agent核对技术事实、修复归属、历史测试环境及图文对应；入口见[五份扩充稿](../work-reports/README.md)，范围见[已完成计划](../exec-plans/completed/2026-10-08-member-report-expansion.md)，验证见[history续记](../histories/2026-10/20261007-2304-work-report-drafts.md)。
+
+本轮新增4张已有验收截图的原样副本并引用共享设计图；倪成锦报告与小组总结仅修正协作来源。定向复核前端请求及版本保护的2文件／8项已有单测通过；未重新运行完整业务验收、浏览器或负载。改动保留在本地 `docs/nichengjin/us-028-member-report-expansion`，未commit／push／创建PR，不能沿用PR #27或#28的检查状态。US-028仍待评审，工时、贡献比例、签名与课程定稿另行完成。

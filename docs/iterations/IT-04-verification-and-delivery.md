@@ -23,6 +23,7 @@
 - [x] 建立 [逐AC执行账本](../testing/acceptance-execution.md) 与测试报告。
 - [x] 10-07 倪成锦分支形成PERF-01修复：TCP对照、三进程负载、目录下一轮合并和查询缩小；215项回归及完整2000用户5＋30分钟长测通过，264615交易全部达标，排空后8000注册及客户端一致。用户授权提交、push，经 [PR #25](https://github.com/Nichengjin/software-engineering-project/pull/25) 检查通过并merge commit合入；证据与限制见 [修复计划](../exec-plans/active/2026-10-07-performance-fix.md) 和报告第5.2节，不等同独立机器／全部NFR或成员评审通过。
 - [x] 10-07 US-028：依据分工、完整提交历史与执行线程，七名撰稿subagent形成[六份个人汇报及小组总结初稿](../work-reports/README.md)，各有独立目录。初稿不是本人确认的贡献记录；用户随后授权逐人署名提交及倪成锦Author的merge commit，实际交付见[本轮history](../histories/2026-10/20261007-2304-work-report-drafts.md)。
+- [x] 10-08 US-028：按用户要求由五个subagent扩充其余五份个人报告至v0.2，统一采用成员与Agent协作完成代码、人类负责决策的已确认方式；正文与既有图证已形成，本地验证和范围见[扩写计划](../exec-plans/completed/2026-10-08-member-report-expansion.md)。本轮未提交、推送或合入，不沿用旧PR交付状态。
 - [ ] US-028：六人补充真实经历并审核，组长汇总确认贡献比例、签名及课程格式；不以初稿形成勾选材料定稿。
 - [ ] 补齐账本中的部分子场景，复核容量问题及跨平台／独立机器／七天观察；复核结论集中写入测试报告第7节。
 
