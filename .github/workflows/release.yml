@@ -30,7 +30,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: 打包 release 制品
+      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: 打包最终配置库并验证解包构建
+        env:
+          RELEASE_VERIFY_BUILD: '1'
         run: ./scripts/release-package.sh
 
       - name: 生成 SBOM
@@ -46,14 +53,15 @@ jobs:
         with:
           name: release-assets
           path: |
-            dist/repo-metadata.tgz
+            dist/wylie-college-source.tgz
             dist/release-manifest.json
+            dist/config-items.json
             dist/sbom.spdx.json
 
       - name: 生成 build provenance
         uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v4.1.0
         with:
-          subject-path: dist/repo-metadata.tgz
+          subject-path: dist/wylie-college-source.tgz
 
       - name: 创建 GitHub Release
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
@@ -61,7 +69,10 @@ jobs:
           tag_name: ${{ env.RELEASE_TAG }}
           name: ${{ inputs.title || env.RELEASE_TAG }}
           generate_release_notes: true
+          # v1.0.0-rc.N 等带后缀的 tag 是交付候选，标为预发布。
+          prerelease: ${{ contains(env.RELEASE_TAG, '-') }}
           files: |
-            dist/repo-metadata.tgz
+            dist/wylie-college-source.tgz
             dist/release-manifest.json
+            dist/config-items.json
             dist/sbom.spdx.json
