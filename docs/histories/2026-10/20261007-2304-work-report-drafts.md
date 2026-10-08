@@ -48,3 +48,46 @@
 [PR #27](https://github.com/Nichengjin/software-engineering-project/pull/27)的[完整CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37645443502)与[供应链检查](https://github.com/Nichengjin/software-engineering-project/actions/runs/37645443455)通过。随后本地 `--no-ff` 合入main，由本次双亲merge commit保留七个原提交，merge Author为倪成锦、Committer为Amp；合并提交同时补齐交付状态和需求追溯，不修改报告正文或产品。
 
 集中合入不记作其他成员审批、个人经历确认或课程验收；US-028仍待评审，未打tag、发布或部署。
+
+## 2026-10-07 续记：先扩充倪成锦报告至v0.2
+
+### 本轮诉求与范围
+
+用户认为各份初稿太短，随后明确其他成员先不处理：倪成锦报告应从需求分析贯穿开发，每阶段一章，写阶段思考、决策问题与原因、真实实现问题、处理过程、协作和验证，尽量补截图。本轮只修改倪成锦正文、其附件及公共入口／追溯／本history；其他五份个人和小组报告不改。
+
+基于[已合入初稿的main](https://github.com/Nichengjin/software-engineering-project/commit/fb00ab3ff2b8759e19ec024999a453874871688c)建立 `docs/nichengjin/us-028-report-expansion`。沿用US-028／IT-04，不新建重复需求。此前PR #27交付已完成，不能把其授权和合入记录当成本轮v0.2已远程交付。
+
+### 整理方法与产物
+
+- 读取需求／OOA／设计／详细设计／ADR、需求与联调history、时钟修复、性能失败及复测报告、分工和完整Git记录；回查需求分析与设计实现线程，区分用户决定、委托执行者判断和Agent实际执行。
+- 正文由八个开发阶段、个人总结及证据章组成，实质扩写保存占位、4+2、关闭准入、对象分离、技术选型、锁和版本墓碑、认证权限、outbox、seed登录／审计外键／调度／删除关闭竞争／时钟bug、测试方法、三轮性能诊断和集成交付。
+- 保留设计问题与实际故障的区别、原性能失败和未测范围；没有记录的同学分歧、本人投入、评审和贡献比例保留本人补充，不虚构会议与经历。
+- 复用原A01分析图并解释多重性／分析与实现区别，保留试用水印；不修改共享UML模型或去水印。本轮引用的原图与四张实拍均经媒体工具检查。
+
+### 实拍环境、断言与限制
+
+使用现有 `tests/acceptance/fixture.ts`，临时截图驱动经 `amp orb service start report-capture` 监督运行。随机新建可丢弃数据库，真实迁移、12名虚构学生、三角色账号、独立HTTP模拟；构建后的SPA由临时Hono listener托管，业务时钟沿用夹具。没有修改产品、原浏览器runner、测试期望或开发数据库，没有重开已关闭学期。
+
+前置直接准备两名学生M1—M4注册和三名学生B1注册；演示者S101从页面保存4+2、正式提交、将M4换为冲突X2，随后教务页面关闭。断言保存后v1／0有效注册、提交后v2／四门有效主选及M1具体名册、冲突后完整服务器课表不变、CLOSED／12笔ACK及三笔1250、三笔625、六笔0元。截图等DB及页面12笔统计都完成才捕获。
+
+最终驱动输出：`PASS: saved without registration, valid submit, conflict rollback, close and 12 acknowledged bills; 4 screenshots at DPR 2.` 保存于倪成锦 `attachments/` 四张PNG；1280×900 CSS／DPR2，HeadlessChrome154，实际采集时间Asia/Shanghai 2026-10-08 00:58。报告按任务日期2026-10-07整理；页面业务日期由固定夹具控制，不是采集日期。
+
+初次驱动的“确认”精确匹配不等于实际“确认操作”，导航带图标也使完整文本匹配失败；改为实际控件文字及限定打开dialog的查找，并等待数据就绪，没有改页面或业务规则。监督服务默认失败重启，临时驱动后改为一次执行完成／失败后清理资源并等待显式停止，避免继续重跑。最终成功后浏览器、listener、runtime、模拟及自有数据库已清理，停止截图服务并删除临时驱动。
+
+媒体检查确认四图内容与断言相符，没有密码、token、完整SSN或真实学生数据。冲突图的全页捕获中modal遮罩只覆盖当前视口，保留真实输出；关键错误、原注册及v2仍可读，不将其当新UI改动。截图用于报告演示，不能代替全量E2E、故障恢复、调剂成功、性能或Windows／Edge验收。
+
+### 本轮验证与交付
+
+执行 `make check-repo`、Action固定SHA检查、`git diff --check` 和Markdown lint；核对相对文件／图片及提交链接、截图副本、正文来源和变更范围。纯文档／图片变更不重跑完整215项回归或35分钟负载，报告保留历史执行的日期与范围，不称为本轮新测试。具体命令结果由当前线程记录。
+
+扩充完成时v0.2及附件仅在本地工作分支，尚未commit、push、创建PR或合入；本人确认、其他成员扩充、贡献比例与课程定稿仍待完成。US-028继续待评审，未发布或部署。
+
+用户随后授权本轮提交与推送，明确Author为倪成锦；交付分支为 `docs/nichengjin/us-028-report-expansion`，实际Committer为Amp，保留AI来源和真实提交时间。提交范围仅四份Markdown及倪成锦四张附件；验证为Markdown 0问题、仓库骨架／卫生和Action固定SHA通过，94个相对链接、22处提交引用和四张附件副本核对通过。本轮不创建PR、不合入main，实际推送结果以远程分支及当前线程记录为准。
+
+### 2026-10-08 合入续记
+
+原提交[eb5b95a](https://github.com/Nichengjin/software-engineering-project/commit/eb5b95a60b47b9db735e45e256a53effd86997a0)已推送并核对远程一致，Author为倪成锦、Committer为Amp。用户进一步授权合入main并指定倪成锦为merge commit Author；此前仅提交推送的范围由本次授权扩展，不追认人类评审或材料定稿。
+
+合入前重新执行 `make ci`，退出0：13文件／215测试、类型检查、真实PostgreSQL集成和全部应用构建通过。这是本次合入前的新回归，与扩充阶段未重跑完整回归的记录分开。创建[PR #28](https://github.com/Nichengjin/software-engineering-project/pull/28)，其[完整CI](https://github.com/Nichengjin/software-engineering-project/actions/runs/37740235676)与[供应链检查](https://github.com/Nichengjin/software-engineering-project/actions/runs/37740235675)均通过。
+
+本地 `--no-ff` 无冲突合入main，以倪成锦Author／Amp Committer的双亲merge commit保留原提交；合并节点仅额外同步报告、入口、history及追溯的交付状态，定向Markdown、相对链接和diff检查通过。没有squash、rebase、删除分支、修改产品或其他成员报告；不将集中合入写成人类审批，US-028仍待评审，未发布或部署。
