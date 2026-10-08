@@ -38,6 +38,7 @@
 - `docs/SECURITY.md`：认证、数据处理、外部集成等安全默认约束。
 - `docs/SUPPLY_CHAIN_SECURITY.md`：依赖、SBOM、制品 provenance 和仓库级供应链安全默认做法。
 - `docs/CICD.md`：CI 门禁、tag 触发发布以及后续如何接入真实项目。
+- `docs/CONFIG_MANAGEMENT_PLAN.md`：配置项、版本命名、基线后的变化控制、配置审计和最终配置库。
 - `docs/FRONTEND.md`：如果仓库包含前端界面，这里记录对应规范。
 - `docs/releases/README.md`：如何维护面向用户的发布记录。
 - `docs/references/README.md`：沉淀到仓库里的外部参考资料。

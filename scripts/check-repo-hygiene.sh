@@ -43,6 +43,16 @@ if ! grep -q "make ci" "${repo_root}/CONTRIBUTING.md"; then
   failed=1
 fi
 
+# 私有配置与运行状态不属于配置库，见 docs/CONFIG_MANAGEMENT_PLAN.md 第 2.3 节。
+if [[ -d "${repo_root}/.git" || -f "${repo_root}/.git" ]]; then
+  private_files="$(git -C "${repo_root}" ls-files -- '.env' '.env.*' '.local' 'tmp' | grep -vx '.env.example' || true)"
+  if [[ -n "${private_files}" ]]; then
+    echo "私有配置或运行状态被纳入版本库:"
+    echo "${private_files}"
+    failed=1
+  fi
+fi
+
 if [[ "${failed}" -ne 0 ]]; then
   exit 1
 fi

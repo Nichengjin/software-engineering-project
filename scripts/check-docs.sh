@@ -13,6 +13,7 @@ required_files=(
   "docs/PLANS_GUIDE.md"
   "docs/ARCHITECTURE.md"
   "docs/CICD.md"
+  "docs/CONFIG_MANAGEMENT_PLAN.md"
   "docs/ITERATION_GUIDE.md"
   "docs/NORTH_STAR.md"
   "docs/TEAM_ROLES.md"

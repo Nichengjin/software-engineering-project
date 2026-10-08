@@ -120,4 +120,10 @@ US-028后续修订：[倪成锦v0.2报告](../work-reports/nichengjin/report.md)
 
 用户补充确认各成员与Agent共同完成代码、人类负责决策，Amp名称主要来自统一撰写提交信息；据此更正旧材料对成员参与的笼统推断，不改写原Git历史。五个subagent分别扩充浩宇、马喆、冯海洋、冯海伦和范昭的报告至v0.2，主agent核对技术事实、修复归属、历史测试环境及图文对应；入口见[五份扩充稿](../work-reports/README.md)，范围见[已完成计划](../exec-plans/completed/2026-10-08-member-report-expansion.md)，验证见[history续记](../histories/2026-10/20261007-2304-work-report-drafts.md)。
 
-本轮新增4张已有验收截图的原样副本并引用共享设计图；倪成锦报告与小组总结仅修正协作来源。定向复核前端请求及版本保护的2文件／8项已有单测通过；未重新运行完整业务验收、浏览器或负载。改动保留在本地 `docs/nichengjin/us-028-member-report-expansion`，未commit／push／创建PR，不能沿用PR #27或#28的检查状态。US-028仍待评审，工时、贡献比例、签名与课程定稿另行完成。
+本轮新增4张已有验收截图的原样副本并引用共享设计图；倪成锦报告与小组总结仅修正协作来源。定向复核前端请求及版本保护的2文件／8项已有单测通过；未重新运行完整业务验收、浏览器或负载。改动及后续本人经历、分析图图例和Word版本已从 `docs/nichengjin/us-028-member-report-expansion` 以merge commit合入本地main，保留原提交；未推送或创建新PR，不能沿用PR #27或#28的检查状态。US-028仍待评审，工时、贡献比例、签名与课程定稿另行完成。
+
+## 2026-10-08 US-029 配置管理计划草案
+
+| 需求／范围 | 实际证据 | PR／发布及限制 |
+| --- | --- | --- |
+| US-029，配置管理计划与最终配置库 | [配置管理计划 v0.1](../CONFIG_MANAGEMENT_PLAN.md)、[history](../histories/2026-10/20261008-2112-config-management-plan.md)；`scripts/release-manifest.test.ts` 3 项通过；本地 `make release-package` 生成含 318 个配置项的清单，`RELEASE_VERIFY_BUILD=1` 解包后锁定安装与构建通过 | 用户授权以范昭Author提交任务分支 `docs/nichengjin/us-029-config-management` 并以双亲merge commit合入本地main，保留US-028和US-029两边记录；未推送或创建 PR。署名不代替范昭审定，rc／最终 tag、跨机复现均未执行，未发布 |
