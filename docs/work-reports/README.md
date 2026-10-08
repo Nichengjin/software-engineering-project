@@ -1,11 +1,12 @@
 # 课程工作汇报与小组总结
 
 - 关联：US-028／IT-04；初稿日期：2026-10-07。
-- 状态：六份个人汇报均有v0.2扩充稿，小组总结保留v0.1并更新协作来源；待本人／团队定稿确认及签字。
+- 状态：倪成锦报告为v0.3，其余五份个人汇报为v0.2扩充稿，小组总结保留v0.1并更新协作来源；待本人／团队定稿确认及签字。
 - 依据：[课程提交要求](../lecture-requirements/2026年软件工程课程设计要求.md)、[团队分工](../TEAM_ROLES.md)、完整 Git 历史、已有 history 与 Amp 执行线程。
 - 证据基线：[main 651697c](https://github.com/Nichengjin/software-engineering-project/commit/651697c88ee727a405b84cb8b62b2c6ae3a6dc7e)，测试结果参考[测试报告 v0.3](../TEST_REPORT.md)。这是截至该版本的记录，后续变更须更新对应报告。
 - 已合入修订：倪成锦报告v0.2按需求到交付八阶段展开，并附四张独立环境实拍，经[PR #28](https://github.com/Nichengjin/software-engineering-project/pull/28)检查通过，以倪成锦Author的双亲merge commit合入main并保留原提交。
-- 2026-10-08本轮修订：按用户要求安排五个subagent，分别扩充其余五份个人报告至v0.2；落实人类决策、成员与Agent共同完成代码的最新确认，复用已有实际截图。执行及验证状态见[本轮计划](../exec-plans/completed/2026-10-08-member-report-expansion.md)与[history续记](../histories/2026-10/20261007-2304-work-report-drafts.md)；本轮仍为本地修改，未提交／推送，不沿用PR #27／#28的合入状态。
+- 2026-10-08本轮修订：按用户要求安排五个subagent，分别扩充其余五份个人报告至v0.2；落实人类决策、成员与Agent共同完成代码的最新确认，复用已有实际截图。执行及验证状态见[本轮计划](../exec-plans/completed/2026-10-08-member-report-expansion.md)与[history续记](../histories/2026-10/20261007-2304-work-report-drafts.md)；本轮已在任务分支按成员Author分别提交，尚未推送或合入，不沿用PR #27／#28的合入状态。
+- 2026-10-08倪成锦v0.3：依据历史会话补写本人在需求澄清、选型与授权、测试安排、性能判断、成员接手和汇报组织中的实际经历；会话中没有记录的内容仍标【待本人补充】，待本人讨论确认。
 
 ## 七份初稿入口
 
