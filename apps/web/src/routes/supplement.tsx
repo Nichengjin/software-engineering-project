@@ -188,7 +188,7 @@ function SupplementEditor({
               } finally {
                 resource.refresh();
               }
-            }, "补选成功，账单已更新为完整新版，请核对送达状态。")
+            }, "补选成功，已生成新版账单，可在上方计费送达状态中查看。")
           }
         >
           学生 {data?.student.account} · {data?.student.name}，班次{" "}

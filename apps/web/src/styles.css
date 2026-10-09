@@ -411,6 +411,21 @@ td.meeting {
   min-width: 160px;
   max-width: 200px;
 }
+/* 表格在窄工作区横向滚动时，操作列固定在右侧，按钮始终可见。 */
+th.sticky-actions,
+td.sticky-actions {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background: #fff;
+  box-shadow: inset 1px 0 0 var(--line);
+}
+th.sticky-actions {
+  background: #f1f4f8;
+}
+tbody tr:hover td.sticky-actions {
+  background: #f8fafd;
+}
 .row-actions {
   display: flex;
   align-items: center;
@@ -930,8 +945,5 @@ dialog h2 {
   }
   .footer {
     padding: 16px;
-  }
-  .footer span {
-    display: none;
   }
 }

@@ -3,7 +3,8 @@ import { Runtime, type Tx, type Actor, json } from '../../runtime/context.js';
 import type { BillingPayload } from '../../runtime/external.js';
 import { tuition } from '../../rules.js';
 
-export const billingView = (b: BillingOutbox) => ({ studentId: b.studentId, termId: b.termId, version: b.version, businessId: b.businessId, amountYuan: b.amountYuan.toFixed(2), status: b.status, attempts: b.attempts, nextAttemptAt: ['ACKNOWLEDGED', 'SUPERSEDED'].includes(b.status) ? null : b.nextAttemptAt.toISOString(), lastErrorCode: b.lastErrorCode });
+// 学号与姓名取自账单发送内容，人员资料之后改名或删除时仍与已送出的账单一致。
+export const billingView = (b: BillingOutbox) => ({ studentId: b.studentId, studentNumber: (b.payload as unknown as BillingPayload).studentNumber, studentName: (b.payload as unknown as BillingPayload).studentName, termId: b.termId, version: b.version, businessId: b.businessId, amountYuan: b.amountYuan.toFixed(2), status: b.status, attempts: b.attempts, nextAttemptAt: ['ACKNOWLEDGED', 'SUPERSEDED'].includes(b.status) ? null : b.nextAttemptAt.toISOString(), lastErrorCode: b.lastErrorCode });
 export class BillingService {
   private running = false;
   constructor(readonly rt: Runtime) {}

@@ -391,6 +391,15 @@ describe('US-018 Agent 执行：独立数据、真实 PG15 与 HTTP 模拟', () 
     expect((await f.db.billingOutbox.findUniqueOrThrow({ where: { id: old.id } })).status).toBe('SUPERSEDED');
   });
 
+  it('BUG-001：计费送达列表返回账单中的学号和姓名，教务可按学号识别学生', async () => {
+    await f.register(0, ['M1']); await f.register(2, ['M2']); await f.close();
+    const response = await f.request(`/api/registrar/terms/${f.ids.T2}/billing`, 'GET', undefined, await f.login('R01'));
+    expect(response.status).toBe(200);
+    const items = (await response.json()).data.items as { studentId: string; studentNumber: string; studentName: string }[];
+    expect(items.find(b => b.studentId === f.students[0]!.id)).toMatchObject({ studentNumber: 'S101', studentName: '同名测试学生' });
+    expect(items.find(b => b.studentId === f.students[2]!.id)).toMatchObject({ studentNumber: 'S310', studentName: '虚构学生2' });
+  });
+
   it.each(['two-students', 'same-student'] as const)('AC-57：补选并发 %s 不超容量或4门，外部故障持久待发', async mode => {
     for (const o of ['M1', 'M2', 'M3']) await fill(o, 3);
     await fill('B1', mode === 'two-students' ? 9 : 3, 20); await fill('B2', 3, 40);

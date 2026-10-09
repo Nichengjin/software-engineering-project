@@ -72,7 +72,7 @@ export function OfferingTable({
                 <th>上课时间</th>
                 <th>授课教授</th>
                 <th>已选／容量</th>
-                {actions && <th>操作</th>}
+                {actions && <th className="sticky-actions">操作</th>}
               </tr>
             </thead>
             <tbody>
@@ -113,7 +113,7 @@ export function OfferingTable({
                     )}
                   </td>
                   {actions && (
-                    <td>
+                    <td className="sticky-actions">
                       <div className="row-actions">{actions(o)}</div>
                     </td>
                   )}
