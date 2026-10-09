@@ -37,7 +37,14 @@
 
 ### 🚧 Not Done
 
-范昭尚未审定计划；未打任何 tag，release workflow 的新流程没有在 GitHub 上实际运行；跨机复现和备份恢复步骤未演练；未提交、推送或创建 PR。
+范昭尚未审定计划；未打任何 tag，release workflow 的新流程没有在 GitHub 上实际运行；跨机复现和备份恢复步骤未演练。
+
+### 📦 Delivery（2026-10-09 续记）
+
+- 原提交 [caf3890](https://github.com/Nichengjin/software-engineering-project/commit/caf3890148ac067a6306ef5d53d88affd0fb554b) 按用户指定以范昭署名、Committer 为倪成锦，保留 Amp 协作来源；内容与本次起草的工作区一致。
+- 用户授权提交并以 merge commit 合入 main。分支已推送，[PR #29](https://github.com/Nichengjin/software-engineering-project/pull/29) 的完整 CI（repository-checks）与 OSV 扫描通过。
+- `dependency-review` 失败：仓库此时已为公开，工作流改走 GitHub Dependency Review，但仓库未开启 Dependency graph，Action 报不支持。本 PR 不改依赖，失败与本次改动无关；是否开启 Dependency graph 由仓库管理员决定，本轮未改仓库设置。
+- 倪成锦为 merge commit Author，Claude Code 执行；双亲合并保留原提交，合并节点只同步本续记与追溯状态。
 
 ### 📁 Files Modified
 
