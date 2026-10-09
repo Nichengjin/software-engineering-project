@@ -28,6 +28,9 @@
 - [ ] US-029：范昭审定配置管理计划，打 `v1.0.0-rc.1` 跨机复现，配置审计通过后打 `v1.0.0` 形成最终配置库。
 - [x] 10-09 US-028：用户认可小组稿第三章后，完成[小组总结](../work-reports/team/report.md)v0.4全文重写，并形成[六份个人报告审读意见](../work-reports/individual-style-review.md)；个人稿保持原文。改写与检查见[修订计划](../exec-plans/completed/2026-10-09-team-report-rewrite.md)，本轮修改留在本地任务分支。
 - [x] 10-09 US-028：组长确认倪成锦30%，其余五位各14%，[小组总结](../work-reports/team/report.md)v0.5补齐比例与分配依据，合计100%。
+- [x] 10-09 US-028：六个subagent分别重写个人报告，倪成锦v0.4、其余五人v0.3；主任务通读并核对内容、版本、图文与共用结果，记录见[个人稿重写计划](../exec-plans/completed/2026-10-09-individual-report-rewrite.md)。本轮为本地Markdown修订，未提交，Word仍保留旧版。
+- [x] 10-09 US-028阅读反馈：七份报告撤下现有AI／Agent协作段落，交由成员人工撰写；[审读记录](../work-reports/individual-style-review.md#本轮阅读反馈协作说明标题与配图)补充原位置清单、标题问题分析及逐人补图建议。该次先完成分析，后续标题和新图制作见下一条；Word仍为旧版。
+- [x] 10-09 US-028标题与补图：六份个人稿共调整161处章节标题，新增12张PNG与可编辑图源，数据图引用已有记录；倪成锦v0.5，其余五人v0.4。图号、来源和链接同步，见[图表清单](../work-reports/figure-sources/README.md)与[审读结果](../work-reports/individual-style-review.md#标题与配图修订结果)。修改未提交，Word仍为旧版。
 - [ ] US-028：六人补充真实经历并审核，组长汇总签名及课程格式；不以初稿形成勾选材料定稿。
 - [ ] 补齐账本中的部分子场景，复核容量问题及跨平台／独立机器／七天观察；复核结论集中写入测试报告第7节。
 
