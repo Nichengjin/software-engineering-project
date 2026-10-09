@@ -23,7 +23,7 @@
 - Dependency Review 在 public repo 可以直接使用；private repo 通常需要 GitHub Advanced Security 或对应的代码安全能力。本仓库实测为 private 且 API 不支持，工作流在 private 仓库以 Node22 的 `npm audit --package-lock-only --audit-level=high` 审计完整依赖树；网络／审计失败和 high／critical 发现直接失败，不使用 `continue-on-error`。同时保留独立 OSV 全量扫描。
 - 此替代不是 GitHub 依赖增量审查，也不提供其许可证比较；许可证需随依赖变更人工核对。分析阶段没有 npm 清单时明确输出无依赖；有 package.json 却没有 lockfile 时失败。public 仓库仍执行原 Dependency Review Action。没有修改仓库可见性、付费能力或安全设置。
 - OSV 和 SBOM 的效果依赖仓库里存在可识别的依赖清单或 lockfile。
-- 只有当 `scripts/release-package.sh` 真的代表项目的构建产物时，provenance 才真正有意义。
+- 只有当 `scripts/release-package.sh` 真的代表项目的交付制品时，provenance 才真正有意义。本项目已改为对 tag 对应的完整源码包生成 provenance，见 [配置管理计划](CONFIG_MANAGEMENT_PLAN.md) 第 7 节。
 - OpenSSF Scorecard 默认不启用，因为新模板仓库还没有真实分支保护、release 历史和 SAST 姿态可以评分；等仓库规则配置完成后再按需加回。
 
 ## 项目落地后建议继续做的事

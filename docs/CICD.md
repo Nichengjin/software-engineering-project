@@ -1,12 +1,12 @@
 # CI/CD 说明
 
-CI 已接入 npm workspaces／Node 22／TypeScript／Vitest／真实 PostgreSQL 15；CD 仍是模板制品骨架，未部署真实系统。运行环境见 [开发说明](DEVELOPMENT.md)。
+CI 已接入 npm workspaces／Node 22／TypeScript／Vitest／真实 PostgreSQL 15；发布流水线打包 tag 对应的全部配置项作为最终配置库，未部署真实系统。运行环境见 [开发说明](DEVELOPMENT.md)。
 
 ## 默认包含的内容
 
 - `ci.yml`：PR／main 使用 SHA 固定的 checkout／setup-node，`npm ci`；disposable PG15 service 后运行 `scripts/ci.sh`，保留 docs、hygiene、shell／Action pinning，加 Prisma generate／test migrations、strict typecheck、全量 Vitest 和三个 app build；Markdown 排除 node_modules。
 - `supply-chain-security.yml`：public PR 使用 Dependency Review；本 private 仓库缺少该能力，使用全量 lockfile 的 npm high／critical 门禁，见 [供应链边界](SUPPLY_CHAIN_SECURITY.md)。保留 PR、定时任务和手动触发的 OSV 全量扫描，不静默放过扫描失败。
-- `release.yml`：推送 `v*` tag 时自动触发，也支持手动触发。打包仓库级制品、生成 SBOM 和 provenance，并创建 GitHub Release，自动生成 release notes。
+- `release.yml`：推送 `v*` tag 时自动触发，也支持手动触发。用 `git archive` 打包 tag 对应提交的全部版本化文件，在临时目录解包后按锁文件安装并完整构建；生成配置项清单、SBOM 和 provenance，并创建 GitHub Release。带后缀的 tag（如 `v1.0.0-rc.1`）标为预发布。规则见 [配置管理计划](CONFIG_MANAGEMENT_PLAN.md) 第 7 节。
 - `dependabot.yml`：每周一为 GitHub Actions 提升级 PR。接入技术栈后追加对应的依赖生态。
 
 ## 持续交付流程
@@ -22,7 +22,7 @@ CI 已接入 npm workspaces／Node 22／TypeScript／Vitest／真实 PostgreSQL 
 
 这套默认流水线的目标，是在项目真正成形前先把交付链路搭起来，而不是假装已经知道未来项目该怎么 build 和 deploy。
 
-当新项目的技术栈确定后，你应该把 `scripts/release-package.sh` 里的占位打包逻辑替换成真实构建产物，而不是另起一套平行流程。
+`scripts/release-package.sh` 已由模板占位逻辑改为本项目的最终配置库打包（US-029）；后续调整交付方式时继续修改这个脚本，而不是另起一套平行流程。
 
 所有 GitHub Actions 都已经 pin 到 commit SHA。后续升级 action 时，也要继续保持这个约束。Dependabot 的升级 PR 也会保留 SHA 形式。
 
@@ -35,7 +35,7 @@ CI 的 `wylie_test` 是 runner 专用临时数据库，只在隔离 runner 中�
 1. 保留 `ci.yml`，作为唯一默认常驻的仓库基础门禁。
 2. 在 `scripts/ci.sh` 里叠加项目自己的 lint、单元测试、集成测试和覆盖率门禁，命令与 `docs/TESTING.md` 保持一致。
 3. 在 `dependabot.yml` 里追加项目依赖的 package-ecosystem。
-4. 用真实构建产物替换 `scripts/release-package.sh`。
+4. 用真实制品替换 `scripts/release-package.sh`（本项目已完成，见上文）。
 5. 技术栈和环境稳定后，再补具体的部署 job（例如构建容器镜像推送到 GHCR、部署到测试环境）。
 6. 即使交付方式变化，SBOM 和 provenance 这类供应链能力也建议保留。
 
@@ -43,9 +43,10 @@ CI 的 `wylie_test` 是 runner 专用临时数据库，只在隔离 runner 中�
 
 当前 release 流水线会产出：
 
-- `release-manifest.json`（包含 release tag 与 git sha）
-- `repo-metadata.tgz`
+- `wylie-college-source.tgz`：tag 对应提交的全部版本化文件，不含 `.env`、`.local`、`node_modules` 等被忽略内容
+- `release-manifest.json`：提交 SHA、tag、运行时要求、数据库迁移列表、配置项分类统计和制品 SHA-256
+- `config-items.json`：每个配置项的路径、类别和 Git blob ID
 - `sbom.spdx.json`
-- 对 release artifact 生成的 GitHub artifact attestation
+- 对源码包生成的 GitHub artifact attestation
 
-也就是说，即使项目还没进入真实部署阶段，这个模板也已经把"可追溯的制品封装"这一步准备好了。
+制品是源码而不是构建产物，因为 Prisma 查询引擎随平台不同；流水线中的解包构建验证保证源码包加锁文件能独立构建。本地可用 `make release-package` 预演，加 `RELEASE_VERIFY_BUILD=1` 同时做解包构建验证。截至 2026-10-08 仓库尚未推送任何 tag，流水线的新打包方式还没有在 GitHub 上实际运行。
