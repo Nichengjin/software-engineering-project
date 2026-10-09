@@ -18,6 +18,9 @@
 
 ## 状态与待办
 
+- [x] 10-09 US-030：完成 [课程方法 A—F](../exec-plans/active/2026-10-09-course-se-methods.md) 的本地源材料：55 项补测、流程图与 PDL、耦合内聚、数据字典、功能点／COCOMO、甘特图／关键路径、手册及截图；16 文件／274 测试与构建通过。验证范围见 [history](../histories/2026-10/20261009-1851-course-se-methods.md)。
+- [ ] US-030：成员核对估算与材料，按 [模板](../testing/alpha-session-template.md) 开展真人 Alpha；正式 PR／合入及课程交付另行记录。
+
 - [x] 10-06 本地测试：73项真实PG／HTTP验收集成，最终全量207测试及构建通过；真实API进程重启、60秒重试与事务回滚已验证。
 - [x] 真实macOS Chrome流程、在线传播、两档负载及同机干净依赖复现已实际执行；[报告](../TEST_REPORT.md) 区分通过、未达标与环境干扰，不等于所有NFR通过。
 - [x] 建立 [逐AC执行账本](../testing/acceptance-execution.md) 与测试报告。
@@ -32,6 +35,6 @@
 - [x] 10-09 US-028阅读反馈：七份报告撤下现有AI／Agent协作段落，交由成员人工撰写；[审读记录](../work-reports/individual-style-review.md#本轮阅读反馈协作说明标题与配图)补充原位置清单、标题问题分析及逐人补图建议。该次先完成分析，后续标题和新图制作见下一条；Word仍为旧版。
 - [x] 10-09 US-028标题与补图：六份个人稿共调整161处章节标题，新增12张PNG与可编辑图源，数据图引用已有记录；倪成锦v0.5，其余五人v0.4。图号、来源和链接同步，见[图表清单](../work-reports/figure-sources/README.md)与[审读结果](../work-reports/individual-style-review.md#标题与配图修订结果)。修改未提交，Word仍为旧版。
 - [ ] US-028：六人补充真实经历并审核，组长汇总签名及课程格式；不以初稿形成勾选材料定稿。
-- [ ] 补齐账本中的部分子场景，复核容量问题及跨平台／独立机器／七天观察；复核结论集中写入测试报告第7节。
+- [ ] 补齐账本中的部分子场景，复核容量问题及跨平台／独立机器／七天观察；复核结论集中写入测试报告第8节。
 
 本轮测试代码与文档的提交分支为 `test/fenghailun/us-018-acceptance-execution`，10-07 经 [PR #24](https://github.com/Nichengjin/software-engineering-project/pull/24) 合入 main，远程CI通过；尚无发布tag。按完成定义实际完成合入、CI、验收和追溯后再更新backlog，US-018保持进行中；课程提交与材料定稿未完成。

@@ -145,3 +145,23 @@ US-028后续修订：[倪成锦v0.2报告](../work-reports/nichengjin/report.md)
 | 需求／范围 | 实际证据 | PR／发布及限制 |
 | --- | --- | --- |
 | BUG-001，计费表学号／姓名、操作列固定、界面文案 | [history](../histories/2026-10/20261009-1244-bug-001-ui-usability.md)；先失败后通过的验收集成 1 项与浏览器检查 2 项，浏览器 34 检查及本地 `make ci` 14 文件／219 测试通过；账本见 [BUG-001 回归](../testing/acceptance-execution.md#2026-10-09-bug-001-界面可用性回归) | 分支 `fix/nichengjin/bug-001-ui-usability`，用户授权以本地 merge commit 合入 main；未创建 GitHub PR、未经成员评审、未跑远程 CI，未发布。仅 macOS Chrome |
+
+## 2026-10-09 US-027 使用入口补充
+
+根 [README](../../README.md) 改为从克隆到本机开发访问的分步指南，包含账号、重启与故障排查；命令及端口对照实现核查，文档检查见 [history](../histories/2026-10/20261009-1539-readme-usage.md)。本轮仅本地文档修改，未启动开发服务器或重跑端到端初始化，未提交、推送、创建 PR 或发布；不改变 US-027 的验收状态。
+
+## 2026-10-09 US-030 课程方法补充
+
+| 需求／范围 | 实际证据 | PR／发布及限制 |
+| --- | --- | --- |
+| US-030，测试、设计、需求、管理与维护方法 | [A—F 执行计划](../exec-plans/active/2026-10-09-course-se-methods.md)、[测试设计](../testing/test-design-methods.md)、[算法设计](../design-docs/algorithm-design.md)、[数据字典](../design-docs/data-dictionary.md)、[估算与进度](../project-management/course-estimation-and-schedule.md)、[用户手册](../USER_MANUAL.md)、[history](../histories/2026-10/20261009-1851-course-se-methods.md)；274 测试／构建通过，Chrome 最终 34 检查通过，保留首轮失败记录 | 本地分支 `docs/nichengjin/us-030-course-se-methods`；未创建新 PR、未跑远程 CI、未合入／发布；真人 Alpha 和跨机复现待执行 |
+
+## 2026-10-09 集中提交与主线集成续记
+
+用户授权将所有本地未提交成果提交、以 merge commit 合入 main 并推送，新增提交及合并提交作者均为倪成锦，保留原有提交和作者，不改写历史。
+
+- BUG-001 已有本地主线合并保留；US-028 截图、个人与小组报告及十二组图表按依赖顺序合入，US-030 课程方法、README 使用入口和已有会议文稿随后合入。
+- 追溯与 IT-04 的并行编辑冲突同时保留双方内容；贡献比例已确认，成员签名仍待完成，测试报告剩余退出条件链接更新到第 8 节。
+- 本轮提交前重新运行 `make ci`：16 文件／274 测试、类型检查与全部应用构建通过；估算及复杂度脚本输出核对通过。首次因本机 PostgreSQL 停止失败，启动已有集群后重跑通过，未初始化或重置数据库，未启动开发服务器。
+- 上方“未提交／未合入”描述保留为各任务当时快照；本节记录后续集成。不创建或补造 GitHub PR、成员审批及会议事实，会议文稿入库不构成本轮核实会议已举行。
+- 本次不打 tag、不发布、不部署；需求完成状态、真人 Alpha、独立环境复现及课程验收仍按各自证据维护。远程推送和 CI 结果以 main 的实际引用及 Actions 记录为准，不沿用历史 PR 的检查结果。

@@ -6,7 +6,7 @@
 
 ## 1. 运行拓扑与适用边界
 
-采用 Node.js 22 LTS、npm workspaces、React／TypeScript／Vite／TanStack Router SPA、Hono Node adapter、Prisma 6／PostgreSQL 15。US-027 已锁定 npm 依赖并实现迁移／seed／检查入口，见 [开发运行指南](../DEVELOPMENT.md)。Vitest 用于单元／HTTP 集成，真实 PostgreSQL 用于锁与迁移测试；orb 浏览器检查使用 agent-browser。持久化浏览器 E2E 测试命令尚未接入，不把手动驱动记录说成 CI 自动覆盖。
+采用 Node.js 22 LTS、npm workspaces、React／TypeScript／Vite／TanStack Router SPA、Hono Node adapter、Prisma 6／PostgreSQL 15。US-027 已锁定 npm 依赖并实现迁移／seed／检查入口，见 [开发运行指南](../DEVELOPMENT.md)。Vitest 用于单元／HTTP 集成，真实 PostgreSQL 用于锁与迁移测试；orb 浏览器检查使用 agent-browser。已接入 `npm run test:e2e` 的独立浏览器检查；默认 `make ci` 不执行浏览器脚本，实际结果见测试报告。
 
 ```diagram
 ┌──────────────────────┐      ┌───────────────────────────┐
@@ -45,7 +45,7 @@ web 和 simulators 不依赖 db 或 API 私有模块；API→contracts／db→Pr
 
 workspace 包名固定 `@wylie/api`、`@wylie/web`、`@wylie/simulators`、`@wylie/db`、`@wylie/contracts`，不另用单数 simulator／根目录 prisma。数据库运行用 DATABASE_URL，测试用独立 TEST_DATABASE_URL，测试初始化只指向可丢弃测试库。
 
-实际命令为 `npm run dev`、`npm run build`、`npm run typecheck`、`npm run test:unit`、`npm run test:integration`、`npm run db:migrate`、`npm run db:seed`。`make ci` 保留仓库门禁并接入生成 client、测试库迁移、typecheck／全量 tests／build；CI 使用 disposable PostgreSQL，不以 mock Prisma 替代容量竞争测试。尚无 `test:e2e` 命令。seed 不自动清空非测试库，reset 仅允许明确标记的可丢弃测试 DATABASE_URL。
+实际命令为 `npm run dev`、`npm run build`、`npm run typecheck`、`npm run test:unit`、`npm run test:integration`、`npm run db:migrate`、`npm run db:seed`。`make ci` 保留仓库门禁并接入生成 client、测试库迁移、typecheck／全量 tests／build；CI 使用 disposable PostgreSQL，不以 mock Prisma 替代容量竞争测试。`npm run test:e2e` 独立运行浏览器检查。seed 不自动清空非测试库，reset 仅允许明确标记的可丢弃测试 DATABASE_URL。
 
 配置含 `DATABASE_URL`、`TEST_DATABASE_URL`、`PUBLIC_ORIGIN`、`API_PORT`、`SIM_PORT`、`CATALOG_BASE_URL`、`BILLING_BASE_URL`、`EXTERNAL_SERVICE_TOKEN`、`IMPACT_SIGNING_KEY`、`CSRF_SIGNING_KEY`、`PRICE_PER_CREDIT_YUAN`、`SIM_STATE_PATH`、`SIM_CONTROL_ENABLED`、`SIM_CONTROL_TOKEN`；完整示例见根 `.env.example`，不含真实凭据。当前学期按 startsAt／endsAt 与 ordinal 推导，不使用原计划的 CURRENT_TERM_ID，也不新增用户任意标完成接口。首次教务密码随机生成到私密本地文件，不提交到 seed 文本。演示学期、目录、人员、历史成绩与资格均虚构。
 
@@ -163,3 +163,72 @@ ready 检查 DB、leader lock 和恢复完成；目录／计费健康分别可�
 可编辑设计源模型为 [system-design.mdj](models/system-design.mdj)，已形成 9 张原生 UML 图：D01 部署、D01b 组件、D02a—d 数据关系、D03a 准入排空、D03b 关闭原子事务、D04 计费版本与恢复。[模型说明](design-models.md) 记录 Linux StarUML 7.1.1 实际 CLI 导出、GUI 加载／保存重载及视觉检查。源模型有 1,340 个唯一 ID、3,653 个可解析引用；PNG 保留试用水印，影响整洁度，交付前可用合法授权版重导出。D03b 从已排空开始，准入／排空交互见 D03a。已有 OOA 的 A01—A09 仍是分析图，不冒充设计图。
 
 US-026 自查：本文＋API 指导 schema、契约、gate、outbox、模拟与页面；图形验证不替代实际代码验证、团队设计评审和 PR 合入。文档 CI 只检查仓库卫生，不能证明事务／性能正确。新增总体方案决定见 [ADR-002](adr/ADR-002-single-instance-consistency.md)，执行清单见 [execution plan](../exec-plans/active/2026-10-05-delivery-execution.md)。
+
+## 10. 模块结构、耦合与内聚（US-030，2026-10-09）
+
+下图按课件 5.6 的层次图表示职责分解；连线表示从属，不表示调用时序或网络连接。实际调用依赖见本节表格及第 2 节。
+
+![模块结构图](images/C01-module-structure.png)
+
+可编辑结构源为下列 Mermaid；可交付 PNG 由 `scripts/course-diagrams.mjs` 以 Graphviz 导出，箭头表示组成分解。
+
+```mermaid
+flowchart TB
+  S[Wylie 学生选课系统] --> W[Web 应用]
+  S --> A[API 应用]
+  S --> X[外部模拟应用]
+  W --> WR[学生／教授／教务页面]
+  W --> WL[请求、轮询、版本编辑与共享组件]
+  A --> H[认证、路由、DTO 与错误处理]
+  A --> B[业务服务]
+  A --> R[运行时]
+  B --> C[目录／课表／授课成绩]
+  B --> P[人员／导入]
+  B --> T[关闭补选／计费]
+  R --> G[准入与排空]
+  R --> D[事务、时钟、审计、数据库]
+  R --> E[外部 HTTP、恢复与调度]
+  X --> XC[目录存根]
+  X --> XB[计费存根]
+  X --> XS[文件状态与测试控制]
+```
+
+### 10.1 耦合分析
+
+课件把耦合用于描述模块间依赖强度。本表允许同一模块同时有多种耦合，不把类名或目录划分直接当作“低耦合”的证明。
+
+| 模块 | 实际依赖与传递内容 | 耦合类型及依据 |
+| --- | --- | --- |
+| `auth` | 接收账号／密码，读写 Runtime 的账户、Session，向路由传身份 | 标量接口为数据耦合；注入整个 Runtime 构成标记耦合，共享账户／会话存储形成公共环境依赖 |
+| `catalog` | 接收学期、学生与班次列表；调用 HTTP、规则函数和数据库；`issues` 有 capacity／professor／closed 选项 | 业务参数为数据耦合；快照与 Tx 是标记耦合；布尔选项控制校验分支，存在控制耦合 |
+| `schedules` | 调用 catalog、Runtime；传整份 Choices 和 SAVE／SUBMIT／DELETE 模式 | Choices／Snapshot 为标记耦合，mode 为控制耦合；共享注册表使课表与关闭处理需要共同事务约束 |
+| `teaching` | 调用 catalog、Runtime，传教授、班次、版本和成绩格 | 标记与数据耦合；成绩格逐项返回通过／拒绝结果，调用者不读内部局部变量 |
+| `people` | 注入 schedules 以清理未关闭课表；根据人员类别和 patch 处理状态影响 | `kind` 决定学生／教授分支，是控制耦合；影响预览结构、人员记录和 Runtime 是标记耦合 |
+| `imports` | 调用 people／目录；按导入类别解析 XLSX，逐行写入 | 导入类别为控制耦合；行对象与 Tx 为标记耦合；格式解析与业务落库有明确边界 |
+| `terms/close` | 直接协调 catalog、schedules、billing、Runtime，传关闭上下文与快照 | 标记耦合较多、扇出较高；同事务修改多个逻辑数据组，是系统最集中的业务协调点 |
+| `billing` | 接收学生／学期／课程结构；用 tuition 计算金额，调用外部账单接口 | 金额函数为数据耦合；Student／Term 整对象为标记耦合；状态与租约共享 outbox 表 |
+| `rules` | 接收时段、数量、日期或金额，返回布尔值／问题列表 | 主要为数据耦合；无数据库、会话或隐藏可变全局业务状态 |
+| HTTP 路由 `app.ts` | 组装七个业务服务，部分成绩单、列表和窗口逻辑直接查询 DB | 入口与数据库模型存在结构依赖；路由层尚未完全隔离数据访问，是可维护性的明确改进点 |
+
+外部系统经 HTTP 和 `Snapshot`／`BillingPayload` 契约连接，无直接共享数据库。各服务共用注入的 Runtime 和数据库，仍有公共环境耦合；注入有助测试替换，却不会自动消除依赖。未发现直接跳入另一模块内部代码的内容耦合，亦没有通过相对路径读取另一服务私有局部状态的做法。
+
+### 10.2 内聚分析
+
+| 模块／函数层次 | 主要内聚类型 | 解释与不足 |
+| --- | --- | --- |
+| `overlaps`、`tuition` 等单个规则函数 | 功能内聚 | 每个函数完成一个可明确说明的计算 |
+| catalog 服务整体 | 通信内聚，局部函数有功能内聚 | 都围绕课程目录；刷新、同步应用、只读投影、校验四类职责较多，可在维护期分开 |
+| schedules 服务整体 | 通信内聚＋逻辑内聚 | 围绕同一课表；write 用 mode 汇集三个操作，控制分支偏多 |
+| teaching 服务整体 | 通信内聚 | 围绕教授授课数据，但名册查询与成绩录入不是同一单功能 |
+| people 服务整体 | 通信内聚 | 围绕人员资料与状态；影响预览、身份、账户、清理组合使修改事务复杂度最高 |
+| imports 的 XLSX 解析 | 顺序内聚 | ZIP 检查、表格解析、行校验的输出成为下一步输入；业务导入再按类别分支 |
+| close 的最终事务 | 顺序内聚 | 取消、调剂、人数检查、课表重建、账单生成必须按数据依赖顺序完成 |
+| billing 服务 | 通信内聚，send 函数功能内聚 | 围绕 outbox；创建与发送使用同一数据组，但恢复和调度有不同触发条件 |
+| Runtime | 通信内聚与时间内聚混合 | 共享事务上下文；启动恢复／后台任务按生命周期聚合，职责比纯规则宽 |
+
+### 10.3 启发式规则与具体改进
+
+- **扇入与扇出**：规则函数供多个服务复用，适合保持无状态。关闭协调器直接依赖四类服务／运行时，组装入口依赖七个业务服务；这些是当前源码可核对的直接依赖数量，不作为所有函数的调用图统计。增加关闭规则前先检查被调用服务是否改变事务边界。
+- **作用域与控制域**：关闭会影响一个学期的准入、班次、课表和账单，控制权集中于 `CloseService`；人员状态变化跨未关闭学期，必须通过 Runtime 的锁序列协调，不能由页面分别调用多个写接口拼成事务。
+- **模块规模**：`schedules.write` 事务、关闭事务、人员修改事务的静态复杂度分别为 23、19、31。当前以边界、失败回滚和并发测试保护；后续可拆出“校验结果计算”与“持久化步骤”，仍由单一事务入口提交，避免为了缩短函数把原子性拆散。
+- **信息隐藏**：Web 只使用 contracts 与 HTTP；后续优先将 `app.ts` 内的成绩单组装和窗口维护移到各自服务，再考虑更大的重构。已有行为和需求不在本次文档任务中变更。

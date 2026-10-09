@@ -1,0 +1,22 @@
+digraph CPM { rankdir=LR; graph [bgcolor="white", fontname="PingFang SC", fontsize=20, pad="0.3", nodesep="0.4", ranksep="0.6"]; node [shape=box, style="rounded,filled", fillcolor="#f4f7fa", color="#536473", fontname="PingFang SC", fontsize=14, margin="0.18,0.13"]; edge [color="#536473", arrowsize=0.7];
+label="剩余交付计划的工程网络图（天）\n红色：关键活动；ES/EF 为最早时间，LS/LF 为最迟时间"; labelloc=t;
+A [label="A 测试方法与补测\n持续 1 天 | TF=0\nES=0 EF=1 | LS=0 LF=1", color="#ab423f", fillcolor="#fff0ed"];
+B [label="B 流程图、结构与数据字典\n持续 1 天 | TF=0\nES=1 EF=2 | LS=1 LF=2", color="#ab423f", fillcolor="#fff0ed"];
+C [label="C 估算与操作手册\n持续 1 天 | TF=0\nES=2 EF=3 | LS=2 LF=3", color="#ab423f", fillcolor="#fff0ed"];
+D [label="D 集成核对与完整门禁\n持续 1 天 | TF=0\nES=3 EF=4 | LS=3 LF=4", color="#ab423f", fillcolor="#fff0ed"];
+E [label="E 候选制品与配置清单\n持续 1 天 | TF=0\nES=4 EF=5 | LS=4 LF=5", color="#ab423f", fillcolor="#fff0ed"];
+F [label="F 独立环境及真人试用\n持续 2 天 | TF=0\nES=3 EF=5 | LS=3 LF=5", color="#ab423f", fillcolor="#fff0ed"];
+I [label="I 成员确认与封面材料\n持续 2 天 | TF=2\nES=1 EF=3 | LS=3 LF=5", color="#536473", fillcolor="#f4f7fa"];
+G [label="G 材料定稿与答辩演练\n持续 1 天 | TF=0\nES=5 EF=6 | LS=5 LF=6", color="#ab423f", fillcolor="#fff0ed"];
+H [label="H 课程提交与运行检查\n持续 1 天 | TF=0\nES=6 EF=7 | LS=6 LF=7", color="#ab423f", fillcolor="#fff0ed"];
+A -> B;
+B -> C;
+C -> D;
+D -> E;
+C -> F;
+A -> I;
+E -> G;
+F -> G;
+I -> G;
+G -> H;
+}

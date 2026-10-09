@@ -49,3 +49,12 @@
 2026-10-06 最终本地 `make ci` 为12文件／207测试通过，另完成真实浏览器、500／2000用户测量、故障恢复与同机干净依赖复现；实际结果和未达标项见 [测试报告](TEST_REPORT.md)。
 
 后续按 [测试计划](TEST_PLAN.md) 更新 [逐AC执行账本](testing/acceptance-execution.md)，复核结论集中写入测试报告第7节；原 [64条设计](testing/acceptance-cases.md) 保留初始状态以区分计划与证据。部分子场景、Windows／Edge、七天可用性及独立机器初始化仍待验证，不用207个测试替代完整验收。
+
+## 覆盖率与课程测试设计（US-030）
+
+- `npm run test:coverage`：使用与 Vitest 同版本的 `@vitest/coverage-v8`，运行全量测试，输出 `tmp/coverage/coverage-summary.json`；只统计产品源码，不统计测试、seed 与生成代码。当前记录基线，不设置百分比阈值。
+- `node scripts/complexity-report.mjs --min=10`：按公开的固定语法计数口径筛选复杂函数；算法和局限见 [测试用例设计方法](testing/test-design-methods.md)。
+- 新增 `rules-design.test.ts` 和 `test-design.integration.test.ts` 与已有测试同属默认 `npm test`，不依赖手工单独执行。
+- 前端浏览器用例没有并入 V8 覆盖率；前端低百分比与未度量分支一并在 [测试报告第 7 节](TEST_REPORT.md#7-测试用例设计方法与覆盖率2026-10-09) 说明。AC 数、自动化用例数和覆盖率三个指标分别维护。
+
+覆盖率命令会运行数据库与进程恢复用例，应与构建、浏览器采图串行。最新退出条件位于测试报告第 8 节。

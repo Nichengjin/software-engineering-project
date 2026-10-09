@@ -1,118 +1,172 @@
 # Wylie College 学生选课系统
 
-软件工程课程设计，基于 [`harness-template`](https://github.com/iFurySt/harness-template) 的 Agent-first 协作流程。
+软件工程课程设计项目，使用 React + TypeScript + Vite、Hono、Prisma 和 PostgreSQL。支持学生选课与成绩查询、教授授课与成绩录入、教务人员维护与关闭选课；课程目录和计费由独立 HTTP 模拟服务提供。
 
-## 简介
+下面以**本机开发运行**为主，从克隆代码开始。运行指南不代表正式验收或生产发布；已执行的测试及限制见 [测试报告](docs/TEST_REPORT.md)。
 
-React／Hono／Prisma／PostgreSQL 选课系统，面向学生、教授、教务员三类角色；课程目录和计费通过独立 HTTP 模拟服务提供。包括保存与提交课表、授课与成绩、人员与 xlsx 导入、关闭调剂、计费重试和关闭后补选。
+## 1. 准备环境
 
-当前是本地实现候选，未合入／发布，不能当作独立验收已通过。实际检查和未完成项见 [执行计划](docs/exec-plans/active/2026-10-05-delivery-execution.md)；冯海伦接手的 [测试计划](docs/TEST_PLAN.md) 与 [64 条验收用例](docs/testing/acceptance-cases.md) 独立记录执行结果。
+请先安装以下工具：
 
-## 快速开始
+| 工具 | 要求 | 用途 |
+| --- | --- | --- |
+| Git | 可在终端执行 `git` | 克隆代码 |
+| Node.js | 推荐最新 Node.js 22 LTS，至少 22.12 | 运行前后端及开发工具 |
+| npm | 项目使用 10.9.9 | 安装锁定依赖 |
+| Docker 与 Docker Compose | Docker 已启动，支持 `docker compose` | 运行 PostgreSQL 15 |
 
-需要 Node.js 22.12+、npm 10 与 PostgreSQL 15。Docker Compose／无 Docker orb 两种路径、迁移及私密凭据说明见 [开发运行指南](docs/DEVELOPMENT.md)。本地 Docker 环境首次启动：
+macOS／Windows 可以使用 Docker Desktop。Windows 的下列命令可在 PowerShell 中逐行执行；macOS／Linux 使用终端。先确认工具可用：
 
 ```sh
+git --version
+node --version
+npm --version
+docker compose version
+docker info
+```
+
+默认需要本机端口 **5432、3000、3001、5173** 空闲。已有 PostgreSQL 或其他项目占用端口时，先处理冲突，不要删除已有数据库。
+
+## 2. 克隆代码并安装依赖
+
+```sh
+git clone https://github.com/Nichengjin/software-engineering-project.git
+cd software-engineering-project
 npm ci
+```
+
+之后的命令都在这个项目根目录执行。使用 `npm ci` 按 `package-lock.json` 安装，不需要在各个子目录分别安装。
+
+## 3. 生成本地配置
+
+```sh
 npm run env:local
+```
+
+这个命令会生成根目录 `.env`，包含数据库连接、服务地址和随机密码／密钥；**不需要先手动复制 `.env.example`**。重复运行只补缺失变量，不覆盖已有值。
+
+`.env`、`.local/` 下的密码与账号文件均为私有本地文件，不要提交到 Git 或分享给他人。如果你之前手动复制了示例配置，需自行替换其中的 `replace-with-…` 值，该命令不会替换已有配置。
+
+## 4. 启动数据库并初始化数据
+
+先启动 PostgreSQL：
+
+```sh
 docker compose up -d --wait postgres
-docker compose exec postgres createdb -U wylie wylie_test  # 仅第一次
+```
+
+首次初始化时，创建独立测试数据库（开发数据库 `wylie` 已由 Compose 自动创建）：
+
+```sh
+docker compose exec postgres createdb -U wylie wylie_test
+```
+
+`createdb` **只需执行一次**。若提示 `database "wylie_test" already exists`，说明已创建，跳过这一步即可，不要删除重建。
+
+再生成数据库客户端、应用迁移并写入演示数据：
+
+```sh
 npm run db:generate
 npm run db:migrate
 npm run db:migrate:test
 npm run db:seed
+```
+
+首次 seed 会生成 14 名学生、4 名教授和 1 名教务员的虚构数据，以及各账号独立随机的初始密码。数据库已有账号或学期时会跳过初始化，**不会重置数据或密码**。
+
+## 5. 启动开发服务器并访问页面
+
+```sh
 npm run dev
 ```
 
-orb 使用 `.agents/setup` 和 `amp orb services ensure` 启动监督服务，再运行迁移／seed；访问工具返回的 portal，不使用 sandbox 直连地址。
+保持这个终端运行。该命令先构建共享包，再同时启动三个服务，不必分别启动前后端：
 
-seed 生成 14 学生、4 教授、1 教务的虚构数据，独立随机密码写入 ignored `.local/demo-credentials.json`（600）；首次登录需改密。不要提交或分享凭据文件。重复 seed 保留数据／密码，不自动 reset。演示窗口具有真实日期，过期后由教务修改，不能靠前端改时钟。API 仅支持单实例。
+| 服务 | 默认地址 | 用途 |
+| --- | --- | --- |
+| 前端页面 | <http://localhost:5173> | 在浏览器中使用系统，未登录时直接显示登录页 |
+| 后端 API | <http://localhost:3000/api/health/ready> | 查看后端就绪状态，不是操作界面 |
+| 目录／计费模拟服务 | <http://localhost:3001> | 供后端调用，不是用户操作界面 |
 
-验证用 `make ci`（文档卫生、生成 client、测试库迁移、strict typecheck、全量 Vitest、生产 build）。必须提供独立 `TEST_DATABASE_URL`，名称以 `_test` 结尾。模拟故障／持久化说明见 [SIMULATORS](docs/SIMULATORS.md)。性能、Windows Edge 和独立验收未实测的项目不得据构建通过标为达标。
+等待终端显示 Vite 的访问地址且没有启动错误，再打开 **<http://localhost:5173>**。前端的 `/api` 请求自动代理到后端。
 
-## 团队工作流程
+以上地址适用于在同一台电脑上运行与访问。不要把开发服务器直接暴露到公网；远程 Amp orb 的访问方式见 [开发运行指南](docs/DEVELOPMENT.md#无-docker-的-amp-orb-路径)，使用工具返回的 portal 链接而不是本机 localhost 地址。
 
-当前选课系统课设的六人分工、进度、交付物与风险安排见 [项目开发计划](docs/PROJECT_DEVELOPMENT_PLAN.md)（v0.4，待团队评审）；每人负责的需求、评审人和提交作者规则见 [团队分工](docs/TEAM_ROLES.md)。
+## 6. 获取演示账号并登录
 
-具体功能、业务规则、权限、验收标准与待确认事项见 [需求分析文档](docs/REQUIREMENTS_ANALYSIS.md)（v0.6，待团队评审）。
+在编辑器中打开 `.local/demo-credentials.json`，查看 `credentials` 数组：
 
-已定技术栈为 React + TypeScript + Vite + TanStack Router、Hono、Prisma、PostgreSQL，使用 StarUML 建模；不使用 Next.js，当前不采用 TanStack Start。选型依据见 [ADR-001](docs/design-docs/adr/ADR-001-technology-stack.md)。
+- `account`：登录账号。
+- `initialPassword`：初始密码。
+- `role`：`STUDENT`（学生）、`PROFESSOR`（教授）、`REGISTRAR`（教务员）。
+- `name`：虚构演示姓名。
 
-按课程流程排出的完整时间轴与打勾清单见 [项目北极星](docs/NORTH_STAR.md)（修订排期待团队确认）。
+在登录页填写 `account` 和 `initialPassword`，首次登录按提示修改密码。之后使用你设置的新密码，文件中的初始密码不会随之更新。演示数据中有停用的教授账号，如需体验教授功能，请选择启用的账号。
 
-用于校准课程流程与建模方法的 [课件文字版与索引](docs/lecture-notes/README.md) 已导入，包含 58 份分章节 TXT、合并全文及来源校验记录。
+登录后按角色使用：
 
-下面是一条需求从提出到发布的完整路径，也是每个团队成员默认要走的流程。细则都在对应文档里，这里只画主线。
+- **学生**：浏览课程目录，编排、保存与提交课表，查看成绩单。
+- **教授**：选择授课班次，查看学生名册，录入成绩。
+- **教务员**：维护或导入人员，设置学期时间，关闭选课、查看计费状态及处理补选。
 
-### 1. 需求进待办
+演示学期使用真实日期窗口，过期后相关操作会被拒绝。需要演示选课时，先用教务账号核对并按业务规则调整学期阶段时间；不要修改电脑时钟。关闭选课会改变业务状态，不要为了试用随意关闭。具体规则见 [需求分析](docs/REQUIREMENTS_ANALYSIS.md)。
 
-- 所有想做的功能和要修的缺陷都先写进 `docs/product-specs/backlog.md`，拿到 `US-xxx` 或 `BUG-xxx` 编号。
-- 需要详细描述时运行 `make new-spec SLUG=<slug>`，按用户故事加 Given / When / Then 验收标准的格式写。
-- 产品负责人在迭代计划前维护优先级排序。
+如果数据库已有数据但凭据文件丢失，重新 seed 不会恢复密码；请使用已保存的有效账号，不要通过删除数据库来“修复”登录问题。
 
-### 2. 迭代计划
+## 7. 停止与再次启动
 
-- 迭代周期固定为 1 到 2 周。运行 `make new-iteration SLUG=<slug>` 建迭代文件，并在 `docs/iterations/README.md` 登记。
-- 从待办顶端挑选故事，写一句话迭代目标，把故事拆成 1 到 2 天能合入的任务。
-- 跨迭代、高风险或多人协作的任务额外用 `make new-plan SLUG=<slug>` 建 execution plan。影响架构的决定用 `make new-adr SLUG=<slug>` 写 ADR。
-
-### 3. 开发与提交
-
-- 从已包含前置依赖的 `main` 拉任务分支，命名 `<type>/<member>/<需求编号>-<slug>`，例如 `feat/haoyu/us-006-student`；各成员可以有多条短期分支，见 [提交与分支计划](docs/exec-plans/active/2026-10-05-collaboration-history.md)。
-- 提交信息遵循 Conventional Commits，正文写 `Refs: US-001`。
-- 修 bug 先补一条能复现的测试再改代码。
-- 提 PR 前本地运行 `make ci`。
-
-### 4. Pull Request 与评审
-
-- 一个 PR 只做一件事，标题带需求编号。
-- 按 PR 模板逐项勾选完成定义：CI 通过、验收标准有测试、文档同步、history 已记、追溯矩阵已更新、release note 已写、待办状态已改。
-- 至少一人评审，CI 绿灯后使用 merge commit 合入，保留原提交；之后可删除分支引用，不压缩提交历史。本地合并图不能代替平台 PR／评审记录。
-
-### 5. 迭代评审与发布
-
-- 迭代结束基于 `main` 演示，逐条对照验收标准，未通过的退回待办。
-- 通过后由 release 负责人打 `vX.Y.Z` tag 并推送，`release.yml` 自动产出制品、SBOM、provenance 和 GitHub Release。
-- 回顾三个问题：做得好的、做得不好的、下个迭代改一件事。需要改流程的结论直接改进 `docs/`。
-
-### 每天要遵守的几条
-
-- 没有需求编号不开工，没有测试不合入，没有更新文档不算完成。
-- 重要信息只存在聊天记录里等于不存在，落到 `docs/`。
-- `main` 随时可发布，不往 `main` 直接推送。
-
-## 文档地图
-
-| 想知道 | 看这里 |
-| --- | --- |
-| 入口与路由 | `AGENTS.md` |
-| 迭代怎么跑 | `docs/ITERATION_GUIDE.md`、`docs/iterations/` |
-| 需求怎么写、怎么追溯 | `docs/product-specs/` |
-| 分支、提交、版本号 | `docs/GIT_WORKFLOW.md` |
-| 完成定义与 PR 要求 | `CONTRIBUTING.md` |
-| 测试策略 | `docs/TESTING.md` |
-| CI/CD 与发布 | `docs/CICD.md` |
-| 架构与决策 | `docs/ARCHITECTURE.md`、`docs/design-docs/adr/` |
-| 大任务计划 | `docs/PLANS_GUIDE.md`、`docs/exec-plans/` |
-| 变更历史 | `docs/HISTORY_GUIDE.md`、`docs/histories/` |
-| 发布记录 | `docs/releases/` |
-| 安全与供应链 | `docs/SECURITY.md`、`docs/SUPPLY_CHAIN_SECURITY.md` |
-
-## 常用命令
+在运行 `npm run dev` 的终端按 **Ctrl+C**，停止前端、API 和模拟服务。数据库仍在后台运行；如需停止数据库：
 
 ```sh
-make ci                          # 本地跑与 CI 相同的门禁
-make new-spec SLUG=<slug>        # 新建用户故事
-make new-iteration SLUG=<slug>   # 新建迭代
-make new-plan SLUG=<slug>        # 新建 execution plan
-make new-adr SLUG=<slug>         # 新建架构决策记录
-make new-history SLUG=<slug>     # 新建变更历史
+docker compose stop postgres
 ```
+
+下次继续开发，只需：
+
+```sh
+docker compose up -d --wait postgres
+npm run dev
+```
+
+已有数据保存在 Docker volume 中。**不要执行 `docker compose down -v`**，它会删除数据库数据。模拟服务状态保存在 `tmp/simulators-state.json`，也不要随意删除。
+
+拉取新代码后，按更新内容执行 `npm ci`、`npm run db:generate`、`npm run db:migrate` 和 `npm run db:migrate:test`，再启动开发服务器。修改共享 contracts 包后需重启 `npm run dev`，使共享包重新构建。
+
+## 常见问题
+
+| 现象 | 检查方式 |
+| --- | --- |
+| Docker 连接失败 | 确认 Docker Desktop／Docker Engine 已启动，`docker info` 能正常返回 |
+| 5432 端口被占用 | 检查已有 PostgreSQL 或 Docker 容器，避免同时运行多个占用 5432 的数据库 |
+| 数据库认证失败 | 检查 `.env` 与已有数据库密码是否一致；更改 `.env` 不会更改已初始化 volume 中的密码 |
+| 页面打不开、端口被占用 | 检查开发终端是否仍在运行，以及 5173、3000、3001 是否被其他进程占用；Vite 不会自动换端口 |
+| 页面打开但 API 请求失败 | 检查开发终端中的 API／模拟服务错误，并访问后端就绪地址；用 `docker compose ps` 检查数据库状态 |
+| 登录失败 | 确认账号启用、密码是否已修改；重复 seed 不会重置密码 |
+| 无法提交选课或选择授课 | 核对学期阶段、日期窗口、先修要求、容量与角色权限；保存课表不等于正式提交 |
+
+默认 Vite 代理固定指向 API 的 3000 端口。如果调整 API 端口，还需同步 `apps/web/vite.config.ts` 的代理；调整前端端口也需同步 `.env` 中的 `WEB_ORIGIN`／`PUBLIC_ORIGIN`。首次运行建议保持默认配置。
+
+## 验证与更多文档
+
+数据库运行且已完成测试库迁移后，可在另一个终端执行：
+
+```sh
+npm run typecheck
+npm test
+npm run build
+```
+
+完整仓库门禁是 `make ci`（需要可用的 Make／Bash）。测试使用独立的 `TEST_DATABASE_URL`，不能指向开发库；详细说明见 [测试策略](docs/TESTING.md)。
+
+| 想了解 | 文档 |
+| --- | --- |
+| 更多环境配置、无 Docker orb 路径 | [开发运行指南](docs/DEVELOPMENT.md) |
+| 功能、权限与业务规则 | [需求分析](docs/REQUIREMENTS_ANALYSIS.md) |
+| 技术架构与代码目录 | [架构总览](docs/ARCHITECTURE.md) |
+| 模拟服务与故障控制 | [模拟服务说明](docs/SIMULATORS.md) |
+| 团队协作、分支与提交 | [协作约定](docs/REPO_COLLAB_GUIDE.md)、[Git 工作流](docs/GIT_WORKFLOW.md)、[参与协作](CONTRIBUTING.md) |
+| 迭代进度与成员职责 | [项目北极星](docs/NORTH_STAR.md)、[团队分工](docs/TEAM_ROLES.md) |
 
 ## 许可证
 
-[MIT](LICENSE)
-
-## 备注
-
-这套方法主要来自我们自己的持续实践和整理，同时也吸收了 OpenAI 在 [harness engineering 文章](https://openai.com/index/harness-engineering/) 中的一部分思路，最后汇总成了这个模板。
+[MIT](LICENSE)。项目基于 [harness-template](https://github.com/iFurySt/harness-template) 的 Agent-first 协作模板。
