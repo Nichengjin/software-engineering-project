@@ -1,7 +1,7 @@
 # 课程工作汇报与小组总结
 
 - 关联：US-028／IT-04；初稿日期：2026-10-07。
-- 状态：倪成锦报告为v0.3，其余五份个人汇报为v0.2扩充稿，小组总结保留v0.1并更新协作来源；待本人／团队定稿确认及签字。
+- 状态：倪成锦报告为v0.3，其余五份个人汇报为v0.2扩充稿，小组总结为v0.2扩充稿；待本人／团队定稿确认及签字。
 - 依据：[课程提交要求](../lecture-requirements/2026年软件工程课程设计要求.md)、[团队分工](../TEAM_ROLES.md)、完整 Git 历史、已有 history 与 Amp 执行线程。
 - 证据基线：[main 651697c](https://github.com/Nichengjin/software-engineering-project/commit/651697c88ee727a405b84cb8b62b2c6ae3a6dc7e)，测试结果参考[测试报告 v0.3](../TEST_REPORT.md)。这是截至该版本的记录，后续变更须更新对应报告。
 - 已合入修订：倪成锦报告v0.2按需求到交付八阶段展开，并附四张独立环境实拍，经[PR #28](https://github.com/Nichengjin/software-engineering-project/pull/28)检查通过，以倪成锦Author的双亲merge commit合入main并保留原提交。
