@@ -1,0 +1,31 @@
+digraph Modules { rankdir=TB; graph [bgcolor="white", fontname="PingFang SC", fontsize=20, pad="0.3", nodesep="0.4", ranksep="0.6"]; node [shape=box, style="rounded,filled", fillcolor="#f4f7fa", color="#536473", fontname="PingFang SC", fontsize=14, margin="0.18,0.13"]; edge [color="#536473", arrowsize=0.7];
+label="模块结构图：组成层次（箭头表示分解）"; labelloc=t;
+system [label="Wylie 学生选课系统"];
+web [label="apps/web
+三角色 SPA"];
+api [label="apps/api
+HTTP 与业务处理"];
+sim [label="apps/simulators
+目录与计费测试替身"];
+shared [label="packages
+共享契约与数据库"];
+system -> {web api sim shared};
+web -> {student professor registrar};
+student [label="学生页面"]; professor [label="教授页面"]; registrar [label="教务页面"];
+api -> {auth modules runtime rules};
+auth [label="auth
+身份、会话、CSRF"];
+modules [label="modules
+catalog / schedules / teaching
+people / imports / terms / billing"];
+runtime [label="runtime
+gate / locks / clock
+external / startup / polling"];
+rules [label="rules.ts
+数量、冲突、先修、金额"];
+shared -> {contracts db}; contracts [label="contracts
+DTO 与 Zod 校验"]; db [label="db
+Prisma、迁移、seed"];
+sim -> external; external [label="目录快照、计费确认
+故障控制与持久化"];
+}

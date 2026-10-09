@@ -14,6 +14,7 @@
     "test:unit": "npm test -- --exclude '**/*.integration.test.ts'",
     "test:integration": "npm test -- .integration.test",
     "test:acceptance": "npm test -- tests/acceptance",
+    "test:coverage": "npm test -- --coverage",
     "test:e2e": "node --env-file-if-exists=.env node_modules/tsx/dist/cli.mjs tests/e2e/browser-runner.ts",
     "test:load": "node --env-file-if-exists=.env node_modules/tsx/dist/cli.mjs tests/load/nfr01-03.ts",
     "db:generate": "npm run db:generate -w @wylie/db",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@types/node": "22.19.11",
+    "@vitest/coverage-v8": "4.1.11",
     "tsx": "4.23.15",
     "typescript": "5.9.3",
     "vitest": "4.1.11"
