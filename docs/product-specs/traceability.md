@@ -122,6 +122,10 @@ US-028后续修订：[倪成锦v0.2报告](../work-reports/nichengjin/report.md)
 
 本轮新增4张已有验收截图的原样副本并引用共享设计图；倪成锦报告与小组总结仅修正协作来源。定向复核前端请求及版本保护的2文件／8项已有单测通过；未重新运行完整业务验收、浏览器或负载。改动及后续本人经历、分析图图例和Word版本已从 `docs/nichengjin/us-028-member-report-expansion` 以merge commit合入本地main，保留原提交；未推送或创建新PR，不能沿用PR #27或#28的检查状态。US-028仍待评审，工时、贡献比例、签名与课程定稿另行完成。
 
+## 2026-10-09 US-028 小组报告重写与个人稿审读
+
+用户认可小组报告第三章后，继续重写其余章节至v0.4，保留第三章原文；新增[六份个人稿审读意见](../work-reports/individual-style-review.md)，同步写作要求与修订状态。组长随后确认贡献比例为倪成锦30%、其余五位各14%，已补入[小组总结v0.5](../work-reports/team/report.md)，合计100%。个人稿未改，产品代码和测试未改。范围与检查见[已完成计划](../exec-plans/completed/2026-10-09-team-report-rewrite.md)和[history续记](../histories/2026-10/20261007-2304-work-report-drafts.md)。本轮按用户要求在 `docs/nichengjin/us-028-report-style` 分支提交，作者为倪成锦，记录Codex协作；尚未推送或合入。US-028仍待评审，成员审核、签名和课程定稿继续安排。
+
 ## 2026-10-08 US-029 配置管理计划草案
 
 | 需求／范围 | 实际证据 | PR／发布及限制 |
