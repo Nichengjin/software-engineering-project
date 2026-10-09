@@ -1,0 +1,86 @@
+[
+  {
+    "person": "nichengjin",
+    "name": "figure-close-order",
+    "title": "关闭选课的准入与等待顺序",
+    "png": "nichengjin/attachments/figure-close-order.png",
+    "source": "nichengjin/attachments/figure-close-order.dot"
+  },
+  {
+    "person": "haoyu",
+    "name": "figure-multi-page",
+    "title": "两个页面编辑同一份课表",
+    "png": "haoyu/attachments/figure-multi-page.png",
+    "source": "haoyu/attachments/figure-multi-page.svg"
+  },
+  {
+    "person": "haoyu",
+    "name": "figure-stale-response",
+    "title": "旧读取响应晚于保存结果到达",
+    "png": "haoyu/attachments/figure-stale-response.png",
+    "source": "haoyu/attachments/figure-stale-response.svg"
+  },
+  {
+    "person": "mazhe",
+    "name": "figure-teaching-transaction",
+    "title": "整份授课调整的检查与回滚",
+    "png": "mazhe/attachments/figure-teaching-transaction.png",
+    "source": "mazhe/attachments/figure-teaching-transaction.dot"
+  },
+  {
+    "person": "mazhe",
+    "name": "figure-grade-results",
+    "title": "批量成绩的两层校验与逐格结果",
+    "png": "mazhe/attachments/figure-grade-results.png",
+    "source": "mazhe/attachments/figure-grade-results.dot"
+  },
+  {
+    "person": "fenghaiyang",
+    "name": "figure-status-preview",
+    "title": "人员状态变更的预览与确认",
+    "png": "fenghaiyang/attachments/figure-status-preview.png",
+    "source": "fenghaiyang/attachments/figure-status-preview.dot"
+  },
+  {
+    "person": "fenghaiyang",
+    "name": "figure-import-rows",
+    "title": "名单导入的文件检查与逐行处理",
+    "png": "fenghaiyang/attachments/figure-import-rows.png",
+    "source": "fenghaiyang/attachments/figure-import-rows.dot"
+  },
+  {
+    "person": "fenghailun",
+    "name": "figure-terminal-snapshot",
+    "title": "负载结束后的终态取数顺序",
+    "png": "fenghailun/attachments/figure-terminal-snapshot.png",
+    "source": "fenghailun/attachments/figure-terminal-snapshot.dot"
+  },
+  {
+    "person": "fanzhao",
+    "name": "figure-billing-retry",
+    "title": "账单已保存，但确认响应丢失",
+    "png": "fanzhao/attachments/figure-billing-retry.png",
+    "source": "fanzhao/attachments/figure-billing-retry.svg"
+  },
+  {
+    "person": "fanzhao",
+    "name": "figure-billing-versions",
+    "title": "账单到达顺序与当前应缴金额",
+    "png": "fanzhao/attachments/figure-billing-versions.png",
+    "source": "fanzhao/attachments/figure-billing-versions.svg"
+  },
+  {
+    "person": "nichengjin",
+    "name": "figure-refresh-stages",
+    "title": "三轮目录刷新短测",
+    "png": "nichengjin/attachments/figure-refresh-stages.png",
+    "source": "figure-sources/performance-plots.R"
+  },
+  {
+    "person": "fenghailun",
+    "name": "figure-load-outcomes",
+    "title": "原 macOS 2000 用户交易结果",
+    "png": "fenghailun/attachments/figure-load-outcomes.png",
+    "source": "figure-sources/performance-plots.R"
+  }
+]

@@ -122,11 +122,23 @@ US-028后续修订：[倪成锦v0.2报告](../work-reports/nichengjin/report.md)
 
 本轮新增4张已有验收截图的原样副本并引用共享设计图；倪成锦报告与小组总结仅修正协作来源。定向复核前端请求及版本保护的2文件／8项已有单测通过；未重新运行完整业务验收、浏览器或负载。改动及后续本人经历、分析图图例和Word版本已从 `docs/nichengjin/us-028-member-report-expansion` 以merge commit合入本地main，保留原提交；未推送或创建新PR，不能沿用PR #27或#28的检查状态。US-028仍待评审，工时、贡献比例、签名与课程定稿另行完成。
 
+## 2026-10-09 US-028 小组报告重写与个人稿审读
+
+用户认可小组报告第三章后，继续重写其余章节至v0.4，保留第三章原文；新增[六份个人稿审读意见](../work-reports/individual-style-review.md)，同步写作要求与修订状态。组长随后确认贡献比例为倪成锦30%、其余五位各14%，已补入[小组总结v0.5](../work-reports/team/report.md)，合计100%。个人稿未改，产品代码和测试未改。范围与检查见[已完成计划](../exec-plans/completed/2026-10-09-team-report-rewrite.md)和[history续记](../histories/2026-10/20261007-2304-work-report-drafts.md)。本轮按用户要求在 `docs/nichengjin/us-028-report-style` 分支提交，作者为倪成锦，记录Codex协作；尚未推送或合入。US-028仍待评审，成员审核、签名和课程定稿继续安排。
+
+## 2026-10-09 US-028 六份个人报告重写
+
+用户认可小组报告文风并要求六个subagent分别改写个人报告，已形成[倪成锦v0.4及其余五人v0.3](../work-reports/README.md)。主任务逐份通读，合并重复经历与技术说明，核对性能讨论的先后顺序、不同阶段的回归数字及配置交付进展。各稿保留已有配图和关键结果，小组稿原文保持一致；范围与检查见[已完成计划](../exec-plans/completed/2026-10-09-individual-report-rewrite.md)和[history续记](../histories/2026-10/20261007-2304-work-report-drafts.md)。本轮未提交、推送或创建PR，US-028仍待评审；Word为10-08历史版本，成员审核与课程定稿继续安排。
+
+后续阅读反馈：用户要求AI／Agent部分改由成员人工撰写，已从七份报告撤下相应叙述；原位置与处理记录见[审读记录](../work-reports/individual-style-review.md#本轮阅读反馈协作说明标题与配图)。同时分析标题过度句子化、主题不明及层级不一致的问题，提出基于现有记录的数据图与流程图建议。该次标题与新增图处于讨论阶段，18处已有配图引用保持一致，已认可的小组第三章保持原文；继续保留本地未提交状态。
+
 ## 2026-10-08 US-029 配置管理计划草案
 
 | 需求／范围 | 实际证据 | PR／发布及限制 |
 | --- | --- | --- |
 | US-029，配置管理计划与最终配置库 | [配置管理计划 v0.1](../CONFIG_MANAGEMENT_PLAN.md)、[history](../histories/2026-10/20261008-2112-config-management-plan.md)；`scripts/release-manifest.test.ts` 3 项通过；本地 `make release-package` 生成含 318 个配置项的清单，`RELEASE_VERIFY_BUILD=1` 解包后锁定安装与构建通过 | 原提交 [caf3890](https://github.com/Nichengjin/software-engineering-project/commit/caf3890148ac067a6306ef5d53d88affd0fb554b) 范昭署名，分支 `docs/nichengjin/us-029-config-management` 经 [PR #29](https://github.com/Nichengjin/software-engineering-project/pull/29) 完整 CI 与 OSV 通过（dependency-review 因仓库未开启 Dependency graph 失败，与本次无关），用户授权以倪成锦 Author 的 merge commit 合入 main。本地 main 曾另以范昭 Author 的 merge commit [07782fa](https://github.com/Nichengjin/software-engineering-project/commit/07782fa7640426bfbf3f52da013a86e65f970664) 重复合入同一原提交，2026-10-09 与远程 main 合并后一并推送，内容相同。范昭审定、rc／最终 tag、跨机复现均未执行，US-029 进行中，未发布 |
+
+用户随后确认标题与补图：六份个人稿已调整161处章节标题，每人新增两张PNG及图源，现为倪成锦v0.5、其余五人v0.4；[图表说明](../work-reports/figure-sources/README.md)登记数据、规则来源和重生成命令。六份个人稿共25处图片引用，小组稿维持本轮开始时内容；过程与检查见[history](../histories/2026-10/20261007-2304-work-report-drafts.md)。修改未提交，Word为10-08旧版，US-028保持待评审。
 
 ## 2026-10-09 BUG-001 界面可用性修复
 
