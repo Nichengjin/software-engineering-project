@@ -121,7 +121,8 @@ export function createApplication(deps: Dependencies) {
   });
   app.get('/api/registrar/terms/:termId/billing', async c => {
     const input = query(c, z.object({ studentId: z.string().uuid().optional() }).strict()); const termId = param(c, 'termId'); await runtime.term(runtime.db, termId);
-    const rows = await runtime.db.billingOutbox.findMany({ where: { termId, ...(input.studentId ? { studentId: input.studentId } : {}) }, orderBy: [{ studentId: 'asc' }, { version: 'desc' }] }); return success(c, runtime, { items: rows.map(billingView) });
+    const rows = await runtime.db.billingOutbox.findMany({ where: { termId, ...(input.studentId ? { studentId: input.studentId } : {}) } });
+    return success(c, runtime, { items: rows.map(billingView).sort((a, b) => a.studentNumber.localeCompare(b.studentNumber) || b.version - a.version) });
   });
   app.get('/api/registrar/terms/:termId/supplement-context', async c => {
     const input = query(c, z.object({ studentId: z.string().uuid() }).strict()); const termId = param(c, 'termId'); const term = await runtime.term(runtime.db, termId);

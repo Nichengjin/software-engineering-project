@@ -127,7 +127,7 @@ export function PeoplePage({ kind }: { kind: PersonKind }) {
                     <th>人员状态</th>
                     <th>{kind === "students" ? "毕业日期" : "院系"}</th>
                     <th>账户</th>
-                    <th>操作</th>
+                    <th className="sticky-actions">操作</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -152,7 +152,7 @@ export function PeoplePage({ kind }: { kind: PersonKind }) {
                           {p.accountEnabled ? "启用" : "已停用"}
                         </span>
                       </td>
-                      <td>
+                      <td className="sticky-actions">
                         <div className="row-actions">
                           <button
                             disabled={action.busy}

@@ -392,8 +392,7 @@ function Roster({ offering, grades }: { offering: Offering; grades: boolean }) {
       {grades && (
         <div className="panel-footer">
           <p className="hint">
-            非法成绩仅拒绝对应格；越权学生 ID
-            会使整份请求失败。不能清除已录成绩。
+            成绩可填 A、B、C、D、F、I，留空表示不修改；填写有误的格子会单独提示，其余格子照常保存。已录入的成绩不能清空。
           </p>
           <button
             className="primary"
@@ -438,7 +437,7 @@ function Roster({ offering, grades }: { offering: Offering; grades: boolean }) {
               );
               resource.refresh();
               setConfirm(false);
-            }, "请求已处理，请核对每名学生的逐格结果。")
+            }, "已提交，请查看每名学生右侧的保存结果。")
           }
         >
           合法成绩将写入，空白不修改。失败格会保留输入供修正。

@@ -122,7 +122,7 @@ function Shell() {
             <strong>{term?.name ?? "尚未取得学期"}</strong>
             {term && <span className="badge blue">{label(term.phase)}</span>}
           </div>
-          <span className="muted">北京时间 · 数据以服务器确认为准</span>
+          <span className="muted">时间均为北京时间</span>
         </header>
         <main id="main-content" tabIndex={-1}>
           <ErrorBox error={error && new Error(error)} />
@@ -131,7 +131,7 @@ function Shell() {
           <Outlet />
         </main>
         <footer className="footer">
-          Wylie College · 教学业务平台<span>保存 ≠ 注册 · 送达 ≠ 收款</span>
+          Wylie College · 学生选课系统
         </footer>
       </div>
       {logout && (

@@ -127,3 +127,9 @@ US-028后续修订：[倪成锦v0.2报告](../work-reports/nichengjin/report.md)
 | 需求／范围 | 实际证据 | PR／发布及限制 |
 | --- | --- | --- |
 | US-029，配置管理计划与最终配置库 | [配置管理计划 v0.1](../CONFIG_MANAGEMENT_PLAN.md)、[history](../histories/2026-10/20261008-2112-config-management-plan.md)；`scripts/release-manifest.test.ts` 3 项通过；本地 `make release-package` 生成含 318 个配置项的清单，`RELEASE_VERIFY_BUILD=1` 解包后锁定安装与构建通过 | 原提交 [caf3890](https://github.com/Nichengjin/software-engineering-project/commit/caf3890148ac067a6306ef5d53d88affd0fb554b) 范昭署名，分支 `docs/nichengjin/us-029-config-management` 经 [PR #29](https://github.com/Nichengjin/software-engineering-project/pull/29) 完整 CI 与 OSV 通过（dependency-review 因仓库未开启 Dependency graph 失败，与本次无关），用户授权以倪成锦 Author 的 merge commit 合入 main。本地 main 曾另以范昭 Author 的 merge commit [07782fa](https://github.com/Nichengjin/software-engineering-project/commit/07782fa7640426bfbf3f52da013a86e65f970664) 重复合入同一原提交，2026-10-09 与远程 main 合并后一并推送，内容相同。范昭审定、rc／最终 tag、跨机复现均未执行，US-029 进行中，未发布 |
+
+## 2026-10-09 BUG-001 界面可用性修复
+
+| 需求／范围 | 实际证据 | PR／发布及限制 |
+| --- | --- | --- |
+| BUG-001，计费表学号／姓名、操作列固定、界面文案 | [history](../histories/2026-10/20261009-1244-bug-001-ui-usability.md)；先失败后通过的验收集成 1 项与浏览器检查 2 项，浏览器 34 检查及本地 `make ci` 14 文件／219 测试通过；账本见 [BUG-001 回归](../testing/acceptance-execution.md#2026-10-09-bug-001-界面可用性回归) | 分支 `fix/nichengjin/bug-001-ui-usability`，用户授权以本地 merge commit 合入 main；未创建 GitHub PR、未经成员评审、未跑远程 CI，未发布。仅 macOS Chrome |

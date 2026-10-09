@@ -25,7 +25,9 @@ export function ClosePage() {
         <div>
           <span className="eyebrow">教务 / 选课结算</span>
           <h1>关闭选课与计费</h1>
-          <p>关闭接收不代表完成；后台完成后显示最终调剂结果和账单送达事实。</p>
+          <p>
+            点击关闭后，系统在后台完成调剂和班次取消；处理完成后，下方显示最终结果和账单发送情况。
+          </p>
         </div>
       </div>
       <Panel title="选择结算学期">
@@ -71,6 +73,11 @@ function CloseDashboard({ termId }: { termId: string }) {
   const [confirm, setConfirm] = useState(false);
   const [filter, setFilter] = useState("");
   const data = resource.data;
+  // 关闭结果只记录学生内部标识，用账单里的学号和姓名显示。
+  const who = (studentId: string) => {
+    const bill = data?.bills.find((b) => b.studentId === studentId);
+    return bill ? `${bill.studentNumber} ${bill.studentName}` : studentId;
+  };
   return (
     <>
       <ErrorBox error={resource.error && new Error(resource.error)} />
@@ -122,24 +129,26 @@ function CloseDashboard({ termId }: { termId: string }) {
             {data.term.closeState === "CLOSED" && (
               <div className="alert success">
                 关闭完成：{dateTime(data.term.closedAt)}
-                。计费故障不回滚已经关闭的学期。
+                。账单暂时发送失败时，关闭结果不会撤销，系统会自动重发。
               </div>
             )}
           </Panel>
-          {data.result && <CloseResultPanel result={data.result} />}
+          {data.result && (
+            <CloseResultPanel result={data.result} who={who} />
+          )}
           <Panel
-            title="计费送达状态（不是实际收款）"
+            title="计费送达状态"
             extra={
               <span className="muted">{data.bills.length} 个账单版本</span>
             }
           >
             <label className="inline-field">
-              按学生编号标识筛选
+              按学号或姓名筛选
               <input
                 type="search"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                placeholder="学生 ID"
+                placeholder="学号或姓名"
               />
             </label>
             {data.bills.length ? (
@@ -147,8 +156,9 @@ function CloseDashboard({ termId }: { termId: string }) {
                 <table>
                   <thead>
                     <tr>
-                      <th>学生 ID</th>
-                      <th>账单版本／业务编号</th>
+                      <th>学号</th>
+                      <th>姓名</th>
+                      <th>账单版本</th>
                       <th>金额（元）</th>
                       <th>送达状态</th>
                       <th>尝试次数</th>
@@ -157,13 +167,17 @@ function CloseDashboard({ termId }: { termId: string }) {
                   </thead>
                   <tbody>
                     {data.bills
-                      .filter((b) => b.studentId.includes(filter))
+                      .filter((b) =>
+                        `${b.studentNumber} ${b.studentName}`
+                          .toLocaleLowerCase()
+                          .includes(filter.trim().toLocaleLowerCase()),
+                      )
                       .map((b) => (
                         <tr key={b.businessId}>
-                          <td>{b.studentId}</td>
-                          <td>
+                          <td>{b.studentNumber}</td>
+                          <td>{b.studentName}</td>
+                          <td title={`业务编号 ${b.businessId}`}>
                             v{b.version}
-                            <small>{b.businessId}</small>
                           </td>
                           <td>{b.amountYuan}</td>
                           <td>
@@ -187,7 +201,7 @@ function CloseDashboard({ termId }: { termId: string }) {
               <Empty>尚未生成账单。</Empty>
             )}
             <p className="hint">
-              后台自动按 60 秒失败重试；补选产生完整新版账单，金额不与旧版相加。
+              发送失败的账单每 60 秒自动重发；收款由计费系统处理。补选后会生成新版完整账单替代旧版，金额不累加。
             </p>
           </Panel>
           {data.term.closeState === "CLOSED" && (
@@ -208,17 +222,23 @@ function CloseDashboard({ termId }: { termId: string }) {
               } finally {
                 resource.refresh();
               }
-            }, "关闭请求已接收；请等待服务器最终结果。")
+            }, "已开始关闭选课，处理完成后会在下方显示结果。")
           }
         >
-          本操作会停止新的业务准入，等待在途提交，执行调剂、取消不足人数或无教授的班次，并生成账单。确认后不可重新开放已关闭学期。
+          关闭后学生和教授不能再修改选课与授课。系统会等正在进行的提交完成，再执行备选调剂，取消不足三人或没有教授的班次，并生成账单。学期关闭后不能重新开放。
           <ActionFeedback action={action} />
         </Confirm>
       )}
     </>
   );
 }
-function CloseResultPanel({ result }: { result: CloseResult }) {
+function CloseResultPanel({
+  result,
+  who,
+}: {
+  result: CloseResult;
+  who: (studentId: string) => string;
+}) {
   return (
     <Panel title="最终关闭结果">
       <div className="stats">
@@ -268,7 +288,7 @@ function CloseResultPanel({ result }: { result: CloseResult }) {
           <table>
             <thead>
               <tr>
-                <th>学生 ID</th>
+                <th>学生</th>
                 <th>调入班次</th>
                 <th>备选优先级</th>
               </tr>
@@ -276,7 +296,7 @@ function CloseResultPanel({ result }: { result: CloseResult }) {
             <tbody>
               {result.leveled.map((r, i) => (
                 <tr key={i}>
-                  <td>{r.studentId}</td>
+                  <td>{who(r.studentId)}</td>
                   <td>{r.offeringId}</td>
                   <td>第 {r.alternateIndex + 1} 志愿</td>
                 </tr>
@@ -292,7 +312,7 @@ function CloseResultPanel({ result }: { result: CloseResult }) {
         <ul className="simple-list">
           {result.unresolved.map((row) => (
             <li key={row.studentId}>
-              <strong>{row.studentId}</strong>
+              <strong>{who(row.studentId)}</strong>
               <small>{row.issues.map((i) => i.message).join("；")}</small>
             </li>
           ))}

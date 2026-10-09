@@ -161,6 +161,14 @@ try {
     await click('取消'); await browser('scrollintoview', 'button[aria-label="移除extra"]');
     await browser('click', 'button[aria-label="移除extra"]'); await choose('M4', '主选');
   });
+  await record('BUG-001 catalog actions stay visible in a 1280px workspace', async () => {
+    // A common lab projector width: the catalog table scrolls inside its panel,
+    // so every row's action buttons must stay within the visible table area.
+    await browser('set', 'viewport', '1280', '800'); await browser('wait', '300');
+    const clipped = await evaluate(`(() => { const wrap=document.querySelector('.selection-layout .table-wrap'); if(!wrap)return ['missing table']; wrap.scrollLeft=0; const box=wrap.getBoundingClientRect(); return [...wrap.querySelectorAll('tbody tr')].flatMap(row=>[...row.querySelectorAll('button')].filter(b=>{const r=b.getBoundingClientRect();return r.right>box.right+0.5||r.left<box.left-0.5}).map(b=>(row.querySelector('small')?.textContent??'')+' '+b.textContent)); })()`);
+    assert.deepEqual(clipped, []);
+    assert.doesNotMatch(await body(), /≠/);
+  });
   await record('AC-11 delete cancel keeps registrations', async () => { await click('删除整个课表'); await click('取消'); assert.match(await body(), /有效注册/); });
   await browser('screenshot', resolve(artifacts, 'student.png'));
   await logout();
@@ -179,10 +187,11 @@ try {
     await browser('select', 'select', 'H1'); await browser('wait', '400');
     await browser('fill', 'input[aria-label^="S101 "]', 'D'); await browser('fill', 'input[aria-label^="S205 "]', 'Z');
     await browser('fill', 'input[aria-label^="S310 "]', 'I'); await click('提交成绩'); await click('确认');
-    await waitFor(async () => (await body()).includes('请求已处理'));
+    await waitFor(async () => (await body()).includes('已提交，请查看每名学生右侧的保存结果'));
     const rows = await fixture.db.gradeRecord.findMany({ where: { offeringId: 'H1' }, include: { student: true }, orderBy: { student: { studentNumber: 'asc' } } });
     assert.deepEqual(rows.map(r => [r.student.studentNumber, r.value]), [['S101', 'D'], ['S205', 'C'], ['S310', 'I']]);
-    assert.match(await body(), /拒绝/);
+    // The rejected cell shows its own failure reason beside the saved cells.
+    assert.match(await body(), /失败/); assert.match(await body(), /成绩只能为/);
   });
   await browser('screenshot', resolve(artifacts, 'professor.png')); await logout();
 
@@ -235,7 +244,7 @@ try {
     await click('学期窗口'); await field('加退选结束（北京时间）', '2026-10-05T18:02'); await click('保存窗口'); await click('确认'); await waitText('学期窗口已保存');
     await field('初选结束（北京时间）', '2026-09-24T18:00'); await click('保存窗口'); await click('确认'); await waitText('学期各阶段时间顺序无效', 7000); await click('取消');
   });
-  await record('AC-28/35 close UI warns about final result and billing delivery', async () => { await click('关闭、计费与补选'); assert.match(await body(), /关闭接收不代表完成/); assert.match(await body(), /计费送达状态/); });
+  await record('AC-28/35 close UI warns about final result and billing delivery', async () => { await click('关闭、计费与补选'); assert.match(await body(), /处理完成后，下方显示最终结果和账单发送情况/); assert.match(await body(), /计费送达状态/); });
   await browser('screenshot', resolve(artifacts, 'registrar.png')); await logout();
 
   // A real browser observes a separate authenticated HTTP client's writes.
@@ -353,6 +362,14 @@ try {
     // showing only the first batch of 50 acknowledgments.
     await waitFor(async () => await evaluate(`document.querySelector('.stats > div:nth-child(4) strong')?.textContent`) === '81');
     assert.match(await body(), /关闭完成/); await browser('screenshot', resolve(artifacts, 'closed.png'), '--full');
+  });
+  await record('BUG-001 billing table identifies students by number and name', async () => {
+    const cells = await evaluate(`(() => { const panel=[...document.querySelectorAll('section')].find(p=>p.querySelector('h2')?.textContent==='计费送达状态'); return panel?[...panel.querySelectorAll('tbody tr')].map(r=>[...r.querySelectorAll('td')].slice(0,2).map(td=>td.textContent?.trim())):null; })()`) as string[][] | null;
+    assert.ok(cells && cells.length === 81, `billing rows: ${cells?.length}`);
+    assert.deepEqual(cells.find(([number]) => number === 'S101'), ['S101', '同名测试学生']);
+    assert.equal(cells.some(row => row.some(text => /[0-9a-f]{8}-[0-9a-f]{4}-/.test(text ?? ''))), false);
+    await field('按学号或姓名筛选', 'S310');
+    await waitFor(async () => Number(await evaluate(`[...document.querySelectorAll('section')].find(p=>p.querySelector('h2')?.textContent==='计费送达状态')?.querySelectorAll('tbody tr').length`)) === 1);
   });
   await record('AC-56 closed term exposes a disabled-window explanation', async () => {
     await click('学期窗口'); await waitText('不能修改窗口'); assert.equal(await evaluate(`document.querySelector('button.primary')?.disabled`), true); await click('关闭、计费与补选');

@@ -154,7 +154,7 @@ export const closeResultSchema = z.object({
   billing: z.object({ pending: z.number().int().nonnegative(), acknowledged: z.number().int().nonnegative(), superseded: z.number().int().nonnegative() }).strict(),
 }).strict();
 export const billingSummarySchema = z.object({
-  studentId: idSchema, termId: idSchema, version: z.number().int().positive(), businessId: z.string().min(1), amountYuan: moneySchema,
+  studentId: idSchema, studentNumber: z.string().min(1), studentName: z.string().min(1), termId: idSchema, version: z.number().int().positive(), businessId: z.string().min(1), amountYuan: moneySchema,
   status: billingStatusSchema, attempts: z.number().int().nonnegative(), nextAttemptAt: instantSchema.nullable(), lastErrorCode: z.string().nullable(),
 }).strict();
 export const closeSchema = z.object({ confirmed: z.literal(true) }).strict();

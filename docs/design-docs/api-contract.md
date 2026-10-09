@@ -179,7 +179,7 @@ type CloseResult = { termId:ID; closedAt:Instant;
   leveled:{studentId:ID;offeringId:ID;alternateIndex:number}[];
   unresolved:{studentId:ID;issues:Issue[]}[];
   billing:{pending:number;acknowledged:number;superseded:number} };
-type BillingSummary = {studentId:ID;termId:ID;version:number;businessId:string;
+type BillingSummary = {studentId:ID;studentNumber:string;studentName:string;termId:ID;version:number;businessId:string;
   amountYuan:string;status:'PENDING'|'IN_FLIGHT'|'RETRY'|'ACKNOWLEDGED'|'SUPERSEDED';
   attempts:number;nextAttemptAt:Instant|null;lastErrorCode:string|null};
 ```
@@ -188,7 +188,7 @@ type BillingSummary = {studentId:ID;termId:ID;version:number;businessId:string;
 | --- | --- | --- | --- |
 | POST `/registrar/terms/:termId/close` | 教务、未关闭 | `{confirmed:true}` | 202 `{termId:ID;closeState:'CLOSING'}`；gate 已关闭后返回，后台完成 |
 | GET `/registrar/terms/:termId/close-result` | 教务 | 无 | `{term:Term;result:CloseResult\|null}`；失败为 OPEN＋lastCloseError，不冒充成功 |
-| GET `/registrar/terms/:termId/billing?studentId=...` | 教务 | 可选学生过滤 | `{items:BillingSummary[]}`；只本地送达事实，不称已实际收款 |
+| GET `/registrar/terms/:termId/billing?studentId=...` | 教务 | 可选学生过滤 | `{items:BillingSummary[]}`，按学号升序、同学号新版在前；学号／姓名取自该版账单发送内容，人员之后改名或删除仍与已送出账单一致；只本地送达事实，不称已实际收款 |
 | GET `/registrar/terms/:termId/supplement-context?studentId=...` | 教务、已关闭 | 学生 ID | `{student:PersonView;schedule:Schedule;catalog:Catalog}`，仅补选需要的数据，不授予任意成绩／全量名册 |
 | POST `/registrar/terms/:termId/supplements` | 教务、已关闭 | `{studentId,offeringId,expectedVersion,confirmed:true}` | `{schedule:Schedule;billing:BillingSummary}` |
 

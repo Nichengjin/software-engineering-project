@@ -208,7 +208,7 @@ function Selection({ term }: { term: Term }) {
                 }}
               />
               <p className="hint">
-                额满仍可备选；备选仅在关闭调剂时尝试，不预占名额。先修、冲突等由服务器最终校验。
+                已满的班次仍可设为备选。备选不占名额，选课关闭时如主选不足四门，按顺序用备选补位。先修课和时间冲突在提交时检查。
               </p>
             </Panel>
             <Panel title="有效注册（不是已保存选择）">
@@ -256,7 +256,7 @@ function Selection({ term }: { term: Term }) {
               title="我的选课选择"
               extra={
                 <span className="badge">
-                  {edit.draft?.dirty ? "本地未保存" : "已同步"}
+                  {edit.draft?.dirty ? "有未保存修改" : "已同步"}
                 </span>
               }
             >
@@ -366,7 +366,7 @@ function Selection({ term }: { term: Term }) {
               <p className="hint">
                 首次成功提交：{dateTime(data.schedule.firstSubmittedAt)}
                 <br />
-                本地编辑基线：v{edit.draft?.version} · 服务器：v
+                正在编辑的课表版本：v{edit.draft?.version} · 最新版本：v
                 {data.schedule.version}
               </p>
             </Panel>
@@ -445,7 +445,7 @@ export function StudentReport() {
         <div>
           <span className="eyebrow">学生 / 学习记录</span>
           <h1>我的成绩单</h1>
-          <p>仅显示上一已完成学期；关闭选课不代表学期已经完成。</p>
+          <p>显示最近一个已结束学期的成绩。</p>
         </div>
         <button onClick={resource.refresh}>刷新成绩</button>
       </div>
